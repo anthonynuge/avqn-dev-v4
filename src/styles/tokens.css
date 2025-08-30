@@ -1,0 +1,59 @@
+@import "@fontsource/dm-mono/400.css";
+
+:root {
+  --bg: 0 0% 87%;
+  --fg: 0 0% 25%;
+  --accent: 82 100% 89%;
+
+  --fg-muted: 0 0% 40%;
+  --fg-subtle: 0 0% 55%;
+  --fg-strong: 0 0% 12%;
+
+  /* Lines & structure */
+  --border: 0 0% 70%;
+  --grid: 0 0% 65%;
+
+  /* Accent scale */
+  --accent-soft: 82 100% 94%;
+  --accent-solid: 82 70% 38%;
+  --on-accent: 0 0% 10%;
+
+  --nav-h: 5rem;
+}
+
+:root.dark {
+  --bg: 0 0% 6%;
+  --fg: 45 3% 46%;
+  --accent: 50 15% 76%;
+
+  --fg-muted: 45 3% 60%;
+  --fg-subtle: 45 3% 70%;
+  --fg-strong: 0 0% 96%;
+
+  /* Lines & structure */
+  --border: 0 0% 22%;
+  --grid: 0 0% 18%;
+
+  /* Accent scale */
+  --accent-soft: 50 15% 24%;
+  --accent-solid: 50 25% 65%;
+  --on-accent: 0 0% 6%;
+}
+
+@font-face {
+  font-family: "Satoshi Variable";
+  src: url("/fonts/Satoshi-Variable.woff2") format("woff2-variations");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@theme {
+  --nav-h: 5rem;
+  --font-sans: "Satoshi Variable", sans-serif;
+  --font-mono: "DM Mono", monospace;
+  --color-bg: hsl(var(--bg));
+  --color-fg: hsl(var(--fg));
+  --color-accent: hsl(var(--accent));
+  --text-intro: clamp(0.4rem, 0.7rem + 0vw, 1rem);
+}

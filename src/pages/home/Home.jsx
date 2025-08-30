@@ -1,5 +1,6 @@
+import HeroSection from './HeroSection'
 const Home = () => {
-  return <div>Home</div>;
-};
+  return <HeroSection />
+}
 
-export default Home;
+export default Home

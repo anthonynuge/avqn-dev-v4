@@ -1,1 +1,10 @@
-@import "tailwindcss";
+@import 'tailwindcss';
+@import './tokens.css';
+
+@layer base {
+  body {
+    background-color: hsl(var(--bg));
+    color: hsl(var(--fg));
+    font-family: var(--font-sans);
+  }
+}

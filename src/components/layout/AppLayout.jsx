@@ -1,15 +1,16 @@
-import { Outlet } from "react-router";
+import { Outlet } from 'react-router'
+import Navbar from './Navbar'
 
 function AppLayout() {
   return (
     <>
       <div>
-        <nav></nav>
+        <Navbar />
         <Outlet />
         <footer></footer>
       </div>
     </>
-  );
+  )
 }
 
-export default AppLayout;
+export default AppLayout
