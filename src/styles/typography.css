@@ -1,0 +1,9 @@
+@layer base {
+  .text-display-1 {
+    @apply text-accent text-2xl leading-none font-bold uppercase md:text-6xl;
+  }
+
+  .text-caption-1 {
+    @apply font-mono text-xs uppercase md:text-base;
+  }
+}

@@ -1,5 +1,6 @@
 @import 'tailwindcss';
 @import './tokens.css';
+@import './typography.css';
 
 @layer base {
   body {
@@ -16,10 +17,16 @@
 }
 
 @layer utilities {
+  .fill-offset {
+    min-height: calc(100dvh - var(--nav-h) - 4rem);
+  }
+
+  /* Grid system for content */
   .grid-12 {
     @apply grid grid-cols-4 gap-x-[clamp(1rem,2vw,2rem)] md:grid-cols-12;
   }
 
+  /* Controls horiztonal padding for content*/
   .inner {
     @apply mx-auto w-full px-5 md:px-6 lg:px-8;
   }

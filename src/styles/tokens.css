@@ -1,4 +1,4 @@
-@import "@fontsource/dm-mono/400.css";
+@import '@fontsource/dm-mono/400.css';
 
 :root {
   --bg: 0 0% 87%;
@@ -19,6 +19,7 @@
   --on-accent: 0 0% 10%;
 
   --nav-h: 5rem;
+  --footer-h: 3rem;
 }
 
 :root.dark {
@@ -41,8 +42,8 @@
 }
 
 @font-face {
-  font-family: "Satoshi Variable";
-  src: url("/fonts/Satoshi-Variable.woff2") format("woff2-variations");
+  font-family: 'Satoshi Variable';
+  src: url('/fonts/Satoshi-Variable.woff2') format('woff2-variations');
   font-weight: 100 900;
   font-style: normal;
   font-display: swap;
@@ -50,8 +51,8 @@
 
 @theme {
   --nav-h: 5rem;
-  --font-sans: "Satoshi Variable", sans-serif;
-  --font-mono: "DM Mono", monospace;
+  --font-sans: 'Satoshi Variable', sans-serif;
+  --font-mono: 'DM Mono', monospace;
   --color-bg: hsl(var(--bg));
   --color-fg: hsl(var(--fg));
   --color-accent: hsl(var(--accent));
