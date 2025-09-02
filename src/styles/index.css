@@ -1,6 +1,7 @@
 @import 'tailwindcss';
 @import './tokens.css';
 @import './typography.css';
+@import './projects.css';
 
 @layer base {
   body {
