@@ -6,4 +6,8 @@
   .text-caption-1 {
     @apply font-mono text-xs uppercase md:text-base;
   }
+
+  .text-caption-2 {
+    @apply font-mono text-xs uppercase;
+  }
 }
