@@ -1,7 +1,18 @@
+// Utility function to create URL-friendly slugs
+const createSlug = (name) => {
+  return name
+    .toLowerCase()
+    .replace(/[^a-z0-9\s-]/g, '') // Remove special characters
+    .replace(/\s+/g, '-') // Replace spaces with hyphens
+    .replace(/-+/g, '-') // Replace multiple hyphens with single hyphen
+    .trim()
+}
+
 export const sampleProjects = [
   {
     id: 'P-01',
     name: 'E-Commerce Platform',
+    slug: 'e-commerce-platform',
     type: 'Full Stack',
     date: '2024-01-15',
     status: 'Completed',
@@ -27,6 +38,7 @@ export const sampleProjects = [
   {
     id: 'P-02',
     name: 'Task Management App',
+    slug: 'task-management-app',
     type: 'Frontend',
     date: '2024-02-20',
     status: 'Completed',
@@ -52,6 +64,7 @@ export const sampleProjects = [
   {
     id: 'P-03',
     name: 'API Gateway Service',
+    slug: 'api-gateway-service',
     type: 'Backend',
     date: '2024-03-10',
     status: 'In Progress',
@@ -77,6 +90,7 @@ export const sampleProjects = [
   {
     id: 'P-04',
     name: 'Portfolio Website',
+    slug: 'portfolio-website',
     type: 'Frontend',
     date: '2024-03-25',
     status: 'Completed',
@@ -102,6 +116,7 @@ export const sampleProjects = [
   {
     id: 'P-05',
     name: 'Data Visualization Dashboard',
+    slug: 'data-visualization-dashboard',
     type: 'Full Stack',
     date: '2024-04-05',
     status: 'Completed',
@@ -127,6 +142,7 @@ export const sampleProjects = [
   {
     id: 'P-06',
     name: 'Mobile Weather App',
+    slug: 'mobile-weather-app',
     type: 'Frontend',
     date: '2024-04-18',
     status: 'Completed',

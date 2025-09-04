@@ -64,7 +64,7 @@ const ProjectPreview = ({ project }) => {
 
           <div className="space-y-1 justify-self-end">
             <div>
-              <LinkButton to={`/projects/${project.id}`}>View Project</LinkButton>
+              <LinkButton to={`/projects/${project.slug}`}>View Project</LinkButton>
             </div>
           </div>
         </div>
