@@ -4,7 +4,7 @@ const Navbar = () => {
   return (
     <header className="inner sticky top-0 z-50 flex w-full justify-between pt-2 md:pt-4">
       <Link to="/">
-        <img src={'/images/light-logo.svg'} alt="AVQN Logo" />
+        <img src={'/images/dark-logo.svg'} alt="AVQN Logo" />
       </Link>
 
       {/* Hamburger Icon */}
