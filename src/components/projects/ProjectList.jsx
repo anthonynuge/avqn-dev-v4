@@ -1,17 +1,20 @@
-import { useState } from 'react'
+import { useState, memo, useCallback } from 'react'
 
-const ProjectList = ({ projects, onProjectSelect, selectedProject }) => {
+const ProjectList = memo(({ projects, onProjectHover, onProjectLeave, onProjectClick }) => {
   const [sortBy, setSortBy] = useState('date')
   const [sortOrder, setSortOrder] = useState('desc')
 
-  const handleSort = (field) => {
-    if (sortBy === field) {
-      setSortOrder(sortOrder === 'asc' ? 'desc' : 'asc')
-    } else {
-      setSortBy(field)
-      setSortOrder('desc')
-    }
-  }
+  const handleSort = useCallback(
+    (field) => {
+      if (sortBy === field) {
+        setSortOrder(sortOrder === 'asc' ? 'desc' : 'asc')
+      } else {
+        setSortBy(field)
+        setSortOrder('desc')
+      }
+    },
+    [sortBy, sortOrder],
+  )
 
   const sortedProjects = [...projects].sort((a, b) => {
     let aVal, bVal
@@ -92,10 +95,10 @@ const ProjectList = ({ projects, onProjectSelect, selectedProject }) => {
             {sortedProjects.map((project) => (
               <div
                 key={project.id}
-                onClick={() => onProjectSelect(project)}
-                className={`project-list-item grid cursor-pointer grid-cols-12 gap-2 p-1 transition-all duration-200 ${
-                  selectedProject?.id === project.id ? 'selected bg-accent/10 border-accent' : ''
-                }`}
+                onMouseEnter={() => onProjectHover(project)}
+                onMouseLeave={onProjectLeave}
+                onClick={() => onProjectClick(project)}
+                className="project-list-item hover:bg-accent hover:text-bg grid cursor-pointer grid-cols-12 gap-2 p-1 transition-all duration-200"
               >
                 {/* Date */}
                 <div className="col-span-1 flex items-center">
@@ -130,6 +133,8 @@ const ProjectList = ({ projects, onProjectSelect, selectedProject }) => {
       </div>
     </div>
   )
-}
+})
+
+ProjectList.displayName = 'ProjectList'
 
 export default ProjectList

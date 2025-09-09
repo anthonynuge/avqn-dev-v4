@@ -1,18 +1,29 @@
-import { useState, useMemo } from 'react'
+import { useState, useMemo, useCallback, useRef, useEffect } from 'react'
+import { useNavigate } from 'react-router'
 import FilterPanel from '../../components/projects/FilterPanel'
 import ProjectList from '../../components/projects/ProjectList'
 import ProjectPreview from '../../components/projects/ProjectPreview'
 import { sampleProjects, initialFilters } from '../../data/projects'
 
 const ProjectIndex = () => {
+  const navigate = useNavigate()
   const [filters, setFilters] = useState(initialFilters)
-  const [selectedProject, setSelectedProject] = useState(sampleProjects[0] || null)
+  const [hoveredProject, setHoveredProject] = useState(null)
   const [isMobileFilterOpen, setIsMobileFilterOpen] = useState(false)
+  const hoverTimeoutRef = useRef(null)
+
+  // Cleanup timeout on unmount
+  useEffect(() => {
+    return () => {
+      if (hoverTimeoutRef.current) {
+        clearTimeout(hoverTimeoutRef.current)
+      }
+    }
+  }, [])
 
   // Filter projects based on selected technologies
   const filteredProjects = useMemo(() => {
     const activeFilters = []
-
     // Collect all active filter technologies
     Object.values(filters).forEach((category) => {
       Object.entries(category).forEach(([tech, isActive]) => {
@@ -28,9 +39,23 @@ const ProjectIndex = () => {
     }
 
     // Filter projects that contain any of the active technologies
-    return sampleProjects.filter((project) =>
-      activeFilters.some((tech) => project.technologies.includes(tech)),
-    )
+    return sampleProjects.filter((project) => {
+      // Flatten all technologies from techStack into a single array
+      const allTechnologies = [
+        ...(project.techStack.frontend || []),
+        ...(project.techStack.backend || []),
+        ...(project.techStack.tools || []),
+      ]
+
+      // Check if any active filter matches any technology in the project
+      return activeFilters.some((tech) =>
+        allTechnologies.some(
+          (projectTech) =>
+            projectTech.toLowerCase().includes(tech.toLowerCase()) ||
+            tech.toLowerCase().includes(projectTech.toLowerCase()),
+        ),
+      )
+    })
   }, [filters])
 
   const handleFilterChange = (category, tech) => {
@@ -48,77 +73,65 @@ const ProjectIndex = () => {
     }))
   }
 
-  const handleProjectSelect = (project) => {
-    setSelectedProject(project)
-    // Close mobile filter when project is selected
-    setIsMobileFilterOpen(false)
-  }
+  const handleProjectHover = useCallback((project) => {
+    // Clear any existing timeout
+    if (hoverTimeoutRef.current) {
+      clearTimeout(hoverTimeoutRef.current)
+    }
 
-  const handleClosePreview = () => {
-    setSelectedProject(null)
-  }
+    // Set the hovered project immediately for better responsiveness
+    setHoveredProject(project)
+  }, [])
+
+  const handleProjectLeave = useCallback(() => {
+    // Add a small delay to prevent flickering when moving between items
+    hoverTimeoutRef.current = setTimeout(() => {
+      setHoveredProject(null)
+    }, 100)
+  }, [])
+
+  const handleProjectClick = useCallback(
+    (project) => {
+      navigate(`/projects/${project.slug}`)
+    },
+    [navigate],
+  )
 
   const toggleMobileFilter = () => {
     setIsMobileFilterOpen(!isMobileFilterOpen)
   }
 
   return (
-    <section className="inner fill-offset h-screen py-10">
-      {/* Mobile Filter Toggle */}
-      <div className="border-accent/20 border-b p-4 md:hidden">
-        <button
-          onClick={toggleMobileFilter}
-          className="text-accent hover:text-accent/80 font-mono text-sm tracking-wider uppercase transition-colors"
-        >
-          {isMobileFilterOpen ? 'CLOSE FILTER' : 'OPEN FILTER'}
-        </button>
-      </div>
-
+    <section className="inner fill-offset overflow-hidden">
+      <h1 className="text-accent text-display-1 text-3xl leading-tight font-bold uppercase">
+        Project Index
+      </h1>
       {/* Main Layout */}
-      <div className="fill-offset grid-12 md:grid-rows-4">
+      <div className="project-index-grid relative h-full">
         {/* Filter Panel */}
-        <div className="flex-shrink-0 md:col-span-3 md:col-start-10 md:row-span-3">
+        <aside className="project-index-filter min-h-7/10">
           <FilterPanel
             filters={filters}
             onFilterChange={handleFilterChange}
             isMobileOpen={isMobileFilterOpen}
             onMobileToggle={toggleMobileFilter}
+            className="h-[500px]"
           />
-        </div>
+        </aside>
 
         {/* Project Preview */}
-        <div className="md:col-span-8 md:row-span-2 md:row-start-1">
-          <ProjectPreview project={selectedProject} />
+        <div className="project-index-preview mt-auto h-48">
+          <ProjectPreview project={hoveredProject} />
         </div>
-
-        {/* Project List */}
-        <div className="min-w-0 md:col-span-8 md:row-span-2 md:row-start-3">
+        <div className="project-index-list">
           <ProjectList
             projects={filteredProjects}
-            onProjectSelect={handleProjectSelect}
-            selectedProject={selectedProject}
+            onProjectHover={handleProjectHover}
+            onProjectLeave={handleProjectLeave}
+            onProjectClick={handleProjectClick}
           />
         </div>
       </div>
-
-      {/* Mobile Project Preview Modal */}
-      {selectedProject && (
-        <div className="fixed inset-0 z-50 lg:hidden">
-          <div className="flex h-full flex-col">
-            <div className="border-accent/20 border-b p-4">
-              <button
-                onClick={handleClosePreview}
-                className="text-accent hover:text-accent/80 font-mono text-sm tracking-wider uppercase transition-colors"
-              >
-                CLOSE PREVIEW
-              </button>
-            </div>
-            <div className="flex-1 overflow-auto">
-              <ProjectPreview project={selectedProject} />
-            </div>
-          </div>
-        </div>
-      )}
     </section>
   )
 }
