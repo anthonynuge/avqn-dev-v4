@@ -1,4 +1,4 @@
-import { useParams, Link } from 'react-router'
+import { useParams } from 'react-router'
 import { sampleProjects } from '../../data/projects'
 import LinkButton from '../../components/ui/LinkButton'
 import ParallaxImage from '../../components/shared/ParallaxImage'
