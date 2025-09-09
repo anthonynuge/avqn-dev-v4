@@ -31,7 +31,7 @@ const FilterPanel = ({ filters, onFilterChange, isMobileOpen, onMobileToggle }) 
       {/* Header */}
       <div className="">
         <div className="mb-1 flex items-center justify-between border-b pb-1">
-          <h2 className="text-accent font-mono text-sm uppercase">// FILTER </h2>
+          <h2 className="text-accent font-mono text-xs uppercase">// FILTER </h2>
           <button
             onClick={clearAllFilters}
             className="text-accent/70 hover:text-accent font-mono text-xs tracking-wider uppercase transition-colors"
@@ -55,7 +55,7 @@ const FilterPanel = ({ filters, onFilterChange, isMobileOpen, onMobileToggle }) 
         <div className="space-y-2">
           <button
             onClick={() => toggleFolder('frontend')}
-            className="text-accent hover:text-accent/80 flex w-full items-center gap-2 text-left font-mono text-xs tracking-wider uppercase transition-colors"
+            className="text-accent hover:text-accent/80 flex w-full items-center gap-1 text-left font-mono text-xs tracking-wider uppercase transition-colors"
           >
             <span
               className={`transform transition-transform ${expandedFolders.frontend ? 'rotate-90' : ''}`}
@@ -69,7 +69,7 @@ const FilterPanel = ({ filters, onFilterChange, isMobileOpen, onMobileToggle }) 
           </button>
 
           {expandedFolders.frontend && (
-            <div className="ml-4 space-y-1">
+            <div className="ml-4 space-y-0.5">
               {Object.entries(filters.frontend).map(([tech, isActive]) => (
                 <label key={tech} className="group flex cursor-pointer items-center gap-2">
                   <input
@@ -105,7 +105,7 @@ const FilterPanel = ({ filters, onFilterChange, isMobileOpen, onMobileToggle }) 
           </button>
 
           {expandedFolders.backend && (
-            <div className="ml-4 space-y-1">
+            <div className="ml-4 space-y-0.5">
               {Object.entries(filters.backend).map(([tech, isActive]) => (
                 <label key={tech} className="group flex cursor-pointer items-center gap-2">
                   <input
