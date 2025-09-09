@@ -7,14 +7,37 @@ import { flickerTween } from '../../lib/animations/flickerTween'
 const HeroSection = () => {
   const ref = useRef(null)
 
+  function animateMasks() {
+    const masks = ref.current.querySelectorAll('.hero-img .mask')
+    const clipPathValues = [
+      'polygon(10% 0, 0% 0, 0% 100%, 10% 100%)',
+      'polygon(20% 0, 10% 0, 10% 100%, 20% 100%)',
+      'polygon(30% 0, 20% 0, 20% 100%, 30% 100%)',
+      'polygon(40% 0, 30% 0, 30% 100%, 40% 100%)',
+      'polygon(50% 0, 40% 0, 40% 100%, 50% 100%)',
+      'polygon(60% 0, 50% 0, 50% 100%, 60% 100%)',
+      'polygon(70% 0, 60% 0, 60% 100%, 70% 100%)',
+      'polygon(80% 0, 70% 0, 70% 100%, 80% 100%)',
+      'polygon(90% 0, 80% 0, 80% 100%, 90% 100%)',
+      'polygon(100% 0, 90% 0, 90% 100%, 100% 100%)',
+    ]
+
+    setTimeout(() => {
+      masks.forEach((mask, index) => {
+        gsap.to(mask, {
+          clipPath: clipPathValues[index % clipPathValues.length],
+          delay: index * 0.1,
+          duration: 0.9,
+          ease: 'power2.out',
+        })
+      })
+    }, 500)
+  }
+
   useGSAP(
     () => {
       const root = ref.current
-      const wrap = root.querySelector('[data-role="ghost"]')?.parentElement
       const decodes = Array.from(root.querySelectorAll('[data-animate="decode"]'))
-      const ghost = wrap.querySelector('[data-role="ghost"]')
-      const live = wrap.querySelector('[data-role="live"]')
-      const finalText = ghost.textContent
 
       const heads = root.querySelectorAll('[data-animate="flicker"]')
       const tl = gsap.timeline({
@@ -31,50 +54,40 @@ const HeroSection = () => {
         )
       })
       tl.add('decodePhase')
-      tl.add(decodeTween(live, { text: finalText, duration: 3 }), 'decodePhase')
       for (const decode of decodes) {
-        tl.add(decodeTween(decode, { text: decode.textContent, duration: 2 }), 'decodePhase')
+        tl.add(decodeTween(decode, { text: decode.textContent || '', duration: 2 }), 'decodePhase')
       }
+
+      tl.add(animateMasks, 'headerPhase')
     },
     { scope: ref },
   )
 
   return (
-    <section className="inner fill-offset grid-12 relative md:grid-rows-4" ref={ref}>
-      <div className="col-span-12 place-self-center md:col-span-6 md:row-span-4 md:grid md:grid-cols-subgrid md:grid-rows-subgrid">
-        {/* Name and title */}
-        <div className="md:col-span-5 md:row-span-2 md:row-start-3 md:self-end">
-          <h1 className="text-display-1 md:grid-row-start-3 md:col-span-6 md:row-start-3">
+    <section className="inner hero-grid" ref={ref}>
+      <div className="hero-header">
+        <div className="text-display relative top-1">
+          <h1 className="">
             <span data-animate="flicker">Anthony Nguyen</span>
           </h1>
-          <h2 className="text-display-1 mb-1 md:col-span-4 md:row-start-2">
+          <h2 className="mb-1">
             <span data-animate="flicker">Full-Stack Developer</span>
           </h2>
         </div>
-        {/* Intro text */}
-        <div className="relative md:col-span-3 md:col-start-2 md:row-start-1 md:self-end">
-          {/* GHOST SIZER — reserves space with the final copy */}
-          <p className="text-caption-1 invisible select-none" aria-hidden="true" data-role="ghost">
-            Anthony Viet Quoc Nguyen is a creative full-stack developer building interactive
-            websites with smooth motion and clean design. Available remotely, based in Houston.
-          </p>
-
-          {/* LIVE LAYER — animates on top, starts blank/hidden */}
-          <p
-            className="text-caption-1 absolute inset-0 opacity-0"
-            data-role="live"
-            aria-label="Anthony Viet Quoc Nguyen is a creative full-stack developer building interactive websites
-    with smooth motion and clean design. Available remotely, based in Houston."
-          />
-        </div>
       </div>
 
-      <div className="col-span-full grid grid-cols-subgrid md:col-span-6">
-        <div>
+      <p className="text-caption-1 hero-intro" data-animate="decode">
+        Anthony Viet Quoc Nguyen is a creative full-stack developer building interactive websites
+        with smooth motion and clean design. Available remotely, based in Houston.
+      </p>
+
+      <div className="hero-specs">
+        {/* Skills */}
+        <div className="hero-specs-item">
           <h3 className="text-accent font-mono uppercase" data-animate="flicker">
             Skills
           </h3>
-          <ul className="text-caption-2">
+          <ul className="text-caption-3">
             <li data-animate="decode">TypeScript</li>
             <li data-animate="decode">React</li>
             <li data-animate="decode">Next.js</li>
@@ -82,29 +95,45 @@ const HeroSection = () => {
             <li data-animate="decode">Node.js</li>
           </ul>
         </div>
-        <div>
+
+        {/* Experience */}
+        <div className="hero-specs-item">
           <h3 className="text-accent font-mono uppercase" data-animate="flicker">
             Experience
           </h3>
-          <ul className="text-caption-2">
+          <ul className="text-caption-3">
             <li data-animate="decode">Since 2020</li>
           </ul>
         </div>
-        <div>
+
+        {/* Currently */}
+        <div className="hero-specs-item">
           <h3 className="text-accent font-mono uppercase" data-animate="flicker">
             Currently
           </h3>
-          <ul className="text-caption-2">
+          <ul className="text-caption-3">
             <li data-animate="decode" className="opacity-0">
-              // Software Developer <br />
-              National Grid X
+              Software Developer
+            </li>
+            <li data-animate="decode" className="opacity-0">
+              @ National Grid X
             </li>
           </ul>
         </div>
       </div>
 
-      <div className="bg-accent col-span-full aspect-square h-full self-center md:col-span-6 md:col-start-7 md:row-span-2 md:row-start-2 md:aspect-auto md:h-64 md:w-full">
-        <ShatterImageHover src="/images/abstract-bg.jpg" className="bg-bg h-full w-full" />
+      {/* Image */}
+      <div className="hero-img">
+        <div className="mask"></div>
+        <div className="mask"></div>
+        <div className="mask"></div>
+        <div className="mask"></div>
+        <div className="mask"></div>
+        <div className="mask"></div>
+        <div className="mask"></div>
+        <div className="mask"></div>
+        <div className="mask"></div>
+        <div className="mask"></div>
       </div>
     </section>
   )
