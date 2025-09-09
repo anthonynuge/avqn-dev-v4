@@ -21,11 +21,17 @@
 
 @media (min-width: 880px) {
   .project-index-grid {
-    grid-template-columns: repeat(12, 1fr);
+    /* grid-template-columns: repeat(12, 1fr); */
+    grid-template-columns:
+      minmax(110px, 1fr)
+      minmax(110px, 1fr)
+      minmax(110px, 1fr)
+      minmax(55px, 1fr) /*gutter*/
+      repeat(8, minmax(0, 1fr));
     grid-template-rows: clamp(220px, 28dvh, 360px) clamp(260px, 32dvh, 420px) 1fr;
     grid-template-areas:
       'filter filter filter . list list list list list list list list'
       'filter filter filter . list list list list list list list list'
-      'filter filter filter . . . . . . preview preview preview';
+      'filter filter filter . . . . . preview preview preview preview';
   }
 }
