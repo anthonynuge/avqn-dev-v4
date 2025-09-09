@@ -2,7 +2,7 @@ import { Link } from 'react-router'
 
 const LinkButton = ({ to, external = false, children, className = '', ...props }) => {
   const baseClasses =
-    'uppercase inline-flex items-center gap-2 rounded-sm px-1 py-1 font-mono text-xs transition-colors bg-accent text-bg hover:bg-accent/80'
+    'uppercase inline-flex items-center gap-2 rounded-sm px-1 py-1 font-mono text-xs transition-colors bg-accent text-bg hover:bg-accent/80 justify-between'
 
   if (external) {
     return (
