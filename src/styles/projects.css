@@ -1,12 +1,26 @@
 /* Project Index Specific Styles */
 
 @layer components {
+  .project-preview-container {
+    contain: layout style paint;
+  }
   .project-list-item {
-    @apply hover:bg-accent cursor-pointer;
+    @apply cursor-pointer;
+    transition:
+      background-color 0.15s ease-out,
+      color 0.15s ease-out;
+    will-change: background-color, color;
+    contain: layout style paint;
+  }
+
+  .project-list-item:hover {
+    @apply bg-accent;
   }
 
   .project-list-item > * {
     @apply font-mono text-xs uppercase;
+    transition: color 0.15s ease-out;
+    will-change: color;
   }
 
   .project-list-item:hover * {

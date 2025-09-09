@@ -1,0 +1,31 @@
+.project-index-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-areas:
+    'filter'
+    'preview'
+    'list';
+}
+
+.project-index-filter {
+  grid-area: filter;
+}
+
+.project-index-preview {
+  grid-area: preview;
+}
+
+.project-index-list {
+  grid-area: list;
+}
+
+@media (min-width: 880px) {
+  .project-index-grid {
+    grid-template-columns: repeat(12, 1fr);
+    grid-template-rows: clamp(220px, 28dvh, 360px) clamp(260px, 32dvh, 420px) 1fr;
+    grid-template-areas:
+      'filter filter filter . list list list list list list list list'
+      'filter filter filter . list list list list list list list list'
+      'filter filter filter . . . . . . preview preview preview';
+  }
+}

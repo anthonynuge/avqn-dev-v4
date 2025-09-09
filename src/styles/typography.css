@@ -1,13 +1,50 @@
 @layer base {
+  .text-display {
+    font-size: clamp(1.25rem, 4vw, 8rem);
+    @apply text-accent leading-none font-bold uppercase;
+  }
+
+  /* Project Title */
+  .text-fluid-title {
+    font-size: clamp(2.8rem, 6vw, 9rem);
+    @apply text-accent mb-2 font-mono leading-none font-medium uppercase;
+  }
+
+  .text-fluid-subheading-1 {
+    font-size: clamp(2.25rem, 4vw, 9rem);
+    @apply text-accent font-mono leading-none font-bold uppercase;
+  }
+
+  .text-fluid-subheading {
+    font-size: clamp(1.8rem, 4vw, 9rem);
+    @apply text-accent leading-none font-bold uppercase;
+  }
+
   .text-display-1 {
-    @apply text-accent text-2xl leading-none font-bold uppercase md:text-6xl;
+    @apply text-accent text-3xl leading-none font-bold uppercase md:text-3xl 2xl:text-6xl;
+  }
+
+  .text-heading-1 {
+    @apply text-accent text-xl leading-none md:text-4xl;
+  }
+
+  .text-meta-title {
+    @apply text-accent font-mono text-sm uppercase md:text-base;
+  }
+
+  .text-meta-item {
+    @apply font-mono text-xs uppercase;
   }
 
   .text-caption-1 {
-    @apply font-mono text-xs uppercase md:text-base;
+    @apply font-mono text-xs uppercase md:text-sm;
   }
 
   .text-caption-2 {
     @apply font-mono text-xs uppercase;
+  }
+
+  .text-caption-3 {
+    @apply font-mono text-[.64rem] uppercase;
   }
 }
