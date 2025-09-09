@@ -1,5 +1,4 @@
 import { memo, useState, useEffect } from 'react'
-import LinkButton from '../ui/LinkButton'
 
 const ProjectPreview = memo(({ project }) => {
   const [imageLoaded, setImageLoaded] = useState(false)
