@@ -51,12 +51,12 @@ const ProjectDetail = () => {
           {/* Links */}
           <div className="flex w-full flex-col gap-2">
             {project.liveUrl && (
-              <LinkButton to={project.liveUrl} external className="w-full">
+              <LinkButton to={project.liveUrl} external className="w-full md:h-8">
                 View Live Site
               </LinkButton>
             )}
             {project.githubUrl && (
-              <LinkButton to={project.githubUrl} external>
+              <LinkButton to={project.githubUrl} external className="w-full md:h-8">
                 View Code
               </LinkButton>
             )}
