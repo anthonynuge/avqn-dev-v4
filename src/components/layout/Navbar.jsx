@@ -1,4 +1,5 @@
 import { Link } from 'react-router'
+import TransitionLink from '../shared/TransitionLink'
 
 const Navbar = () => {
   return (
@@ -13,13 +14,13 @@ const Navbar = () => {
       <nav className="hidden md:block">
         <ul className="nav-link">
           <li>
-            <Link to="/projects">Projects</Link>
+            <TransitionLink to="/projects">Projects</TransitionLink>
           </li>
           <li>
-            <Link to="/about">About</Link>
+            <TransitionLink to="/about">About</TransitionLink>
           </li>
           <li>
-            <Link to="/contact">Contact</Link>
+            <TransitionLink to="/contact">Contact</TransitionLink>
           </li>
         </ul>
       </nav>
