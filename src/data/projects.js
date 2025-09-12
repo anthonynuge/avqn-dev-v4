@@ -13,6 +13,7 @@ export const sampleProjects = [
     id: 'P-01',
     name: 'Susan-AI',
     slug: 'susan-ai',
+    type: 'Web Development',
     date: '2025-02-01', // from "Feb 2025 - aprox 3 weeks"
     cover: '/projects/project1.jpg', // image empty, using gif as cover
     description:
@@ -41,6 +42,7 @@ export const sampleProjects = [
     id: 'P-02',
     name: 'Portfolio Website',
     slug: 'portfolio-website',
+    type: 'Web Development',
     date: '2025-02-01', // from "Feb 2025 - aprox 2 weeks"
     cover: '/projects/project2.jpg', // image empty, using gif as cover
     description:
@@ -66,6 +68,7 @@ export const sampleProjects = [
     id: 'P-03',
     name: 'Fruit Vision',
     slug: 'fruit-vision',
+    type: 'Machine Learning',
     date: '2024-11-01', // from "Nov 2024 - Dec 2024"
     cover: '/projects/project1.jpg',
     description:
@@ -91,7 +94,8 @@ export const sampleProjects = [
     id: 'P-04',
     name: 'Maze Solver',
     slug: 'maze-solver',
-    date: '2024-12-01', // approx. from “winter break” (adjust if needed)
+    type: 'Desktop Application',
+    date: '2024-12-01', // approx. from "winter break" (adjust if needed)
     cover: '/projects/project2.jpg',
     description:
       'I built Maze Solver during winter break after studying DSA to better visualize how different pathfinding algorithms traverse a grid. Got tired of constantly drawing mazes so I implemented a maze generator. Built entirely in Java, with Swing for the frontend, this project deepened my understanding of algorithmic problem-solving while creating an interactive learning tool.',
@@ -112,6 +116,7 @@ export const sampleProjects = [
     id: 'P-05',
     name: 'Fake News Or Nah',
     slug: 'fake-news-or-nah',
+    type: 'Machine Learning',
     date: '2024-03-01', // from "Mar 2024 - May 2024"
     cover: '/images/portfolio.png',
     description: 'LLM trained to analyze text and determine whether it is fake or real news.',
@@ -136,6 +141,7 @@ export const sampleProjects = [
     id: 'P-06',
     name: 'E-commerce Dashboard',
     slug: 'e-commerce-dashboard',
+    type: 'Full Stack',
     date: '2024-01-01', // date not specified; set a placeholder if you prefer
     cover: '/images/ecommerce.png',
     description:
