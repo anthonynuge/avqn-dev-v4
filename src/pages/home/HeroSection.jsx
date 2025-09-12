@@ -1,82 +1,82 @@
+import { useRef, useCallback } from 'react'
+import { scrambleOut, scrambleInAll } from '../../lib/animations/scramble'
+import { flicker } from '../../lib/animations/flicker'
+import usePageExit from '../../transition/usePageExit'
+import ProximityGlassImage from '@/components/AnimatedCarousel/ProximityGlass'
 import { useGSAP, gsap } from '../../lib/gsapSetup'
-import ShatterImageHover from './ShatterImageHover'
-import { useRef } from 'react'
-import { decodeTween } from '../../lib/animations/decodeTween'
-import { flickerTween } from '../../lib/animations/flickerTween'
 
 const HeroSection = () => {
-  const ref = useRef(null)
+  const scope = useRef(null)
 
-  function animateMasks() {
-    const masks = ref.current.querySelectorAll('.hero-img .mask')
-    const clipPathValues = [
-      'polygon(10% 0, 0% 0, 0% 100%, 10% 100%)',
-      'polygon(20% 0, 10% 0, 10% 100%, 20% 100%)',
-      'polygon(30% 0, 20% 0, 20% 100%, 30% 100%)',
-      'polygon(40% 0, 30% 0, 30% 100%, 40% 100%)',
-      'polygon(50% 0, 40% 0, 40% 100%, 50% 100%)',
-      'polygon(60% 0, 50% 0, 50% 100%, 60% 100%)',
-      'polygon(70% 0, 60% 0, 60% 100%, 70% 100%)',
-      'polygon(80% 0, 70% 0, 70% 100%, 80% 100%)',
-      'polygon(90% 0, 80% 0, 80% 100%, 90% 100%)',
-      'polygon(100% 0, 90% 0, 90% 100%, 100% 100%)',
-    ]
-
-    setTimeout(() => {
-      masks.forEach((mask, index) => {
-        gsap.to(mask, {
-          clipPath: clipPathValues[index % clipPathValues.length],
-          delay: index * 0.1,
-          duration: 0.9,
-          ease: 'power2.out',
-        })
-      })
-    }, 500)
-  }
-
+  // Entry animation — runs on mount, auto-reverts on unmount
   useGSAP(
     () => {
-      const root = ref.current
-      const decodes = Array.from(root.querySelectorAll('[data-animate="decode"]'))
+      const q = (sel) => scope.current.querySelectorAll(sel)
 
-      const heads = root.querySelectorAll('[data-animate="flicker"]')
-      const tl = gsap.timeline({
-        defaults: {
-          ease: 'power2.out',
-        },
-      })
+      // 1) Hide everything marked for entry right away (prevents FOUC)
+      gsap.set(q('[data-in]'), { autoAlpha: 0 })
 
-      tl.add('headerPhase')
-      heads.forEach((el, i) => {
-        tl.add(
-          flickerTween(el, { duration: 1.2, blips: 5, jitterGlow: true }),
-          i === 0 ? 0.5 : '<+0.12', // control simultaneous vs stagger here
-        )
-      })
-      tl.add('decodePhase')
-      for (const decode of decodes) {
-        tl.add(decodeTween(decode, { text: decode.textContent || '', duration: 2 }), 'decodePhase')
+      // Token-aware selectors
+      const flickerItems = q('[data-in~="flicker"]')
+      const scrambleItems = q('[data-in~="scramble"]')
+
+      const tl = gsap.timeline({ delay: 1 })
+      tl.add('in')
+
+      // 2) Reveal + animate flicker group
+      if (flickerItems.length) {
+        tl.set(flickerItems, { autoAlpha: 1 }, 'in') // reveal at label
+        tl.add(flicker(flickerItems, { duration: 1, stagger: 0.4 }), 'in')
       }
 
-      tl.add(animateMasks, 'headerPhase')
+      // 3) Reveal + animate scramble group
+      if (scrambleItems.length) {
+        tl.set(scrambleItems, { autoAlpha: 1 }, 'in+=1') // tiny offset if you want
+        tl.add(scrambleInAll(scrambleItems, { duration: 1, stagger: 0.05 }), '>')
+      }
     },
-    { scope: ref },
+    { scope: scope },
   )
 
+  // Exit animation — runs on unmount
+  const exitFn = useCallback(() => {
+    const root = scope.current
+    if (!root) return Promise.resolve()
+    const items = Array.from(root.querySelectorAll('[data-out="scramble"]'))
+    if (!items.length) return Promise.resolve()
+    return new Promise((resolve) => {
+      const tl = gsap.timeline({ onComplete: resolve })
+      Array.from(items).forEach((item, i) => {
+        tl.add(scrambleOut(item, { duration: 0.8, fade: true }), i * 0.05)
+      })
+    })
+  }, [])
+
+  usePageExit(exitFn)
+
   return (
-    <section className="inner hero-grid" ref={ref}>
+    <section className="inner hero-grid" ref={scope}>
       <div className="hero-header">
-        <div className="text-display relative top-1">
+        <div className="text-display relative top-1 md:w-[1/2vw]">
           <h1 className="">
-            <span data-animate="flicker">Anthony Nguyen</span>
+            <span data-in="flicker" data-out="scramble" data-text="Anthony Nguyen">
+              Anthony Nguyen
+            </span>
           </h1>
           <h2 className="mb-1">
-            <span data-animate="flicker">Full-Stack Developer</span>
+            <span data-in="flicker" data-out="scramble" data-text="Full-Stack Developer">
+              Full-Stack Developer
+            </span>
           </h2>
         </div>
       </div>
 
-      <p className="text-caption-1 hero-intro" data-animate="decode">
+      <p
+        className="text-caption-1 hero-intro"
+        data-in="scramble"
+        data-out="scramble"
+        data-text="Anthony Viet Quoc Nguyen is a creative full-stack developer building interactive websites with smooth motion and clean design. Available remotely, based in Houston."
+      >
         Anthony Viet Quoc Nguyen is a creative full-stack developer building interactive websites
         with smooth motion and clean design. Available remotely, based in Houston.
       </p>
@@ -84,56 +84,97 @@ const HeroSection = () => {
       <div className="hero-specs">
         {/* Skills */}
         <div className="hero-specs-item">
-          <h3 className="text-accent font-mono uppercase" data-animate="flicker">
+          <h3
+            className="text-accent font-mono uppercase"
+            data-in="flicker"
+            data-out="scramble"
+            data-text="Skills"
+          >
             Skills
           </h3>
           <ul className="text-caption-3">
-            <li data-animate="decode">TypeScript</li>
-            <li data-animate="decode">React</li>
-            <li data-animate="decode">Next.js</li>
-            <li data-animate="decode">Java</li>
-            <li data-animate="decode">Node.js</li>
+            <li data-in="scramble" data-out="scramble" data-text="TypeScript">
+              TypeScript
+            </li>
+            <li data-in="scramble" data-out="scramble" data-text="React">
+              React
+            </li>
+            <li data-in="scramble" data-out="scramble" data-text="Next.js">
+              Next.js
+            </li>
+            <li data-in="scramble" data-out="scramble" data-text="Java">
+              Java
+            </li>
+            <li data-in="scramble" data-out="scramble" data-text="Node.js">
+              Node.js
+            </li>
           </ul>
         </div>
 
         {/* Experience */}
         <div className="hero-specs-item">
-          <h3 className="text-accent font-mono uppercase" data-animate="flicker">
+          <h3
+            className="text-accent font-mono uppercase"
+            data-in="flicker"
+            data-out="scramble"
+            data-text="Experience"
+          >
             Experience
           </h3>
           <ul className="text-caption-3">
-            <li data-animate="decode">Since 2020</li>
+            <li data-in="scramble" data-out="scramble" data-text="Since 2020">
+              Since 2020
+            </li>
           </ul>
         </div>
 
         {/* Currently */}
         <div className="hero-specs-item">
-          <h3 className="text-accent font-mono uppercase" data-animate="flicker">
+          <h3
+            className="text-accent font-mono uppercase"
+            data-in="flicker"
+            data-out="scramble"
+            data-text="Currently"
+          >
             Currently
           </h3>
           <ul className="text-caption-3">
-            <li data-animate="decode" className="opacity-0">
+            <li data-in="scramble" data-out="scramble" data-text="Software Developer">
               Software Developer
             </li>
-            <li data-animate="decode" className="opacity-0">
+            <li data-in="scramble" data-out="scramble" data-text="@ National Grid X">
               @ National Grid X
             </li>
           </ul>
         </div>
       </div>
 
-      {/* Image */}
+      {/* <ul className="hero-links">
+        <li>
+          <LinkButton to="https://github.com/anthonynuge" external>
+            GitHub
+          </LinkButton>
+        </li>
+        <li>
+          <LinkButton to="https://www.linkedin.com/in/anthony-nguyen-02861b331/" external>
+            LinkedIn
+          </LinkButton>
+        </li>
+        <li>
+          <LinkButton to="https://www.instagram.com/anthrnee/" external>
+            Instagram
+          </LinkButton>
+        </li>
+      </ul> */}
+
       <div className="hero-img">
-        <div className="mask"></div>
-        <div className="mask"></div>
-        <div className="mask"></div>
-        <div className="mask"></div>
-        <div className="mask"></div>
-        <div className="mask"></div>
-        <div className="mask"></div>
-        <div className="mask"></div>
-        <div className="mask"></div>
-        <div className="mask"></div>
+        <ProximityGlassImage
+          src="/images/hero-slide-1.jpg"
+          // height="30dvh"
+          slices={20}
+          sigma={10}
+          strength={{ zoomPct: 14, stretchXPct: 10, bgPushPct: 0, blurPx: 2.0 }}
+        />
       </div>
     </section>
   )
