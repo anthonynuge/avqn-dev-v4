@@ -1,5 +1,19 @@
-import { Link } from 'react-router'
+import { Link, useLocation } from 'react-router'
 import TransitionLink from '../shared/TransitionLink'
+
+function NavItem({ to, children }) {
+  const { pathname } = useLocation()
+  const isActive = pathname === to
+  return (
+    <TransitionLink
+      to={to}
+      className={isActive ? 'bg-accent text-bg px-1' : ''}
+      data-active={isActive}
+    >
+      {children}
+    </TransitionLink>
+  )
+}
 
 const Navbar = () => {
   return (
@@ -14,13 +28,13 @@ const Navbar = () => {
       <nav className="hidden md:block">
         <ul className="nav-link">
           <li>
-            <TransitionLink to="/projects">Projects</TransitionLink>
+            <NavItem to="/projects">Projects</NavItem>
           </li>
           <li>
-            <TransitionLink to="/about">About</TransitionLink>
+            <NavItem to="/about">About</NavItem>
           </li>
           <li>
-            <TransitionLink to="/contact">Contact</TransitionLink>
+            <NavItem to="/contact">Contact</NavItem>
           </li>
         </ul>
       </nav>
