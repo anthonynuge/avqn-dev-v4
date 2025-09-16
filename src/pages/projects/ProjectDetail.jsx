@@ -1,13 +1,21 @@
 import { useParams } from 'react-router'
+import { useState, useMemo } from 'react'
 import { sampleProjects } from '../../data/projects'
 import LinkButton from '../../components/ui/LinkButton'
-import ParallaxImage from '../../components/shared/ParallaxImage'
+import CarouselView from '../../components/CarouselView'
 
 const ProjectDetail = () => {
   const { projectSlug } = useParams()
+  const [index, setIndex] = useState(0)
 
   // Find the project by slug
   const project = sampleProjects.find((p) => p.slug === projectSlug)
+
+  // Stable reference for images
+  const images = useMemo(() => project.demos.filter(Boolean) ?? [], [project?.demos])
+
+  const prev = () => setIndex((prev) => (prev - 1 + images.length) % images.length)
+  const next = () => setIndex((prev) => (prev + 1) % images.length)
 
   if (!project) {
     return (
@@ -63,26 +71,38 @@ const ProjectDetail = () => {
           </div>
         </div>
 
-        <h3 className="text-accent inner text-fluid-subheading-1 absolute bottom-0 left-0 translate-y-1/2 font-bold uppercase">
+        <h3 className="text-accent inner text-fluid-subheading-1 absolute bottom-0 left-0 z-10 translate-y-1/2 font-bold uppercase">
           {project.id}
         </h3>
       </div>
 
       <div className="relative flex-1">
-        <div className="relative -z-1 h-[40dvh] overflow-hidden md:h-[60dvh]">
-          <ParallaxImage src={project.demos[0]} alt={project.name} shift={-200} />
-          {/* {project.demos[0] && (
-            <div className="absolute top-1/2 left-1/2 w-[95%] -translate-x-1/2 -translate-y-1/2 overflow-hidden lg:aspect-video lg:h-[80%] lg:w-auto">
-              <img src={project.demos[3]} alt={project.name} className="aspect-video" />
-            </div>
-          )} */}
+        {/* Carosuel Container */}
+        <CarouselView images={images} altPrefix={project.name} shift={-200} index={index} />
+
+        {/* Carousel Controls */}
+        <div className="absolute -top-0 right-0 z-50 flex h-[80px] -translate-x-1/2 translate-y-1/2 flex-col items-center justify-around gap-2 md:-top-14 md:w-[200px] md:-translate-y-0 md:flex-row md:gap-4">
+          <button onClick={prev} className="text-caption-2 text-accent cursor-pointer">
+            Prev
+          </button>
+          {images.map((_, i) => (
+            <span
+              key={i}
+              className={`${index === i ? 'bg-accent h-5 w-1' : 'bg-accent/50 h-1 w-1 flex-shrink'} transition-all duration-400 ease-in-out`}
+            />
+          ))}
+          <button onClick={next} className="text-caption-2 text-accent cursor-pointer">
+            Next
+          </button>
         </div>
+
+        {/* Specifications Container */}
         <div className="inner relative">
-          <h3 className="text-accent text-fluid-subheading absolute top-0 right-8 -translate-y-1/2">
+          <h3 className="text-accent text-fluid-subheading absolute top-0 right-8 z-10 -translate-y-1/2">
             Specifications
           </h3>
 
-          <div className="grid-12 py-12 md:py-24">
+          <div className="grid-12 py-12 pt-12 pb-24">
             <div className="col-span-full grid grid-cols-subgrid gap-y-4 md:col-[4/12]">
               {Object.entries(project.techStack).map(([key, value]) => (
                 <div key={key} className="col-span-2 md:col-span-2">
