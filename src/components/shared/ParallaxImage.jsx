@@ -25,12 +25,15 @@ export default function ParallaxImage({ src, alt, className = '', shift = 110, s
   )
 
   return (
-    <div ref={wrapRef} className={`relative overflow-hidden ${className}`}>
+    <div
+      ref={wrapRef}
+      className={`absolute top-0 left-1/2 flex h-[60dvh] w-full -translate-x-1/2 justify-center md:h-[90dvh] lg:w-[100%] 2xl:w-[95%] ${className}`}
+    >
       <img
         ref={imgRef}
         src={src}
         alt={alt}
-        className="absolute inset-0 h-full w-full object-cover"
+        className={`min-w-[100%] object-cover`}
         loading="lazy"
       />
     </div>

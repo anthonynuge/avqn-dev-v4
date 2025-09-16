@@ -69,13 +69,13 @@ const ProjectDetail = () => {
       </div>
 
       <div className="relative flex-1">
-        <div className="relative -z-1 h-[60dvh] overflow-hidden md:h-[70dvh]">
-          <ParallaxImage
-            src={project.cover}
-            alt={project.name}
-            shift={-300}
-            className="h-[200dvh] w-full object-cover"
-          />
+        <div className="relative -z-1 h-[40dvh] overflow-hidden md:h-[60dvh]">
+          <ParallaxImage src={project.demos[0]} alt={project.name} shift={-200} />
+          {/* {project.demos[0] && (
+            <div className="absolute top-1/2 left-1/2 w-[95%] -translate-x-1/2 -translate-y-1/2 overflow-hidden lg:aspect-video lg:h-[80%] lg:w-auto">
+              <img src={project.demos[3]} alt={project.name} className="aspect-video" />
+            </div>
+          )} */}
         </div>
         <div className="inner relative">
           <h3 className="text-accent text-fluid-subheading absolute top-0 right-8 -translate-y-1/2">
