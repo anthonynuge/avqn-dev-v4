@@ -4,6 +4,7 @@ import FilterPanel from '../../components/projects/FilterPanel'
 import ProjectList from '../../components/projects/ProjectList'
 import ProjectPreview from '../../components/projects/ProjectPreview'
 import { sampleProjects, initialFilters } from '../../data/projects'
+import { useGSAP, gsap } from '../../lib/gsapSetup'
 
 const ProjectIndex = () => {
   const navigate = useNavigate()
@@ -11,6 +12,18 @@ const ProjectIndex = () => {
   const [hoveredProject, setHoveredProject] = useState(null)
   const [isMobileFilterOpen, setIsMobileFilterOpen] = useState(false)
   const hoverTimeoutRef = useRef(null)
+  const ref = useRef(null)
+
+  useGSAP(
+    () => {
+      gsap.fromTo(
+        ref.current,
+        { opacity: 0 },
+        { opacity: 1, duration: 2, ease: 'power2.out', delay: 0.4 },
+      )
+    },
+    { scope: ref },
+  )
 
   // Cleanup timeout on unmount
   useEffect(() => {
@@ -102,9 +115,9 @@ const ProjectIndex = () => {
   }
 
   return (
-    <section className="inner fill-offset overflow-hidden">
-      <h1 className="text-accent text-display-1 text-3xl leading-tight font-bold uppercase">
-        Project Index
+    <section className="inner fill-offset overflow-hidden" ref={ref}>
+      <h1 className="text-accent text-display-1 font-mono text-4xl leading-tight font-bold uppercase">
+        Archive
       </h1>
       {/* Main Layout */}
       <div className="project-index-grid relative h-full">

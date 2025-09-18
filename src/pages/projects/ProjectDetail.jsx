@@ -78,7 +78,13 @@ const ProjectDetail = () => {
 
       <div className="relative flex-1">
         {/* Carosuel Container */}
-        <CarouselView images={images} altPrefix={project.name} shift={-200} index={index} />
+        <CarouselView
+          images={images}
+          altPrefix={project.name}
+          shift={-200}
+          index={index}
+          cover={project.cover}
+        />
 
         {/* Carousel Controls */}
         <div className="absolute -top-0 right-0 z-50 flex h-[80px] -translate-x-1/2 translate-y-1/2 flex-col items-center justify-around gap-2 md:-top-14 md:w-[200px] md:-translate-y-0 md:flex-row md:gap-4">
