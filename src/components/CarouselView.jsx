@@ -24,13 +24,19 @@ export default function CarouselView({
       {/* Fill the frame; ParallaxImage is absolute/inset-0 internally */}
       {slide.overlay && cover ? (
         <>
-          <ParallaxImage src={cover} alt={`${altPrefix} ${safeIndex + 1}`} shift={shift} />
+          <ParallaxImage
+            src={cover}
+            alt={`${altPrefix} ${safeIndex + 1}`}
+            shift={shift}
+            className=""
+          />
+          <div className="absolute inset-0 z-[1] bg-black/50" />
 
           {slide.video ? (
             <video
               src={slide.url}
               alt={`${altPrefix} ${safeIndex + 1}`}
-              className="absolute top-1/2 left-1/2 aspect-video w-[95%] -translate-x-1/2 -translate-y-1/2 md:h-[525px] md:w-auto"
+              className="absolute top-1/2 left-1/2 z-[2] aspect-video w-[95%] -translate-x-1/2 -translate-y-1/2 md:h-[525px] md:w-auto"
               autoPlay
               loop
               muted
@@ -40,7 +46,7 @@ export default function CarouselView({
             <img
               src={slide.url}
               alt={`${altPrefix} ${safeIndex + 1}`}
-              className="absolute top-1/2 left-1/2 w-[95%] -translate-x-1/2 -translate-y-1/2 md:h-[525px] md:w-auto"
+              className="absolute top-1/2 left-1/2 z-[2] w-[95%] -translate-x-1/2 -translate-y-1/2 md:h-[525px] md:w-auto"
             />
           )}
         </>
