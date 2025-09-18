@@ -220,12 +220,12 @@ const ProjectList = memo(function ProjectList({
                 </div>
 
                 {/* Project Name */}
-                <div className="col-span-6 flex items-center">
-                  <span className="text-sm">// {p.name}</span>
+                <div className="col-span-6 flex items-center font-mono uppercase">
+                  <span className="text-sm">{p.name}</span>
                 </div>
 
                 {/* Type */}
-                <div className="col-span-4 flex items-center">
+                <div className="col-span-4 flex items-center font-mono uppercase">
                   <span className="text-xs">{p.type}</span>
                 </div>
               </div>
