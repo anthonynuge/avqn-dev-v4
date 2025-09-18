@@ -7,22 +7,46 @@ import ParallaxImage from './shared/ParallaxImage'
  * - No state, no controls.
  */
 export default function CarouselView({
-  images = [], // string[] of URLs
+  images = [], // string[] of {URLs, overlay: boolean}
   index = 0, // which image to show
   altPrefix = 'Slide', // used to build alt text
   shift = -200, // passed to ParallaxImage
   className = '',
+  cover,
   heightClass = 'h-[40dvh] md:h-[60dvh]',
 }) {
   if (!images.length) return null
   const safeIndex = ((index % images.length) + images.length) % images.length
-  const src = images[safeIndex]
+  const slide = images[safeIndex]
 
   return (
     <div className={`relative overflow-hidden ${heightClass} ${className}`}>
       {/* Fill the frame; ParallaxImage is absolute/inset-0 internally */}
-      <ParallaxImage src={src} alt={`${altPrefix} ${safeIndex + 1}`} shift={shift} />
+      {slide.overlay && cover ? (
+        <>
+          <ParallaxImage src={cover} alt={`${altPrefix} ${safeIndex + 1}`} shift={shift} />
 
+          {slide.video ? (
+            <video
+              src={slide.url}
+              alt={`${altPrefix} ${safeIndex + 1}`}
+              className="absolute top-1/2 left-1/2 aspect-video w-[95%] -translate-x-1/2 -translate-y-1/2 md:h-[525px] md:w-auto"
+              autoPlay
+              loop
+              muted
+              playsInline
+            />
+          ) : (
+            <img
+              src={slide.url}
+              alt={`${altPrefix} ${safeIndex + 1}`}
+              className="absolute top-1/2 left-1/2 w-[95%] -translate-x-1/2 -translate-y-1/2 md:h-[525px] md:w-auto"
+            />
+          )}
+        </>
+      ) : (
+        <ParallaxImage src={slide.url} alt={`${altPrefix} ${safeIndex + 1}`} shift={shift} />
+      )}
       {/* Gradient overlay */}
       <div className="pointer-events-none absolute inset-0">
         {/* top gradient */}
