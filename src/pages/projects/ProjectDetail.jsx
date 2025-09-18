@@ -108,7 +108,7 @@ const ProjectDetail = () => {
             Specifications
           </h3>
 
-          <div className="grid-12 py-12 pt-12 pb-24">
+          <div className="grid-12 py-14">
             <div className="col-span-full grid grid-cols-subgrid gap-y-4 md:col-[4/12]">
               {Object.entries(project.techStack).map(([key, value]) => (
                 <div key={key} className="col-span-2 md:col-span-2">
