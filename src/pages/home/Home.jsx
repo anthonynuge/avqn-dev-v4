@@ -4,8 +4,8 @@ const Home = () => {
   return (
     <>
       <HeroSection />
-      <div className="h-screen" />
-      <PlaygroundSection />
+      {/* <div className="h-screen" />
+      <PlaygroundSection /> */}
     </>
   )
 }
