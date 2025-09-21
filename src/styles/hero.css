@@ -169,3 +169,40 @@
 .mask:nth-child(20) {
   clip-path: polygon(95% 0, 95% 0, 95% 100%, 95% 100%);
 }
+
+.featured-grid {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  grid-template-rows: 200px 300px 300px;
+  grid-template-areas:
+    '. . . . . . . . . t t t'
+    'c c c c . i i i i i i i '
+    '. . . . . . . . . . . .';
+}
+
+.title {
+  grid-area: t;
+  place-self: end;
+  font-size: 4rem;
+}
+
+.links {
+  @apply font-mono text-xs uppercase md:space-y-2 md:self-end;
+}
+
+.carousel-control {
+  grid-area: c;
+}
+
+.carousel-window {
+  grid-area: i;
+  aspect-ratio: 16/9;
+  overflow: hidden;
+}
+
+.carousel-item {
+  height: 300px;
+  width: 100%;
+  position: absolute;
+  inset: 0;
+}
