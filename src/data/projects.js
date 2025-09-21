@@ -8,6 +8,10 @@ export const createSlug = (name) => {
     .trim()
 }
 
+export const getFeaturedProjects = () => {
+  return sampleProjects.filter((project) => project.featured)
+}
+
 export const sampleProjects = [
   {
     id: 'P-01',
@@ -15,6 +19,7 @@ export const sampleProjects = [
     slug: 'susan-ai',
     type: 'Web Development',
     date: '2025-02-01', // from "Feb 2025 - aprox 3 weeks"
+    featured: true,
     description:
       'ChatGPT-inspired assistant powered by Gemini Flash 2.0. I built it as an AI alternative for times when I ran out of free ChatGPT calls—and because I wanted to create something AI-driven myself. Users can sign up, create an account, and chat, ask questions, or even generate code. Responses are rendered in markdown with built-in syntax highlighting for a clean, readable experience.',
     techStack: {
@@ -34,15 +39,16 @@ export const sampleProjects = [
     githubUrl: 'https://github.com/anthonynuge/susan-ai',
     cover: '/projects/bd-1.webp', // image empty, using gif as cover
     demos: [
+      { url: '/projects/susan-mock.webp' },
       { url: '/projects/susan-demo.webm', overlay: true, video: true },
       { url: '/projects/susan-3.webp', overlay: true },
-      { url: '/projects/susan-mock.webp' },
       { url: '/projects/susan-closeup.webp' },
     ],
   },
 
   {
     id: 'P-02',
+    // featured: true,
     name: 'Portfolio Website',
     slug: 'portfolio-website',
     type: 'Web Development',
@@ -191,6 +197,7 @@ export const sampleProjects = [
 
   {
     id: 'EXP-10-25',
+    featured: true,
     name: 'Midnite Agency', // company
     slug: 'midnite-agency',
     type: 'Work Experience',
@@ -221,6 +228,7 @@ export const sampleProjects = [
   },
   {
     id: 'E-02',
+    featured: true,
     name: 'National Grid X',
     slug: 'national-grid-x',
     type: 'Work Experience',
