@@ -17,7 +17,10 @@ export default function ProximityGlass({
   strength = {}, // { zoomPct, stretchXPct, bgPushPct, blurPx, contrastPush }
   className = '',
   style = {},
-  key,
+  revealKey,
+  enterFrom = 'left', // right or left
+  revealOnMount = true,
+  interactive = true,
 }) {
   const ref = useRef(null)
 
@@ -60,43 +63,79 @@ export default function ProximityGlass({
         filter: 'none',
       })
 
-      const STAGGER = 0.04
-      const REVEAL_DELAY = 0.5 // match your old 500ms delay
-      let isRevealing = false
-
-      // collapsed-at-right-edge for each slice (x2)
-      const fromClip = (i) => {
-        // const x1 = i * step
+      const fromClipRight = (i) => {
         const x2 = (i + 1) * step
         return `polygon(${x2}% 0, ${x2}% 0, ${x2}% 100%, ${x2}% 100%)`
       }
-
-      // full slice polygon (your normal target)
+      const fromClipLeft = (i) => {
+        const x1 = i * step
+        return `polygon(${x1}% 0, ${x1}% 0, ${x1}% 100%, ${x1}% 100%)`
+      }
       const toClip = (i) => {
         const x1 = i * step
         const x2 = (i + 1) * step
         return `polygon(${x2}% 0, ${x1}% 0, ${x1}% 100%, ${x2}% 100%)`
       }
 
-      gsap.fromTo(
-        masks,
-        {
-          // Start collapsed at right edge and hidden
-          clipPath: (_, i) => fromClip(i),
-          opacity: 0,
-        },
-        {
-          clipPath: (_, i) => toClip(i),
-          opacity: 1,
-          duration: 0.8,
-          ease: 'power3.out',
-          stagger: { each: STAGGER, from: 'start' }, // play right → left
-          delay: REVEAL_DELAY,
-          onComplete: () => {
-            isRevealing = false
+      // Optional entrance reveal
+      if (revealOnMount) {
+        const startFromLeft = enterFrom === 'left'
+        gsap.fromTo(
+          masks,
+          {
+            clipPath: (i) => (startFromLeft ? fromClipLeft(i) : fromClipRight(i)),
+            opacity: 0,
           },
-        },
-      )
+          {
+            clipPath: (i) => toClip(i),
+            opacity: 1,
+            duration: 0.8,
+            ease: 'power3.out',
+            stagger: {
+              each: 0.04,
+              from: startFromLeft ? 'start' : 'end', // controls wave direction
+            },
+            delay: 0.5,
+          },
+        )
+      }
+
+      // const STAGGER = 0.04
+      // const REVEAL_DELAY = 0.5 // match your old 500ms delay
+
+      // collapsed-at-right-edge for each slice (x2)
+      // const fromClip = (i) => {
+      //   // const x1 = i * step
+      //   const x2 = (i + 1) * step
+      //   return `polygon(${x2}% 0, ${x2}% 0, ${x2}% 100%, ${x2}% 100%)`
+      // }
+
+      // full slice polygon (your normal target)
+      // const toClip = (i) => {
+      //   const x1 = i * step
+      //   const x2 = (i + 1) * step
+      //   return `polygon(${x2}% 0, ${x1}% 0, ${x1}% 100%, ${x2}% 100%)`
+      // }
+
+      // gsap.fromTo(
+      //   masks,
+      //   {
+      //     // Start collapsed at right edge and hidden
+      //     clipPath: (_, i) => fromClip(i),
+      //     opacity: 0,
+      //   },
+      //   {
+      //     clipPath: (_, i) => toClip(i),
+      //     opacity: 1,
+      //     duration: 0.8,
+      //     ease: 'power3.out',
+      //     stagger: { each: STAGGER, from: 'start' }, // play right → left
+      //     delay: REVEAL_DELAY,
+      //     onComplete: () => {
+      //       isRevealing = false
+      //     },
+      //   },
+      // )
 
       // Quick setters
       const setBgX = Array.from(masks, (m) => gsap.quickSetter(m, 'backgroundPositionX'))
@@ -151,12 +190,14 @@ export default function ProximityGlass({
       }
 
       const onMove = (e) => {
+        if (!interactive) return
         const rect = hero.getBoundingClientRect()
         cursorPctX = ((e.clientX - rect.left) / rect.width) * 100
         queueRender()
       }
 
       const easeBack = () => {
+        if (!interactive) return
         // Return to base state
         masks.forEach((m, i) => {
           gsap.to(m, {
@@ -179,12 +220,11 @@ export default function ProximityGlass({
         if (raf) cancelAnimationFrame(raf)
       }
     },
-    { dependencies: [src, slices, sigma, S] },
+    { dependencies: [src, slices, sigma, S, revealKey, enterFrom, revealOnMount, interactive] },
   )
 
   return (
     <div
-      key={key}
       ref={ref}
       className={`pgz-hero ${className}`}
       style={{
