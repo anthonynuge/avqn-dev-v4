@@ -3,11 +3,10 @@ import { useGSAP } from '@gsap/react'
 import ScrambleTextPlugin from 'gsap/ScrambleTextPlugin'
 import ScrollTrigger from 'gsap/ScrollTrigger'
 import Observer from 'gsap/Observer'
-
 import { GSDevTools } from 'gsap/GSDevTools'
 
 gsap.registerPlugin(ScrambleTextPlugin, ScrollTrigger, GSDevTools, Observer)
 
 // GSDevTools.create()
 
-export { useGSAP, gsap }
+export { useGSAP, gsap, Observer }
