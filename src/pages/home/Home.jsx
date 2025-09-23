@@ -4,8 +4,7 @@ const Home = () => {
   return (
     <>
       <HeroSection />
-      {/* <div className="h-screen" />
-      <PlaygroundSection /> */}
+      {/* <PlaygroundSection />  */}
     </>
   )
 }
