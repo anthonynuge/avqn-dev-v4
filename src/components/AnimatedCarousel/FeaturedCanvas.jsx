@@ -1,4 +1,3 @@
-// FeaturedCanvas.jsx
 'use client'
 import React, { useEffect, useImperativeHandle, useRef } from 'react'
 import * as THREE from 'three'
@@ -10,7 +9,7 @@ const FeaturedCanvas = React.memo(
     const rendererRef = useRef(null)
     const materialRef = useRef(null)
 
-    const loaderRef = useRef(new THREE.TextureLoader())
+    const loaderRef = useRef(new THREE.TextureLoader().setCrossOrigin('anonymous'))
     const texturesRef = useRef([])
     const imageSizesRef = useRef([])
     const indexRef = useRef(0)
@@ -21,6 +20,9 @@ const FeaturedCanvas = React.memo(
     // animated uniforms
     const uTransitionRef = useRef(0)
     const uAnimateInRef = useRef(0)
+
+    // gate to prevent overlapping transitions
+    const isAnimatingRef = useRef(false)
 
     useEffect(() => {
       const mount = mountRef.current
@@ -55,6 +57,9 @@ const FeaturedCanvas = React.memo(
 
           u_ImageSize01: { value: new THREE.Vector2(2182, 558) },
           u_ImageSize02: { value: new THREE.Vector2(2182, 558) },
+
+          // NEW: +1.0 = L->R (next), -1.0 = R->L (prev)
+          u_Direction: { value: 1.0 },
         },
         transparent: true,
       })
@@ -79,7 +84,13 @@ const FeaturedCanvas = React.memo(
       }
       rafRef.current = requestAnimationFrame(tick)
 
+      // optional: prevent default on context loss
+      const canvas = renderer.domElement
+      const onLost = (e) => e.preventDefault()
+      canvas.addEventListener('webglcontextlost', onLost, false)
+
       return () => {
+        canvas.removeEventListener('webglcontextlost', onLost, false)
         if (rafRef.current) cancelAnimationFrame(rafRef.current)
         if (mount && renderer.domElement.parentNode === mount) {
           mount.removeChild(renderer.domElement)
@@ -91,20 +102,22 @@ const FeaturedCanvas = React.memo(
       }
     }, [])
 
-    // tiny tween helper
-    function tween(refObj, to, ms, ease, onDone) {
-      const from = refObj.current
-      const start = performance.now()
-      function step(now) {
-        const t = Math.min(1, (now - start) / ms)
-        refObj.current = from + (to - from) * ease(t)
-        if (t < 1) requestAnimationFrame(step)
-        else {
-          refObj.current = to
-          onDone && onDone()
+    // Promise-based tween helper
+    function tween(refObj, to, ms, ease) {
+      return new Promise((resolve) => {
+        const from = refObj.current
+        const start = performance.now()
+        function step(now) {
+          const t = Math.min(1, (now - start) / ms)
+          refObj.current = from + (to - from) * ease(t)
+          if (t < 1) requestAnimationFrame(step)
+          else {
+            refObj.current = to
+            resolve()
+          }
         }
-      }
-      requestAnimationFrame(step)
+        requestAnimationFrame(step)
+      })
     }
     const easeOutCubic = (x) => 1 - Math.pow(1 - x, 3)
     const easeInOut = (t) => (t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t)
@@ -127,6 +140,9 @@ const FeaturedCanvas = React.memo(
                   tex.generateMipmaps = true
                   tex.minFilter = THREE.LinearMipmapLinearFilter
                   tex.magFilter = THREE.LinearFilter
+                  // light anisotropy if available
+                  const maxAniso = rendererRef.current?.capabilities.getMaxAnisotropy?.() ?? 0
+                  if (maxAniso && 'anisotropy' in tex) tex.anisotropy = Math.min(4, maxAniso)
                   res(tex)
                 },
                 undefined,
@@ -143,18 +159,19 @@ const FeaturedCanvas = React.memo(
       indexRef.current = 0
 
       const mat = materialRef.current
-      mat.uniforms.u_Texture01.value = texturesRef.current[0] || null
-      mat.uniforms.u_Texture02.value = texturesRef.current[1] || texturesRef.current[0] || null
-      mat.uniforms.u_ImageSize01.value.copy(
-        imageSizesRef.current[0] || new THREE.Vector2(2182, 558),
-      )
-      mat.uniforms.u_ImageSize02.value.copy(
-        imageSizesRef.current[1] || imageSizesRef.current[0] || new THREE.Vector2(2182, 558),
-      )
+      const texA = texturesRef.current[0] || null
+      const texB = texturesRef.current[1] || texA
+      const sizeA = imageSizesRef.current[0] || new THREE.Vector2(2182, 558)
+      const sizeB = imageSizesRef.current[1] || sizeA
+
+      mat.uniforms.u_Texture01.value = texA
+      mat.uniforms.u_Texture02.value = texB
+      mat.uniforms.u_ImageSize01.value.copy(sizeA)
+      mat.uniforms.u_ImageSize02.value.copy(sizeB)
 
       // animate in once
       uAnimateInRef.current = 0
-      tween(uAnimateInRef, 1, 500, easeOutCubic)
+      await tween(uAnimateInRef, 1, 500, easeOutCubic)
     }
 
     function commitTransition(newIndex) {
@@ -178,8 +195,10 @@ const FeaturedCanvas = React.memo(
     function show(i) {
       if (!texturesRef.current.length) return
       const n = texturesRef.current.length
+      if (n < 2) return
       const target = ((i % n) + n) % n
       if (target === indexRef.current) return
+      if (isAnimatingRef.current) return
 
       const mat = materialRef.current
       mat.uniforms.u_Texture02.value = texturesRef.current[target]
@@ -190,18 +209,26 @@ const FeaturedCanvas = React.memo(
       // enable transition-only influence during tween
       mat.uniforms.u_TextureScaleIntensityTransition.value = 1.0
 
+      isAnimatingRef.current = true
       uTransitionRef.current = 0
-      tween(uTransitionRef, 1, 650, easeInOut, () => {
+      tween(uTransitionRef, 1, 650, easeInOut).then(() => {
         indexRef.current = target
         commitTransition(target)
+        isAnimatingRef.current = false
       })
     }
 
     function next() {
+      materialRef.current.uniforms.u_Direction.value = 1.0 // left → right
       show(indexRef.current + 1)
     }
     function prev() {
+      materialRef.current.uniforms.u_Direction.value = -1.0 // right → left
       show(indexRef.current - 1)
+    }
+
+    function setDirection(dir) {
+      materialRef.current.uniforms.u_Direction.value = dir
     }
 
     function resize(w, h) {
@@ -215,7 +242,7 @@ const FeaturedCanvas = React.memo(
       materialRef.current.uniforms.u_Mouse.value.set(w * 0.5 * pr, h * 0.5 * pr)
     }
 
-    useImperativeHandle(ref, () => ({ setImages, show, next, prev, resize }), [])
+    useImperativeHandle(ref, () => ({ setImages, show, next, prev, resize, setDirection }), [])
 
     // pointer → uniforms
     function onPointerEnter() {

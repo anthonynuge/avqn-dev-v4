@@ -21,6 +21,7 @@ uniform sampler2D u_Texture02;          // next slide
 uniform float u_TransitionProgress;     // 0..1
 uniform float u_AnimateIn;              // 0..1
 uniform float u_AnimateOut;             // 0..1
+uniform float u_Direction;              // +1.0 = L->R, -1.0 = R->L
 
 uniform float u_TextureScaleIntensityMouse;       // hover-only scale
 uniform float u_TextureScaleIntensityTransition;  // tween-only scale
@@ -104,8 +105,18 @@ void main(){
   vec2 coverUV0 = Cover(scaledUV, u_Resolution, u_ImageSize01);
   vec2 coverUV1 = Cover(scaledUV, u_Resolution, u_ImageSize02);
 
-  // Column-wise crossfade band
-  float fadeMask = (u_TransitionProgress - id / COLS_NUM) * COLS_NUM;
+  // ---- Direction-aware timing ----
+  // Treat u_Direction >= 0.0 as +1 (L->R), < 0.0 as -1 (R->L).
+  float dir = (u_Direction < 0.0) ? -1.0 : 1.0;
+
+  // Normalized column index [0..1] left->right
+  float colNorm = id / (COLS_NUM - 1.0);
+
+  // Directional column position: if dir = -1, flip (right->left)
+  float colNormDir = mix(1.0 - colNorm, colNorm, step(0.0, dir));
+
+  // Column-wise crossfade band, now marching in the chosen direction
+  float fadeMask = (u_TransitionProgress - colNormDir) * COLS_NUM;
   fadeMask = smoothstep(-3.0, 4.0, fadeMask);
 
   vec4 tex0 = texture2D(u_Texture01, coverUV0);
@@ -113,11 +124,18 @@ void main(){
   vec4 finalColor = mix(tex0, tex1, fadeMask);
 
   // In/out masks (at idle these are 1, so they don’t create bands)
-  float delay = 0.03 * id;
-  float inMask  = 1.0 - step(quadraticOut(smoothstep(delay, (1.0 - COLS_NUM * 0.03) + delay, u_AnimateIn))  / COLS_NUM,
-                             fract(vUv.x * COLS_NUM) / COLS_NUM);
-  float outMask =      step(quadraticOut(smoothstep(delay, (1.0 - COLS_NUM * 0.03) + delay, u_AnimateOut)) / COLS_NUM,
-                             fract(vUv.x * COLS_NUM) / COLS_NUM);
+  // Make the per-column delay honor direction as well.
+  float idDir = mix((COLS_NUM - 1.0) - id, id, step(0.0, dir));
+  float delay = 0.03 * idDir;
+
+  float inMask  = 1.0 - step(
+    quadraticOut(smoothstep(delay, (1.0 - COLS_NUM * 0.03) + delay, u_AnimateIn))  / COLS_NUM,
+    fract(vUv.x * COLS_NUM) / COLS_NUM
+  );
+  float outMask = step(
+    quadraticOut(smoothstep(delay, (1.0 - COLS_NUM * 0.03) + delay, u_AnimateOut)) / COLS_NUM,
+    fract(vUv.x * COLS_NUM) / COLS_NUM
+  );
 
   gl_FragColor = finalColor * inMask * outMask;
 }
