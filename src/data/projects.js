@@ -15,11 +15,12 @@ export const getFeaturedProjects = () => {
 export const sampleProjects = [
   {
     id: 'P-01',
+    featured: true,
+    featuredCanvas: '/projects/susan-feat.webp',
     name: 'Susan-AI',
     slug: 'susan-ai',
     type: 'Web Development',
     date: '2025-02-01', // from "Feb 2025 - aprox 3 weeks"
-    featured: true,
     description:
       'ChatGPT-inspired assistant powered by Gemini Flash 2.0. I built it as an AI alternative for times when I ran out of free ChatGPT calls—and because I wanted to create something AI-driven myself. Users can sign up, create an account, and chat, ask questions, or even generate code. Responses are rendered in markdown with built-in syntax highlighting for a clean, readable experience.',
     techStack: {
@@ -198,6 +199,7 @@ export const sampleProjects = [
   {
     id: 'EXP-10-25',
     featured: true,
+    featuredCanvas: '/projects/midnite.webp',
     name: 'Midnite Agency', // company
     slug: 'midnite-agency',
     type: 'Work Experience',
@@ -229,6 +231,7 @@ export const sampleProjects = [
   {
     id: 'E-02',
     featured: true,
+    featuredCanvas: '/projects/ngx-feat.webp',
     name: 'National Grid X',
     slug: 'national-grid-x',
     type: 'Work Experience',
