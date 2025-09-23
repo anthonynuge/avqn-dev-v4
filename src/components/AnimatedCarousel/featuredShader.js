@@ -25,12 +25,12 @@ uniform float u_Direction;              // +1.0 = L->R, -1.0 = R->L
 
 uniform float u_TextureScaleIntensityMouse;       // hover-only scale
 uniform float u_TextureScaleIntensityTransition;  // tween-only scale
-uniform float u_EnableEffect;                      // 0 = clean image, 1 = allow effect
+uniform float u_EnableEffect;                     // 0 = clean image, 1 = allow effect
 
 uniform vec2  u_ImageSize01;            // w,h
 uniform vec2  u_ImageSize02;            // w,h
 
-#define COLS_NUM 24.
+#define COLS_NUM 20.
 #define SCALE_MAX 1.8
 #define PIXELATE_MAX 4.0
 
@@ -65,11 +65,11 @@ float quadraticOut(in float t){ return -t * (t - 2.0); }
 #endif
 
 void main(){
-  // Strict idle path: if the effect is disabled and transition strength is off,
-  // show a pristine image with no column logic at all.
+  // Idle path: pristine image, opaque alpha
   if (u_EnableEffect < 0.5 && u_TextureScaleIntensityTransition <= 0.0001) {
-    vec2 uvCover = Cover(vUv, u_Resolution, u_ImageSize01);
-    gl_FragColor = texture2D(u_Texture01, uvCover);
+    vec2 uvCover = clamp(Cover(vUv, u_Resolution, u_ImageSize01), 0.0, 1.0);
+    vec3 rgb = texture2D(u_Texture01, uvCover).rgb;
+    gl_FragColor = vec4(rgb, 1.0);
     return;
   }
 
@@ -101,30 +101,30 @@ void main(){
   scaledUV.x /= 1.0 + scaleMaskMouse * SCALE_MAX + scaleMaskTransition * 3.0;
   scaledUV.x = scaledUV.x * (0.5 / COLS_NUM) + (0.5 / COLS_NUM) + (1.0 / COLS_NUM * id);
 
-  // Per-texture cover fit
-  vec2 coverUV0 = Cover(scaledUV, u_Resolution, u_ImageSize01);
-  vec2 coverUV1 = Cover(scaledUV, u_Resolution, u_ImageSize02);
+  // Per-texture cover fit (and clamp to avoid sampling outside)
+  vec2 coverUV0 = clamp(Cover(scaledUV, u_Resolution, u_ImageSize01), 0.0, 1.0);
+  vec2 coverUV1 = clamp(Cover(scaledUV, u_Resolution, u_ImageSize02), 0.0, 1.0);
 
-  // ---- Direction-aware timing ----
-  // Treat u_Direction >= 0.0 as +1 (L->R), < 0.0 as -1 (R->L).
+  // Direction-aware timing
   float dir = (u_Direction < 0.0) ? -1.0 : 1.0;
-
-  // Normalized column index [0..1] left->right
   float colNorm = id / (COLS_NUM - 1.0);
-
-  // Directional column position: if dir = -1, flip (right->left)
   float colNormDir = mix(1.0 - colNorm, colNorm, step(0.0, dir));
 
-  // Column-wise crossfade band, now marching in the chosen direction
-  float fadeMask = (u_TransitionProgress - colNormDir) * COLS_NUM;
-  fadeMask = smoothstep(-3.0, 4.0, fadeMask);
+  // Apply crossfade only while transition uniform is active
+  float transActive = step(0.0001, u_TextureScaleIntensityTransition);
+  float fadeBase = (u_TransitionProgress - colNormDir) * COLS_NUM;
+  float fadeMaskT = smoothstep(-3.0, 4.0, fadeBase);
+  float fadeMask = mix(0.0, fadeMaskT, transActive);
 
-  vec4 tex0 = texture2D(u_Texture01, coverUV0);
-  vec4 tex1 = texture2D(u_Texture02, coverUV1);
-  vec4 finalColor = mix(tex0, tex1, fadeMask);
+  vec3 tex0 = texture2D(u_Texture01, coverUV0).rgb;
+  vec3 tex1 = texture2D(u_Texture02, coverUV1).rgb;
+  vec3 blended = mix(tex0, tex1, fadeMask);
 
-  // In/out masks (at idle these are 1, so they don’t create bands)
-  // Make the per-column delay honor direction as well.
+  // In/out masks — only when an in/out is actually running
+  float inActive  = step(0.0001, 1.0 - u_AnimateIn);
+  float outActive = step(0.0001, u_AnimateOut);
+  float ioActive  = max(inActive, outActive);
+
   float idDir = mix((COLS_NUM - 1.0) - id, id, step(0.0, dir));
   float delay = 0.03 * idDir;
 
@@ -136,7 +136,9 @@ void main(){
     quadraticOut(smoothstep(delay, (1.0 - COLS_NUM * 0.03) + delay, u_AnimateOut)) / COLS_NUM,
     fract(vUv.x * COLS_NUM) / COLS_NUM
   );
+  float ioMask  = mix(1.0, inMask * outMask, ioActive);
 
-  gl_FragColor = finalColor * inMask * outMask;
+  vec3 rgb = blended * ioMask;
+  gl_FragColor = vec4(rgb, 1.0);  // keep alpha opaque
 }
 `

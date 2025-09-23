@@ -26,7 +26,8 @@ const FeaturedCanvas = React.memo(
 
     useEffect(() => {
       const mount = mountRef.current
-      const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true })
+      const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: false })
+      renderer.setClearColor(0x000000, 1)
       renderer.outputColorSpace = THREE.SRGBColorSpace
       renderer.setPixelRatio(Math.min(2, window.devicePixelRatio || 1))
       renderer.setSize(1, 1, false)
@@ -61,7 +62,7 @@ const FeaturedCanvas = React.memo(
           // NEW: +1.0 = L->R (next), -1.0 = R->L (prev)
           u_Direction: { value: 1.0 },
         },
-        transparent: true,
+        transparent: false,
       })
       materialRef.current = mat
 
