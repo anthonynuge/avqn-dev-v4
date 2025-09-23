@@ -3,24 +3,24 @@
   grid-template-columns: 2fr;
   grid-template-rows: 10dvh 10dvh 9dvh 33dvh 20dvh;
   grid-template-areas:
-    'header header'
-    'intro intro'
-    'links links'
-    'media media'
-    'specs specs';
+    'h h'
+    'i i'
+    'l l'
+    'f f'
+    's s';
   min-height: calc(
     100vh - var(--nav-h) - var(--footer-h)
   ); /* hero fills screen under fixed nav/footer */
 }
 
 .hero-header {
-  grid-area: header;
+  grid-area: h;
   align-self: end;
   margin-bottom: 1rem;
 }
 
 .hero-intro {
-  grid-area: intro;
+  grid-area: i;
   /* Prevent layout shift during text animation */
   min-height: 1.2em;
   line-height: 1.2;
@@ -42,17 +42,17 @@
 }
 
 .hero-specs {
-  grid-area: specs;
+  grid-area: s;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
 }
 
-.hero-img {
-  grid-area: media;
+.hero-featured {
+  grid-area: f;
 }
 
 .hero-links {
-  grid-area: links;
+  grid-area: l;
   @apply font-mono text-xs uppercase md:space-y-2 md:self-end;
 }
 
@@ -60,9 +60,9 @@
   .hero-grid {
     grid-template-columns: repeat(12, 1fr);
     grid-template-areas:
-      '. intro intro intro . . specs specs specs specs . . '
-      'links . . . . . . media media media media media'
-      'header header header header header header header . . . . .';
+      '. i i i . . s s s s . . '
+      'l . . . . . . f f f f f'
+      'h h h h h h h . . . . .';
     grid-template-rows: auto auto auto;
     align-items: start;
   }
@@ -82,14 +82,14 @@
   } */
 }
 
-.hero-img {
+.hero-featured {
   position: relative;
   width: 100%;
   height: 30dvh;
-  @apply self-start md:self-end;
+  @apply self-start md:self-start;
 }
 
-.mask {
+/* .mask {
   position: absolute;
   width: 100%;
   height: 100%;
@@ -168,22 +168,22 @@
 
 .mask:nth-child(20) {
   clip-path: polygon(95% 0, 95% 0, 95% 100%, 95% 100%);
-}
+} */
 
-.featured-grid {
+/* .featured-grid {
   display: grid;
   grid-template-columns: repeat(12, 1fr);
   grid-template-rows: 200px 300px 300px;
   grid-template-areas:
-    '. . . . . . . . . t t t'
-    'c c c c . i i i i i i i '
+    '. . . . . . . t t t t t'
+    'c c c c . . . i i i i i '
     '. . . . . . . . . . . .';
-}
+} */
 
-.title {
+.featured-slider-title {
   grid-area: t;
   place-self: end;
-  font-size: 4rem;
+  @apply text-accent font-mono text-xl leading-none font-medium uppercase md:text-5xl 2xl:text-6xl;
 }
 
 .links {
@@ -191,14 +191,15 @@
 }
 
 .carousel-control {
+  @apply md:ml-auto md:max-w-1/2;
   grid-area: c;
 }
 
-.carousel-window {
+/* .carousel-window {
   grid-area: i;
   aspect-ratio: 16/9;
   overflow: hidden;
-}
+} */
 
 .carousel-item {
   height: 300px;
