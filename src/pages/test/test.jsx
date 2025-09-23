@@ -19,7 +19,8 @@ export default function ExamplePage() {
 
   useEffect(() => {
     if (!canvasRef.current || !projects?.length) return
-    const urls = projects.map((p) => p?.demos?.[0]?.url).filter(Boolean)
+    // const urls = projects.map((p) => p?.demos?.[0]?.url).filter(Boolean)
+    const urls = projects.map((p) => p?.featuredCanvas).filter(Boolean)
     console.log('urls loaded into canvas:', urls)
     canvasRef.current?.setImages(urls)
   }, [projects])
