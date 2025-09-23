@@ -1,5 +1,5 @@
 import React, { useRef, useEffect, useMemo, useState, useCallback } from 'react'
-import { useGSAP, Observer } from '../../lib/gsapSetup'
+import { useGSAP, Observer, gsap } from '../../lib/gsapSetup'
 import { getFeaturedProjects } from '../../data/projects'
 import FeaturedCanvas from '../../components/AnimatedCarousel/FeaturedCanvas'
 import TransitionLink from '@/components/shared/TransitionLink'
@@ -8,6 +8,7 @@ const FeaturedSlider = () => {
   const scope = useRef(null)
   const canvasRef = useRef(null)
   const wrapRef = useRef(null)
+  const titleRef = useRef(null)
   const [index, setIndex] = useState(0)
 
   useEffect(() => {
@@ -117,10 +118,25 @@ const FeaturedSlider = () => {
     { scope },
   )
 
+  useGSAP(
+    () => {
+      if (!titleRef.current) return
+      gsap.to(titleRef.current, {
+        duration: 0.8,
+        scrambleText: {
+          text: projects[index].name,
+          chars: 'upperAndLowerCase',
+          revealDelay: 0.08,
+        },
+        ease: 'none',
+      })
+    },
+    { scope: scope, dependencies: [index] },
+  )
+
   // Global keyboard events for navigation
   useEffect(() => {
     const onKey = (e) => {
-      console.log('Key pressed:', e.key)
       if (e.key === 'ArrowRight' || e.key === 'ArrowDown') {
         nextRef.current()
       } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
@@ -133,8 +149,18 @@ const FeaturedSlider = () => {
 
   return (
     <div ref={scope} className="">
-      <div className="title text-fluid-title">{projects[index].name}</div>
-      <div className="carousel-control flex h-10 w-64 items-center justify-between self-end">
+      <div ref={titleRef} className="featured-slider-title w-full py-1" />
+      {/* The "window" controls the size; canvas just fills it */}
+      <div
+        ref={wrapRef}
+        className="carousel-window relative aspect-video w-full touch-none overflow-hidden overscroll-contain bg-black select-none"
+      >
+        <TransitionLink to={`/projects/${projects[index].slug}`}>
+          <FeaturedCanvas ref={canvasRef} className="absolute inset-0 h-full w-full" />
+        </TransitionLink>
+      </div>
+
+      <div className="carousel-control flex h-4 w-full items-center justify-between self-end py-4">
         <button onClick={prev} className="text-caption-2 text-accent cursor-pointer">
           Prev
         </button>
@@ -147,16 +173,6 @@ const FeaturedSlider = () => {
         <button onClick={next} className="text-caption-2 text-accent cursor-pointer">
           Next
         </button>
-      </div>
-
-      {/* The "window" controls the size; canvas just fills it */}
-      <div
-        ref={wrapRef}
-        className="carousel-window relative aspect-video w-full touch-none overflow-hidden overscroll-contain bg-black select-none"
-      >
-        <TransitionLink to={`/projects/${projects[index].slug}`}>
-          <FeaturedCanvas ref={canvasRef} className="absolute inset-0 h-full w-full" />
-        </TransitionLink>
       </div>
     </div>
   )
