@@ -1,5 +1,5 @@
-// ExamplePage.js// ExamplePage.jsx
-import React, { useRef, useEffect, useMemo, useState } from 'react'
+// ExamplePage.js// ExamplePage.js// ExamplePage.jsx
+import React, { useRef, useEffect, useMemo, useState, useCallback } from 'react'
 import { useGSAP, Observer } from '../../lib/gsapSetup'
 import { getFeaturedProjects } from '../../data/projects'
 import FeaturedCanvas from '../../components/AnimatedCarousel/FeaturedCanvas'
@@ -14,23 +14,23 @@ export default function ExamplePage() {
     console.log('Test page loaded')
   }, [])
 
-  // Memoize and grab once on load featured projects
+  // Grab featured projects once
   const projects = useMemo(() => getFeaturedProjects(), [])
 
+  // Load images into the canvas once projects are ready
   useEffect(() => {
     if (!canvasRef.current || !projects?.length) return
-    // const urls = projects.map((p) => p?.demos?.[0]?.url).filter(Boolean)
     const urls = projects.map((p) => p?.featuredCanvas).filter(Boolean)
     console.log('urls loaded into canvas:', urls)
     canvasRef.current?.setImages(urls)
   }, [projects])
 
-  // ---- keep FeaturedCanvas backing store in sync with wrapper size ----
+  // Keep FeaturedCanvas backing store in sync with wrapper size
   useEffect(() => {
     if (!wrapRef.current || !canvasRef.current) return
     const el = wrapRef.current
 
-    // initial measure (important so shader has correct resolution on first frame)
+    // initial measure (so shader has correct resolution on first frame)
     const initRect = el.getBoundingClientRect()
     canvasRef.current.resize(Math.round(initRect.width), Math.round(initRect.height))
 
@@ -48,25 +48,89 @@ export default function ExamplePage() {
     return () => ro.disconnect()
   }, [])
 
-  const next = () => {
+  // Navigation helpers
+  const next = useCallback(() => {
     if (!projects?.length) return
     const i = (index + 1) % projects.length
     setIndex(i)
-    // set direction for NEXT (left -> right)
-    canvasRef.current?.setDirection?.(1.0)
+    canvasRef.current?.setDirection?.(1.0) // left → right
     canvasRef.current?.show(i)
-  }
+  }, [projects?.length, index])
 
-  const prev = () => {
+  const prev = useCallback(() => {
     if (!projects?.length) return
     const i = (index - 1 + projects.length) % projects.length
     setIndex(i)
-    // set direction for PREV (right -> left)
-    canvasRef.current?.setDirection?.(-1.0)
+    canvasRef.current?.setDirection?.(-1.0) // right → left
     canvasRef.current?.show(i)
-  }
+  }, [projects?.length, index])
 
-  // set up a gsap context tied to this scope
+  // Store current functions in refs so Observer can access them
+  const nextRef = useRef(next)
+  const prevRef = useRef(prev)
+
+  // Update refs when functions change
+  useEffect(() => {
+    nextRef.current = next
+    prevRef.current = prev
+  }, [next, prev])
+
+  // GSAP Observer: wheel / swipe / drag to navigate
+  useGSAP(
+    () => {
+      if (!scope.current) return
+
+      const TRANSITION_MS = 650 // match FeaturedCanvas tween
+      let locked = false
+      const lock = () => {
+        locked = true
+        setTimeout(() => (locked = false), TRANSITION_MS + 450)
+      }
+
+      const isAnimating = () => canvasRef.current?.isAnimating?.() === true
+
+      const goNext = () => {
+        console.log('locked', locked, ' isAnimating', isAnimating())
+        if (locked || isAnimating()) return
+        nextRef.current() // Use ref to get current function
+        lock()
+      }
+      const goPrev = () => {
+        console.log('locked', locked, ' isAnimating', isAnimating())
+        if (locked || isAnimating()) return
+        prevRef.current() // Use ref to get current function
+        lock()
+      }
+
+      const ob = Observer.create({
+        target: window, // Global scroll events
+        type: 'wheel', // Only wheel events for global scrolling
+        preventDefault: false, // Allow normal page scroll
+        wheelSpeed: 1,
+        tolerance: 10,
+        onDown: goNext, // wheel down = next
+        onUp: goPrev, // wheel up = previous
+      })
+
+      return () => ob.kill()
+    },
+    { scope },
+  )
+
+  // Global keyboard events for navigation
+  useEffect(() => {
+    const onKey = (e) => {
+      console.log('Key pressed:', e.key)
+      if (e.key === 'ArrowRight' || e.key === 'ArrowDown') {
+        nextRef.current()
+      } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
+        prevRef.current()
+      }
+    }
+    window.addEventListener('keydown', onKey)
+    return () => window.removeEventListener('keydown', onKey)
+  }, [])
+
   return (
     <div ref={scope} className="featured-grid fill-offset">
       <div className="title">{index}</div>
@@ -76,11 +140,12 @@ export default function ExamplePage() {
         <button onClick={next}>Next</button>
       </div>
 
+      {/* The "window" controls the size; canvas just fills it */}
       <div
-        className="carousel-window relative aspect-video overflow-hidden bg-yellow-100/40"
         ref={wrapRef}
+        className="carousel-window relative aspect-video w-full touch-none overflow-hidden overscroll-contain bg-black select-none"
       >
-        <FeaturedCanvas ref={canvasRef} />
+        <FeaturedCanvas ref={canvasRef} className="absolute inset-0 h-full w-full" />
       </div>
     </div>
   )
