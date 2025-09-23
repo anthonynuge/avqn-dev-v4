@@ -3,6 +3,7 @@ import React, { useRef, useEffect, useMemo, useState, useCallback } from 'react'
 import { useGSAP, Observer } from '../../lib/gsapSetup'
 import { getFeaturedProjects } from '../../data/projects'
 import FeaturedCanvas from '../../components/AnimatedCarousel/FeaturedCanvas'
+import TransitionLink from '@/components/shared/TransitionLink'
 
 export default function ExamplePage() {
   const scope = useRef(null)
@@ -133,11 +134,20 @@ export default function ExamplePage() {
 
   return (
     <div ref={scope} className="featured-grid fill-offset">
-      <div className="title">{index}</div>
-
-      <div className="carousel-control self-end">
-        <button onClick={prev}>Prev</button>
-        <button onClick={next}>Next</button>
+      <div className="title text-fluid-title">{projects[index].name}</div>
+      <div className="carousel-control flex h-10 w-64 items-center justify-between self-end">
+        <button onClick={prev} className="text-caption-2 text-accent cursor-pointer">
+          Prev
+        </button>
+        {projects.map((_, i) => (
+          <span
+            key={i}
+            className={`${index === i ? 'bg-accent h-5 w-1' : 'bg-accent/50 h-1 w-1 flex-shrink'} transition-all duration-400 ease-in-out`}
+          />
+        ))}
+        <button onClick={next} className="text-caption-2 text-accent cursor-pointer">
+          Next
+        </button>
       </div>
 
       {/* The "window" controls the size; canvas just fills it */}
@@ -145,7 +155,9 @@ export default function ExamplePage() {
         ref={wrapRef}
         className="carousel-window relative aspect-video w-full touch-none overflow-hidden overscroll-contain bg-black select-none"
       >
-        <FeaturedCanvas ref={canvasRef} className="absolute inset-0 h-full w-full" />
+        <TransitionLink to={`/projects/${projects[index].slug}`}>
+          <FeaturedCanvas ref={canvasRef} className="absolute inset-0 h-full w-full" />
+        </TransitionLink>
       </div>
     </div>
   )
