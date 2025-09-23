@@ -4,6 +4,8 @@ import { flicker } from '../../lib/animations/flicker'
 import usePageExit from '../../transition/usePageExit'
 import ProximityGlassImage from '@/components/AnimatedCarousel/ProximityGlass'
 import { useGSAP, gsap } from '../../lib/gsapSetup'
+import LinkButton from '../../components/shared/LinkButton'
+import FeaturedSlider from '@/components/AnimatedCarousel/FeaturedSlider'
 
 const HeroSection = () => {
   const scope = useRef(null)
@@ -18,6 +20,7 @@ const HeroSection = () => {
 
       // Token-aware selectors
       const flickerItems = q('[data-in~="flicker"]')
+      const fadeItems = q('[data-in~="fade"]')
       const scrambleItems = q('[data-in~="scramble"]')
 
       const tl = gsap.timeline({ delay: 1 })
@@ -31,8 +34,11 @@ const HeroSection = () => {
 
       // 3) Reveal + animate scramble group
       if (scrambleItems.length) {
-        tl.set(scrambleItems, { autoAlpha: 1 }, 'in+=1') // tiny offset if you want
+        // tl.set(scrambleItems, { autoAlpha: 1 }, 'in+=1') // tiny offset if you want
         tl.add(scrambleInAll(scrambleItems, { duration: 1, stagger: 0.05 }), '>')
+      }
+      if (fadeItems.length) {
+        tl.add(gsap.to(fadeItems, { autoAlpha: 1, duration: 0.9, stagger: 0.05 }), 'in+=1.9')
       }
     },
     { scope: scope },
@@ -42,13 +48,18 @@ const HeroSection = () => {
   const exitFn = useCallback(() => {
     const root = scope.current
     if (!root) return Promise.resolve()
+
     const items = Array.from(root.querySelectorAll('[data-out="scramble"]'))
-    if (!items.length) return Promise.resolve()
+    const links = Array.from(root.querySelectorAll('[data-out="fade"]'))
+
+    if (!items.length && !links.length) return Promise.resolve()
     return new Promise((resolve) => {
       const tl = gsap.timeline({ onComplete: resolve })
       Array.from(items).forEach((item, i) => {
         tl.add(scrambleOut(item, { duration: 0.8, fade: true }), i * 0.05)
       })
+
+      tl.to(links, { autoAlpha: 0, duration: 0.9, ease: 'power2.inOut' }, 0)
     })
   }, [])
 
@@ -149,25 +160,31 @@ const HeroSection = () => {
         </div>
       </div>
 
-      {/* <ul className="hero-links">
-        <li>
-          <LinkButton to="https://github.com/anthonynuge" external>
+      <div className="hero-links">
+        <LinkButton to="https://github.com/anthonynuge">
+          <span data-in="scramble" data-out="scramble" data-text="GitHub">
             GitHub
-          </LinkButton>
-        </li>
-        <li>
-          <LinkButton to="https://www.linkedin.com/in/anthony-nguyen-02861b331/" external>
+          </span>
+        </LinkButton>
+        <LinkButton to="https://www.linkedin.com/in/anthony-nguyen-02861b331/">
+          <span data-in="scramble" data-out="scramble" data-text="LinkedIn">
             LinkedIn
-          </LinkButton>
-        </li>
-        <li>
-          <LinkButton to="https://www.instagram.com/anthrnee/" external>
+          </span>
+        </LinkButton>
+        <LinkButton to="https://www.instagram.com/anthrnee/">
+          <span data-in="scramble" data-out="scramble" data-text="Instagram">
             Instagram
-          </LinkButton>
-        </li>
-      </ul> */}
+          </span>
+        </LinkButton>
+      </div>
 
-      <div className="hero-img">
+      <div className="hero-featured relative" data-out="fade">
+        <div className="absolute inset-0">
+          <FeaturedSlider />
+        </div>
+      </div>
+
+      {/* <div className="hero-img" data-out="fade">
         <ProximityGlassImage
           src="/images/hero-slide-1.jpg"
           // height="30dvh"
@@ -175,7 +192,7 @@ const HeroSection = () => {
           sigma={10}
           strength={{ zoomPct: 14, stretchXPct: 10, bgPushPct: 0, blurPx: 2.0 }}
         />
-      </div>
+      </div> */}
     </section>
   )
 }
