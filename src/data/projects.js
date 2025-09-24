@@ -198,7 +198,7 @@ export const sampleProjects = [
 
   {
     id: 'E-01',
-    featured: true,
+    // featured: true,
     featuredCanvas: '/projects/midnite.webp',
     name: 'Midnite Agency', // company
     slug: 'midnite-agency',
@@ -231,7 +231,7 @@ export const sampleProjects = [
   {
     id: 'E-02',
     featured: true,
-    featuredCanvas: '/projects/ngx-feat.webp',
+    featuredCanvas: '/projects/ngx-cover.webp',
     name: 'National Grid X',
     slug: 'national-grid-x',
     type: 'Work Experience',
@@ -324,6 +324,8 @@ export const sampleProjects = [
   {
     id: 'P-08',
     name: 'Tryal',
+    featured: true,
+    featuredCanvas: '/projects/tryal-cover.webp',
     slug: 'tryal',
     type: 'Web App / SaaS',
     date: '2025-06-01', // update to your launch/start date
@@ -342,7 +344,11 @@ export const sampleProjects = [
       'Responsive Dashboard UX',
     ],
     cover: '/projects/bd-5.webp',
-    demos: [{ url: '/projects/tryal-mock.webp' }],
+    demos: [
+      { url: '/projects/tryal-demo.webm', video: true, overlay: true },
+      { url: '/projects/tryal-mock.webp' },
+      { url: '/projects/tryal-cover.webp' },
+    ],
     liveUrl: '', // e.g. 'https://tryal.app'
     githubUrl: '', // e.g. 'https://github.com/you/tryal'
   },
