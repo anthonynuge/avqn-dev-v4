@@ -3,6 +3,7 @@ import { useGSAP, Observer, gsap } from '../../lib/gsapSetup'
 import { getFeaturedProjects } from '../../data/projects'
 import FeaturedCanvas from '../../components/AnimatedCarousel/FeaturedCanvas'
 import TransitionLink from '@/components/shared/TransitionLink'
+import RevealMask from './RevealMask'
 
 const FeaturedSlider = () => {
   const scope = useRef(null)
@@ -10,6 +11,7 @@ const FeaturedSlider = () => {
   const wrapRef = useRef(null)
   const titleRef = useRef(null)
   const [index, setIndex] = useState(0)
+  const [showIntro, setShowIntro] = useState(true)
 
   useEffect(() => {
     console.log('FeaturedSlider loaded')
@@ -133,7 +135,6 @@ const FeaturedSlider = () => {
     },
     { scope: scope, dependencies: [index] },
   )
-
   // Global keyboard events for navigation
   useEffect(() => {
     const onKey = (e) => {
@@ -153,11 +154,13 @@ const FeaturedSlider = () => {
       {/* The "window" controls the size; canvas just fills it */}
       <div
         ref={wrapRef}
-        className="carousel-window relative aspect-video w-full touch-none overflow-hidden overscroll-contain bg-black select-none"
+        className="carousel-window relative aspect-video w-full touch-none overflow-hidden overscroll-contain select-none"
       >
         <TransitionLink to={`/projects/${projects[index].slug}`}>
           <FeaturedCanvas ref={canvasRef} className="absolute inset-0 h-full w-full" />
         </TransitionLink>
+
+        {showIntro && <RevealMask slices={20} delay={2} onDone={() => setShowIntro(false)} />}
       </div>
 
       <div className="carousel-control flex h-4 w-full items-center justify-between self-end py-4">
