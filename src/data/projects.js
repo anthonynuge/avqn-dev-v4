@@ -32,7 +32,7 @@ export const sampleProjects = [
       'AI-Powered Chat',
       'User Authentication',
       'Code Generation',
-      'Syntax Higlighting',
+      'Syntax Highlighting',
       'Gemini Integration',
       'Responsive Design',
     ],
@@ -151,7 +151,7 @@ export const sampleProjects = [
     features: [
       'Proposal & Budgeting',
       'Data processing & NLP',
-      'Trend Analyis & Visulaization',
+      'Trend Analysis & Visualization',
       'Model Training & Evaluation',
     ],
     demos: [
@@ -197,7 +197,7 @@ export const sampleProjects = [
   },
 
   {
-    id: 'EXP-10-25',
+    id: 'E-01',
     featured: true,
     featuredCanvas: '/projects/midnite.webp',
     name: 'Midnite Agency', // company
@@ -293,7 +293,7 @@ export const sampleProjects = [
     ],
   },
   {
-    id: 'P-02',
+    id: 'P-07',
     name: 'NGX Token',
     slug: 'ngx-token',
     type: 'Blockchain / Web3',
@@ -322,7 +322,7 @@ export const sampleProjects = [
     ],
   },
   {
-    id: 'P-03',
+    id: 'P-08',
     name: 'Tryal',
     slug: 'tryal',
     type: 'Web App / SaaS',
@@ -397,7 +397,7 @@ export const initialFilters = {
     'Node.js': false,
     Express: false,
     Python: false,
-    'Apprwrite (Auth, Database)': false,
+    'Appwrite (Auth, Database)': false,
     'Gemini API': false,
     TensorFlow: false,
     'Scikit-Learn': false,
