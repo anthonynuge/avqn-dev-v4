@@ -2,7 +2,6 @@ import { useRef, useCallback } from 'react'
 import { scrambleOut, scrambleInAll } from '../../lib/animations/scramble'
 import { flicker } from '../../lib/animations/flicker'
 import usePageExit from '../../transition/usePageExit'
-import ProximityGlassImage from '@/components/AnimatedCarousel/ProximityGlass'
 import { useGSAP, gsap } from '../../lib/gsapSetup'
 import LinkButton from '../../components/shared/LinkButton'
 import FeaturedSlider from '@/components/AnimatedCarousel/FeaturedSlider'
@@ -183,16 +182,6 @@ const HeroSection = () => {
           <FeaturedSlider />
         </div>
       </div>
-
-      {/* <div className="hero-img" data-out="fade">
-        <ProximityGlassImage
-          src="/images/hero-slide-1.jpg"
-          // height="30dvh"
-          slices={20}
-          sigma={10}
-          strength={{ zoomPct: 14, stretchXPct: 10, bgPushPct: 0, blurPx: 2.0 }}
-        />
-      </div> */}
     </section>
   )
 }
