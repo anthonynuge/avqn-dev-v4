@@ -16,7 +16,7 @@ export const sampleProjects = [
   {
     id: 'P-01',
     featured: true,
-    featuredCanvas: '/projects/susan-feat.webp',
+    featuredCanvas: '/projects/susan-feat-cropped.webp',
     name: 'Susan-AI',
     slug: 'susan-ai',
     type: 'Web Development',
@@ -231,7 +231,7 @@ export const sampleProjects = [
   {
     id: 'E-02',
     featured: true,
-    featuredCanvas: '/projects/ngx-cover.webp',
+    featuredCanvas: '/projects/ngx-feat-cropped.webp',
     name: 'National Grid X',
     slug: 'national-grid-x',
     type: 'Work Experience',
@@ -325,7 +325,7 @@ export const sampleProjects = [
     id: 'P-08',
     name: 'Tryal',
     featured: true,
-    featuredCanvas: '/projects/tryal-cover.webp',
+    featuredCanvas: '/projects/tryal-feat-cropped.webp',
     slug: 'tryal',
     type: 'Web App / SaaS',
     date: '2025-06-01', // update to your launch/start date
