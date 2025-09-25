@@ -5,6 +5,7 @@ import Home from '@pages/home/Home'
 import ProjectIndex from '@pages/projects/ProjectIndex'
 import ProjectDetail from '@pages/projects/ProjectDetail'
 import Test from '@pages/test/test'
+import About from '@pages/about/About'
 import { TransitionProvider } from '@/transition/TransitionProvider'
 
 export const router = createBrowserRouter([
@@ -27,6 +28,10 @@ export const router = createBrowserRouter([
       {
         path: 'test',
         element: <Test />,
+      },
+      {
+        path: 'about',
+        element: <About />,
       },
       // { path: "*", element: <NotFound /> },
     ],
