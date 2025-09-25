@@ -137,7 +137,7 @@ const FeaturedCanvas = React.memo(
               loader.load(
                 src,
                 (tex) => {
-                  tex.colorSpace = THREE.SRGBColorSpace
+                  tex.colorSpace = THREE.NoColorSpace
                   tex.generateMipmaps = true
                   tex.minFilter = THREE.LinearMipmapLinearFilter
                   tex.magFilter = THREE.LinearFilter
