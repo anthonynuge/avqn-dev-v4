@@ -31,6 +31,13 @@ const FeaturedCanvas = React.memo(
       renderer.outputColorSpace = THREE.SRGBColorSpace
       renderer.setPixelRatio(Math.min(2, window.devicePixelRatio || 1))
       renderer.setSize(1, 1, false)
+
+      // Ensure canvas has proper CSS sizing
+      const canvas = renderer.domElement
+      canvas.style.width = '100%'
+      canvas.style.height = '100%'
+      canvas.style.display = 'block'
+
       rendererRef.current = renderer
 
       const scene = new THREE.Scene()
@@ -76,22 +83,21 @@ const FeaturedCanvas = React.memo(
         mat.uniforms.u_TransitionProgress.value = uTransitionRef.current
         mat.uniforms.u_AnimateIn.value = uAnimateInRef.current
 
-        // keep resolution = CSS * DPR
-        const pr = renderer.getPixelRatio()
+        // keep resolution = actual canvas size (not CSS size)
         const { w, h } = sizeRef.current
-        mat.uniforms.u_Resolution.value.set(w * pr, h * pr)
+        mat.uniforms.u_Resolution.value.set(w, h)
 
         renderer.render(scene, cam)
       }
       rafRef.current = requestAnimationFrame(tick)
 
       // optional: prevent default on context loss
-      const canvas = renderer.domElement
+      const canvasElement = renderer.domElement
       const onLost = (e) => e.preventDefault()
-      canvas.addEventListener('webglcontextlost', onLost, false)
+      canvasElement.addEventListener('webglcontextlost', onLost, false)
 
       return () => {
-        canvas.removeEventListener('webglcontextlost', onLost, false)
+        canvasElement.removeEventListener('webglcontextlost', onLost, false)
         if (rafRef.current) cancelAnimationFrame(rafRef.current)
         if (mount && renderer.domElement.parentNode === mount) {
           mount.removeChild(renderer.domElement)
@@ -138,7 +144,7 @@ const FeaturedCanvas = React.memo(
                 src,
                 (tex) => {
                   tex.colorSpace = THREE.NoColorSpace
-                  tex.generateMipmaps = true
+                  // tex.generateMipmaps = true
                   tex.minFilter = THREE.LinearMipmapLinearFilter
                   tex.magFilter = THREE.LinearFilter
                   // light anisotropy if available
@@ -236,11 +242,17 @@ const FeaturedCanvas = React.memo(
       sizeRef.current = { w, h }
       const renderer = rendererRef.current
       if (!renderer) return
+
+      // Set the display size (CSS pixels)
       renderer.setSize(w, h, false)
 
+      // Update the drawing buffer size (actual pixels) to match display size
+      const canvas = renderer.domElement
+      canvas.style.width = w + 'px'
+      canvas.style.height = h + 'px'
+
       // recenter mouse (keeps masks stable after resize)
-      const pr = renderer.getPixelRatio()
-      materialRef.current.uniforms.u_Mouse.value.set(w * 0.5 * pr, h * 0.5 * pr)
+      materialRef.current.uniforms.u_Mouse.value.set(w * 0.5, h * 0.5)
     }
 
     useImperativeHandle(ref, () => ({ setImages, show, next, prev, resize, setDirection }), [])
@@ -258,16 +270,16 @@ const FeaturedCanvas = React.memo(
       if (!pt) return
       const xCss = pt.clientX - rect.left
       const yCss = pt.clientY - rect.top
-      const dpr = renderer.getPixelRatio()
-      materialRef.current.uniforms.u_Mouse.value.set(xCss * dpr, (rect.height - yCss) * dpr)
+      // Use CSS coordinates directly since we're now using CSS resolution
+      materialRef.current.uniforms.u_Mouse.value.set(xCss, rect.height - yCss)
     }
     function onPointerLeave() {
       const renderer = rendererRef.current
       if (!renderer) return
       materialRef.current.uniforms.u_EnableEffect.value = 0.0
-      const dpr = renderer.getPixelRatio()
       const { w, h } = sizeRef.current
-      materialRef.current.uniforms.u_Mouse.value.set(w * 0.5 * dpr, h * 0.5 * dpr)
+      // Use CSS coordinates directly
+      materialRef.current.uniforms.u_Mouse.value.set(w * 0.5, h * 0.5)
     }
 
     return (
