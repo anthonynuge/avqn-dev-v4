@@ -39,12 +39,13 @@ const PlaygroundSection = () => {
             </div>
             <h3 className="text-accent">{project.title}</h3>
             <p className="text-caption-2">{project.description}</p>
-            <div className="bg-accent/30 relative mt-2 h-px w-full">
+            <div className="bg-accent/30 relative mt-2 h-px w-full"></div>
+            {/* <div className="bg-accent/30 relative mt-2 h-px w-full">
               <span
                 aria-hidden
                 className="bg-accent absolute top-0 left-0 block h-px w-full origin-left scale-x-0 transition-transform duration-500 ease-out group-focus-within:scale-x-100 group-hover:scale-x-100 motion-reduce:transition-none"
               />
-            </div>
+            </div> */}
           </div>
         ))}
       </div>
