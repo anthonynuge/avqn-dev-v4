@@ -1,12 +1,12 @@
+import { lazy } from 'react'
 import { createBrowserRouter } from 'react-router'
-
 import AppLayout from '@components/layout/AppLayout'
-import Home from '@pages/home/Home'
-import ProjectIndex from '@pages/projects/ProjectIndex'
-import ProjectDetail from '@pages/projects/ProjectDetail'
-import Test from '@pages/test/test'
-import About from '@pages/about/About'
 import { TransitionProvider } from '@/transition/TransitionProvider'
+
+import Home from '@pages/home/Home'
+const About = lazy(() => import('@pages/about/About'))
+const ProjectIndex = lazy(() => import('@pages/projects/ProjectIndex'))
+const ProjectDetail = lazy(() => import('@pages/projects/ProjectDetail'))
 
 export const router = createBrowserRouter([
   {
@@ -26,14 +26,9 @@ export const router = createBrowserRouter([
         element: <ProjectDetail />,
       },
       {
-        path: 'test',
-        element: <Test />,
-      },
-      {
         path: 'about',
         element: <About />,
       },
-      // { path: "*", element: <NotFound /> },
     ],
   },
 ])
