@@ -13,10 +13,6 @@ const FeaturedSlider = () => {
   const [index, setIndex] = useState(0)
   const [showIntro, setShowIntro] = useState(true)
 
-  useEffect(() => {
-    console.log('FeaturedSlider loaded')
-  }, [])
-
   // Grab featured projects once
   const projects = useMemo(() => getFeaturedProjects(), [])
 
