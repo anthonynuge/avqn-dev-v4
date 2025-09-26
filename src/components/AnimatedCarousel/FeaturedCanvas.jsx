@@ -1,6 +1,19 @@
 'use client'
 import React, { useEffect, useImperativeHandle, useRef } from 'react'
-import * as THREE from 'three'
+import {
+  WebGLRenderer,
+  SRGBColorSpace,
+  Scene,
+  OrthographicCamera,
+  PlaneGeometry,
+  ShaderMaterial,
+  Vector2,
+  Mesh,
+  TextureLoader,
+  NoColorSpace,
+  LinearMipmapLinearFilter,
+  LinearFilter,
+} from 'three'
 import { VERT, FRAG } from './featuredShader'
 
 const FeaturedCanvas = React.memo(
@@ -9,7 +22,7 @@ const FeaturedCanvas = React.memo(
     const rendererRef = useRef(null)
     const materialRef = useRef(null)
 
-    const loaderRef = useRef(new THREE.TextureLoader().setCrossOrigin('anonymous'))
+    const loaderRef = useRef(new TextureLoader().setCrossOrigin('anonymous'))
     const texturesRef = useRef([])
     const imageSizesRef = useRef([])
     const indexRef = useRef(0)
@@ -26,9 +39,9 @@ const FeaturedCanvas = React.memo(
 
     useEffect(() => {
       const mount = mountRef.current
-      const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: false })
+      const renderer = new WebGLRenderer({ alpha: false })
       renderer.setClearColor(0x000000, 1)
-      renderer.outputColorSpace = THREE.SRGBColorSpace
+      renderer.outputColorSpace = SRGBColorSpace
       renderer.setPixelRatio(Math.min(2, window.devicePixelRatio || 1))
       renderer.setSize(1, 1, false)
 
@@ -40,16 +53,16 @@ const FeaturedCanvas = React.memo(
 
       rendererRef.current = renderer
 
-      const scene = new THREE.Scene()
-      const cam = new THREE.OrthographicCamera(-1, 1, 1, -1, 0, 1)
+      const scene = new Scene()
+      const cam = new OrthographicCamera(-1, 1, 1, -1, 0, 1)
 
-      const geo = new THREE.PlaneGeometry(2, 2)
-      const mat = new THREE.ShaderMaterial({
+      const geo = new PlaneGeometry(2, 2)
+      const mat = new ShaderMaterial({
         vertexShader: VERT,
         fragmentShader: FRAG,
         uniforms: {
-          u_Resolution: { value: new THREE.Vector2(1, 1) },
-          u_Mouse: { value: new THREE.Vector2(0, 0) },
+          u_Resolution: { value: new Vector2(1, 1) },
+          u_Mouse: { value: new Vector2(0, 0) },
 
           u_Texture01: { value: null },
           u_Texture02: { value: null },
@@ -63,8 +76,8 @@ const FeaturedCanvas = React.memo(
           u_TextureScaleIntensityTransition: { value: 0.0 },
           u_EnableEffect: { value: 0.0 },
 
-          u_ImageSize01: { value: new THREE.Vector2(2182, 558) },
-          u_ImageSize02: { value: new THREE.Vector2(2182, 558) },
+          u_ImageSize01: { value: new Vector2(2182, 558) },
+          u_ImageSize02: { value: new Vector2(2182, 558) },
 
           // NEW: +1.0 = L->R (next), -1.0 = R->L (prev)
           u_Direction: { value: 1.0 },
@@ -73,7 +86,7 @@ const FeaturedCanvas = React.memo(
       })
       materialRef.current = mat
 
-      const mesh = new THREE.Mesh(geo, mat)
+      const mesh = new Mesh(geo, mat)
       scene.add(mesh)
       mount.appendChild(renderer.domElement)
 
@@ -143,10 +156,10 @@ const FeaturedCanvas = React.memo(
               loader.load(
                 src,
                 (tex) => {
-                  tex.colorSpace = THREE.NoColorSpace
+                  tex.colorSpace = NoColorSpace
                   // tex.generateMipmaps = true
-                  tex.minFilter = THREE.LinearMipmapLinearFilter
-                  tex.magFilter = THREE.LinearFilter
+                  tex.minFilter = LinearMipmapLinearFilter
+                  tex.magFilter = LinearFilter
                   // light anisotropy if available
                   const maxAniso = rendererRef.current?.capabilities.getMaxAnisotropy?.() ?? 0
                   if (maxAniso && 'anisotropy' in tex) tex.anisotropy = Math.min(4, maxAniso)
@@ -161,14 +174,14 @@ const FeaturedCanvas = React.memo(
 
       texturesRef.current = loaded
       imageSizesRef.current = loaded.map(
-        (t) => new THREE.Vector2(t.image?.width || 2182, t.image?.height || 558),
+        (t) => new Vector2(t.image?.width || 2182, t.image?.height || 558),
       )
       indexRef.current = 0
 
       const mat = materialRef.current
       const texA = texturesRef.current[0] || null
       const texB = texturesRef.current[1] || texA
-      const sizeA = imageSizesRef.current[0] || new THREE.Vector2(2182, 558)
+      const sizeA = imageSizesRef.current[0] || new Vector2(2182, 558)
       const sizeB = imageSizesRef.current[1] || sizeA
 
       mat.uniforms.u_Texture01.value = texA
@@ -185,7 +198,7 @@ const FeaturedCanvas = React.memo(
       const mat = materialRef.current
       mat.uniforms.u_Texture01.value = texturesRef.current[newIndex]
       mat.uniforms.u_ImageSize01.value.copy(
-        imageSizesRef.current[newIndex] || new THREE.Vector2(2182, 558),
+        imageSizesRef.current[newIndex] || new Vector2(2182, 558),
       )
       uTransitionRef.current = 0
 
@@ -209,9 +222,7 @@ const FeaturedCanvas = React.memo(
 
       const mat = materialRef.current
       mat.uniforms.u_Texture02.value = texturesRef.current[target]
-      mat.uniforms.u_ImageSize02.value.copy(
-        imageSizesRef.current[target] || new THREE.Vector2(2182, 558),
-      )
+      mat.uniforms.u_ImageSize02.value.copy(imageSizesRef.current[target] || new Vector2(2182, 558))
 
       // enable transition-only influence during tween
       mat.uniforms.u_TextureScaleIntensityTransition.value = 1.0
