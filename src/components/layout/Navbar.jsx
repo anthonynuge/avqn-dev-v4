@@ -17,7 +17,7 @@ function NavItem({ to, children }) {
 
 const Navbar = () => {
   return (
-    <header className="inner sticky top-0 z-50 flex w-full justify-between pt-2 md:pt-4">
+    <header className="inner sticky top-0 z-50 flex w-full justify-between pt-2 md:pt-3">
       <Link to="/">
         <svg
           width="160"
@@ -38,7 +38,7 @@ const Navbar = () => {
       <div className="block md:hidden"></div>
 
       <nav className="hidden md:block">
-        <ul className="nav-link">
+        <ul className="nav-link space-y-[0.5px]">
           <li>
             <NavItem to="/projects">Projects</NavItem>
           </li>
@@ -46,7 +46,9 @@ const Navbar = () => {
             <NavItem to="/about">About</NavItem>
           </li>
           <li>
-            <NavItem to="/contact">Contact</NavItem>
+            <a href="/resume.pdf" download>
+              Resume
+            </a>
           </li>
         </ul>
       </nav>
