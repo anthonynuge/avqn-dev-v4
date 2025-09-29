@@ -1,17 +1,81 @@
-import React, { useRef, useEffect, useMemo, useState, useCallback } from 'react'
+import React, {
+  useRef,
+  useEffect,
+  useMemo,
+  useState,
+  useCallback,
+  forwardRef,
+  useImperativeHandle,
+} from 'react'
 import { useGSAP, Observer, gsap } from '../../lib/gsapSetup'
 import { getFeaturedProjects } from '../../data/projects'
 import FeaturedCanvas from '../../components/AnimatedCarousel/FeaturedCanvas'
 import TransitionLink from '@/components/shared/TransitionLink'
 import RevealMask from './RevealMask'
 
-const FeaturedSlider = () => {
+const FeaturedSlider = forwardRef(function FeaturedSlider(props, ref) {
   const scope = useRef(null)
   const canvasRef = useRef(null)
   const wrapRef = useRef(null)
   const titleRef = useRef(null)
   const [index, setIndex] = useState(0)
   const [showIntro, setShowIntro] = useState(true)
+
+  const armedRef = useRef(false)
+  const revealMaskRef = useRef(null)
+
+  useImperativeHandle(ref, () => ({
+    playEnter: ({ titleText } = {}) => {
+      // do the first scramble immediately…
+      const text = titleText ?? projects[index]?.name ?? ''
+      if (titleRef.current && text) {
+        // start hidden/blank to avoid any flash
+        titleRef.current.textContent = ''
+        gsap.set(titleRef.current, { opacity: 0 })
+        const tl = gsap
+          .timeline()
+          .to(titleRef.current, { opacity: 1, duration: 0.35, ease: 'power2.out' }, 0)
+          .to(
+            titleRef.current,
+            {
+              duration: 1.1,
+              immediateRender: false,
+              scrambleText: { text, chars: 'upperAndLowerCase', revealDelay: 0.08 },
+              ease: 'none',
+            },
+            0,
+          )
+          .add(revealMaskRef.current.play(), 0)
+
+        // …and arm future auto-scrambles
+        armedRef.current = true
+        return tl
+      }
+    },
+  }))
+
+  useGSAP(
+    () => {
+      if (!armedRef.current || !titleRef.current) return
+      const text = projects[index]?.name ?? ''
+      if (!text) return
+
+      gsap
+        .timeline()
+        .to(titleRef.current, { opacity: 1, duration: 0.2, ease: 'power2.out' }, 0)
+        .to(
+          titleRef.current,
+          {
+            duration: 1.1,
+            immediateRender: false,
+            scrambleText: { text, chars: 'upperAndLowerCase', revealDelay: 0.08 },
+            ease: 'none',
+          },
+          0,
+        )
+    },
+    { scope: titleRef, dependencies: [index, armedRef] },
+  )
 
   // Grab featured projects once
   const projects = useMemo(() => getFeaturedProjects(), [])
@@ -20,7 +84,6 @@ const FeaturedSlider = () => {
   useEffect(() => {
     if (!canvasRef.current || !projects?.length) return
     const urls = projects.map((p) => p?.featuredCanvas).filter(Boolean)
-    console.log('urls loaded into canvas:', urls)
     canvasRef.current?.setImages(urls)
   }, [projects])
 
@@ -116,21 +179,6 @@ const FeaturedSlider = () => {
     { scope },
   )
 
-  useGSAP(
-    () => {
-      if (!titleRef.current) return
-      gsap.to(titleRef.current, {
-        duration: 0.8,
-        scrambleText: {
-          text: projects[index].name,
-          chars: 'upperAndLowerCase',
-          revealDelay: 0.08,
-        },
-        ease: 'none',
-      })
-    },
-    { scope: scope, dependencies: [index] },
-  )
   // Global keyboard events for navigation
   useEffect(() => {
     const onKey = (e) => {
@@ -155,26 +203,38 @@ const FeaturedSlider = () => {
         <TransitionLink to={`/projects/${projects[index].slug}`}>
           <FeaturedCanvas ref={canvasRef} className="absolute inset-0 h-full w-full" />
         </TransitionLink>
-
-        {showIntro && <RevealMask slices={20} delay={2} onDone={() => setShowIntro(false)} />}
+        {showIntro && (
+          <RevealMask
+            ref={revealMaskRef}
+            slices={20}
+            delay={2}
+            onDone={() => setShowIntro(false)}
+          />
+        )}
       </div>
 
       <div className="carousel-control flex h-4 w-full items-center justify-between self-end py-4">
         <button onClick={prev} className="text-caption-2 text-accent cursor-pointer">
-          Prev
+          <span data-in="scramble" data-text="Prev">
+            Prev
+          </span>
         </button>
         {projects.map((_, i) => (
           <span
             key={i}
-            className={`${index === i ? 'bg-accent h-5 w-1' : 'bg-accent/50 h-1 w-1 flex-shrink'} transition-all duration-400 ease-in-out`}
+            className={`${index === i ? 'bg-accent h-5 w-1' : 'bg-accent/50 h-1 w-1 flex-shrink'} opacity-0 transition-all duration-400 ease-in-out`}
+            data-in="fade"
+            data-out="fade"
           />
         ))}
         <button onClick={next} className="text-caption-2 text-accent cursor-pointer">
-          Next
+          <span data-in="scramble" data-text="Next">
+            Next
+          </span>
         </button>
       </div>
     </div>
   )
-}
+})
 
 export default React.memo(FeaturedSlider)

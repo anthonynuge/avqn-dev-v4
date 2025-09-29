@@ -8,6 +8,7 @@ import FeaturedSlider from '@/components/AnimatedCarousel/FeaturedSlider'
 
 const HeroSection = () => {
   const scope = useRef(null)
+  const sliderRef = useRef(null)
 
   // Entry animation — runs on mount, auto-reverts on unmount
   useGSAP(
@@ -16,7 +17,6 @@ const HeroSection = () => {
 
       // 1) Hide everything marked for entry right away (prevents FOUC)
       gsap.set(q('[data-in]'), { autoAlpha: 0 })
-
       // Token-aware selectors
       const flickerItems = q('[data-in~="flicker"]')
       const fadeItems = q('[data-in~="fade"]')
@@ -39,6 +39,7 @@ const HeroSection = () => {
       if (fadeItems.length) {
         tl.add(gsap.to(fadeItems, { autoAlpha: 1, duration: 0.9, stagger: 0.05 }), 'in+=1.9')
       }
+      tl.add(() => sliderRef.current.playEnter(), 'in+=1.9')
     },
     { scope: scope },
   )
@@ -179,7 +180,7 @@ const HeroSection = () => {
 
       <div className="hero-featured relative" data-out="fade">
         <div className="absolute inset-0">
-          <FeaturedSlider />
+          <FeaturedSlider ref={sliderRef} />
         </div>
       </div>
     </section>
