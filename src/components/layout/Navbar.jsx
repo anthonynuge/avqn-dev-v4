@@ -20,7 +20,7 @@ function NavItem({ to, children, onClick }) {
 const navItems = [
   { to: '/projects', label: 'Projects' },
   { to: '/about', label: 'About' },
-  { to: '/resume.pdf', label: 'Resume', download: true },
+  { to: '/resume-10-2025.pdf', label: 'Resume', download: true },
 ]
 
 const socialLinks = [

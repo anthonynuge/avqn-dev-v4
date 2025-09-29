@@ -191,7 +191,7 @@ const About = () => {
         </div>
 
         <a
-          href="/resume.pdf"
+          href="/resume-10-2025.pdf"
           download
           className="bg-accent text-bg hover:bg-accent/80 col-span-2 inline-flex w-full items-center justify-center gap-2 rounded-sm px-1 py-1 font-mono text-xs uppercase transition-colors"
           data-cta
