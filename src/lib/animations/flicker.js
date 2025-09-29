@@ -1,10 +1,9 @@
-// src/lib/flickerTween.js
+// path: src/lib/animations/flicker.js
 import { gsap } from '../gsapSetup'
 
 /**
- * Spaceship boot flicker for headings.
- * - Boot surge: fade in from bright+blur to crisp
- * - Random blips: brief dim/bright hiccups
+ * Spaceship boot flicker for headings/paragraphs.
+ * Now uses autoAlpha so visibility is handled (prevents hidden-but-opaque issue).
  */
 export function flicker(
   target,
@@ -17,23 +16,39 @@ export function flicker(
     jitterGlow = true, // tiny surge on blips
   } = {},
 ) {
-  //   if (window.matchMedia?.('(prefers-reduced-motion: reduce)').matches) {
-  //     gsap.set(target, { opacity: 1, filter: 'none' })
-  //     return gsap.delayedCall(0, () => {})
-  //   }
+  if (!target) return gsap.timeline()
+
+  // Reduced motion: simple fade in (still respects autoAlpha)
+  if (window.matchMedia?.('(prefers-reduced-motion: reduce)').matches) {
+    return gsap
+      .timeline()
+      .fromTo(
+        target,
+        { autoAlpha: 0 },
+        {
+          autoAlpha: 1,
+          duration: Math.max(boot, 0.3),
+          ease: 'power2.out',
+          clearProps: 'visibility',
+        },
+      )
+  }
 
   const tl = gsap.timeline()
 
-  // Power-on: from bright + blur to crisp
+  // Prep compositing for smoother flicker; cleared at the end.
+  gsap.set(target, { willChange: 'opacity, filter' })
+
+  // Power-on: bright + blur -> crisp, and ensure visibility flips on
   tl.fromTo(
     target,
-    { opacity: 0, filter: `brightness(${surge}) blur(${blur}px)` },
-    { opacity: 1, filter: 'brightness(1) blur(0px)', duration: boot, ease: 'power2.out' },
+    { autoAlpha: 0, filter: `brightness(${surge}) blur(${blur}px)` },
+    { autoAlpha: 1, filter: 'brightness(1) blur(0px)', duration: boot, ease: 'power2.out' },
   )
 
-  // Random micro-blips during the first couple seconds
+  // Random micro-blips during the window
   for (let i = 0; i < blips; i++) {
-    const at = gsap.utils.random(boot * 0.2, duration - 0.1)
+    const at = gsap.utils.random(boot * 0.2, Math.max(duration - 0.1, boot))
     const low = gsap.utils.random(0.25, 0.7)
 
     // dip opacity briefly, yoyo back
@@ -53,8 +68,17 @@ export function flicker(
     }
   }
 
-  // settle clean
-  tl.to(target, { opacity: 1, filter: 'none', duration: 0.2 }, duration)
+  // Settle clean: visible, no filters, drop perf hints
+  tl.to(
+    target,
+    {
+      autoAlpha: 1,
+      filter: 'none',
+      duration: 0.2,
+      clearProps: 'filter,willChange,visibility', // keep opacity as-is; remove visibility override
+    },
+    duration,
+  )
 
   return tl
 }
