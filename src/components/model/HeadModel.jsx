@@ -1,11 +1,22 @@
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useImperativeHandle, forwardRef } from 'react'
 import * as THREE from 'three'
-import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js'
 import { AsciiEffect } from 'three/examples/jsm/effects/AsciiEffect.js'
 
-export default function HeadModel() {
+const HeadModel = forwardRef(function HeadModel({ onReady }, ref) {
   const containerRef = useRef(null)
+  const cameraRef = useRef(null)
+  const modelRef = useRef(null)
+
+  // Expose LIVE getters so parent always sees latest values
+  useImperativeHandle(ref, () => ({
+    get camera() {
+      return cameraRef.current
+    },
+    get model() {
+      return modelRef.current
+    },
+  }))
 
   useEffect(() => {
     const container = containerRef.current
@@ -47,8 +58,6 @@ export default function HeadModel() {
     effect.domElement.style.height = '100%'
     effect.domElement.style.fontWeight = 'bold'
 
-    console.log('ASCII effect created')
-
     // ASCII effect ready to render
 
     // Put ASCII layer in the container
@@ -60,9 +69,10 @@ export default function HeadModel() {
     scene.background = null // Transparent background so only model shows ASCII
     const camera = new THREE.PerspectiveCamera(45, w / h, 0.1, 100)
     camera.position.set(0, 0, 2) // Better position for viewing
+    cameraRef.current = camera
 
     // Controls (bind to ASCII's element so pointer events work)
-    const controls = new OrbitControls(camera, effect.domElement)
+    // const controls = new OrbitControls(camera, effect.domElement)
 
     // Lights - brighter lighting for better ASCII visibility
     scene.add(new THREE.HemisphereLight(0xffffff, 0x444444, 1.0))
@@ -81,11 +91,10 @@ export default function HeadModel() {
     loader.load(
       '/wolf-cut-mesh.glb',
       (g) => {
-        console.log('Model loaded successfully:', g)
-        // Remove test geometry
-        // scene.remove(testMesh)
-
         model = g.scene
+        model.rotation.y = Math.PI
+        // model.rotation.y = Math.PI/2
+        // model.rotation.y = -Math.PI
         // Optional: wireframe (ASCII renders luminance; wireframe can be noisy — up to you)
         model.traverse((o) => {
           if (o.isMesh && o.material) {
@@ -93,11 +102,9 @@ export default function HeadModel() {
           }
         })
         scene.add(model)
-        console.log('Model added to scene')
+        onReady?.({ camera: cameraRef.current, model: modelRef.current })
       },
-      (progress) => {
-        console.log('Loading progress:', (progress.loaded / progress.total) * 100 + '%')
-      },
+      undefined,
       (error) => {
         console.error('Error loading model:', error)
       },
@@ -125,7 +132,7 @@ export default function HeadModel() {
         model.rotation.y += 0.001 // Rotate around Y axis
       }
 
-      controls.update()
+      // controls.update()
 
       // Render ASCII effect
       effect.render(scene, camera) // IMPORTANT: render via effect
@@ -136,7 +143,6 @@ export default function HeadModel() {
     return () => {
       cancelAnimationFrame(raf)
       window.removeEventListener('resize', onResize)
-      controls.dispose()
       asciiRenderer.dispose()
 
       // dispose geometries/materials
@@ -157,4 +163,6 @@ export default function HeadModel() {
 
   // Make sure this div has a size (via class or inline styles)
   return <div ref={containerRef} style={{ width: '100%', height: '100%' }} />
-}
+})
+
+export default HeadModel
