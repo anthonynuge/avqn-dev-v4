@@ -50,7 +50,7 @@ const Navbar = () => {
   }, [open])
 
   return (
-    <header className="inner sticky top-0 z-50 flex w-full items-center justify-between pt-2 md:pt-3">
+    <header className="inner sticky top-0 z-80 flex w-full items-center justify-between pt-2 md:pt-3">
       <Link to="/" aria-label="Home">
         {/* your logo unchanged */}
         <svg
@@ -120,7 +120,7 @@ const Navbar = () => {
       {/* Sheet */}
       <aside
         ref={panelRef}
-        className={`bg-bg/95 ring-fg/10 fixed top-0 right-0 z-50 h-dvh w-[84%] max-w-sm p-4 shadow-2xl ring-1 transition-transform duration-300 md:hidden ${
+        className={`bg-bg/95 ring-fg/10 fixed top-0 right-0 z-80 h-dvh w-[84%] max-w-sm p-4 shadow-2xl ring-1 transition-transform duration-300 md:hidden ${
           open ? 'translate-x-0' : 'translate-x-full'
         }`}
         aria-hidden={!open}
