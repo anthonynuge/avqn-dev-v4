@@ -19,7 +19,7 @@ const ProjectDetail = () => {
 
   if (!project) {
     return (
-      <div className="inner fill-offset h-screen py-10">
+      <div className="inner fill-offset py-10">
         <div className="flex h-full items-center justify-center">
           <div className="text-center">
             <h1 className="text-accent mb-4 text-2xl font-bold uppercase">Project Not Found</h1>
