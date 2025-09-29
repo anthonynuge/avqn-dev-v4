@@ -1,40 +1,70 @@
-// path: src/components/AnimatedCarousel/IntroSliceMask.jsx
-import React, { useMemo, useRef } from 'react'
+// IntroSliceMask.jsx (RevealMask)
+import React, { useMemo, useRef, forwardRef, useImperativeHandle } from 'react'
 import { gsap } from '@/lib/gsapSetup'
 import { useGSAP } from '@/lib/gsapSetup'
 
-export default function RevealMask({ slices = 20, onDone, delay = 0, colorClass = 'bg-bg' }) {
+const RevealMask = forwardRef(function RevealMask(
+  { slices = 20, onDone, colorClass = 'bg-bg' },
+  ref,
+) {
   const rootRef = useRef(null)
-
-  // [0..slices-1]
+  const tlRef = useRef(null)
   const items = useMemo(() => Array.from({ length: slices }, (_, i) => i), [slices])
 
+  // prepare strips once (no autoplay)
   useGSAP(() => {
-    if (!rootRef.current) return
-    const strips = rootRef.current.querySelectorAll('[data-strip]')
-
-    // No transforms — start fully visible and clip away from right side.
+    const root = rootRef.current
+    if (!root) return
+    const strips = root.querySelectorAll('[data-strip]')
     gsap.set(strips, {
       clipPath: 'inset(0% 0% 0% 0%)',
       willChange: 'clip-path',
       backfaceVisibility: 'hidden',
-      contain: 'paint', // isolate repaints for better perf
+      contain: 'paint',
     })
+    return () => tlRef.current?.kill()
+  }, [])
 
+  // build a paused TL we can reuse
+  const buildTimeline = () => {
+    const root = rootRef.current
+    if (!root) return gsap.timeline({ paused: true })
+    const strips = root.querySelectorAll('[data-strip]')
     const tl = gsap.timeline({
-      delay,
+      paused: true,
       defaults: { ease: 'power2.out', duration: 0.45 },
-      onComplete: () => onDone?.(),
+      onComplete: () => {
+        onDone?.()
+        // optionally hide & clean hints to avoid keeping will-change on
+        gsap.set(root, { autoAlpha: 0, clearProps: 'willChange' })
+      },
     })
-
-    // Stagger each strip to “wipe” left→right by clipping the right edge to 100%
-    tl.to(strips, {
+    return tl.to(strips, {
       clipPath: 'inset(0% 100% 0% 0%)',
       stagger: { each: 0.05, from: 0 },
     })
+  }
 
-    return () => tl.kill()
-  }, [])
+  useImperativeHandle(ref, () => ({
+    play(opts = {}) {
+      tlRef.current?.kill()
+      tlRef.current = buildTimeline()
+      if (opts.duration) tlRef.current.duration(opts.duration)
+      tlRef.current.play(0)
+      return tlRef.current
+    },
+    timeline() {
+      // gives parent a paused TL to nest into its own
+      return buildTimeline()
+    },
+    reset() {
+      tlRef.current?.kill()
+      tlRef.current = null
+      const root = rootRef.current
+      if (root) gsap.set(root.querySelectorAll('[data-strip]'), { clipPath: 'inset(0% 0% 0% 0%)' })
+      gsap.set(root, { autoAlpha: 1 })
+    },
+  }))
 
   return (
     <div
@@ -49,8 +79,6 @@ export default function RevealMask({ slices = 20, onDone, delay = 0, colorClass 
           className={colorClass}
           style={{
             flex: '0 0 auto',
-            // Small overscan + negative margin keeps slices tightly butted
-            // even with fractional widths—no visible seams.
             width: `calc(${100 / slices}% + 2px)`,
             height: '100%',
             marginLeft: i === 0 ? 0 : -1,
@@ -59,4 +87,6 @@ export default function RevealMask({ slices = 20, onDone, delay = 0, colorClass 
       ))}
     </div>
   )
-}
+})
+
+export default RevealMask
