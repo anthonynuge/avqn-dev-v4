@@ -330,7 +330,7 @@ export const sampleProjects = [
     type: 'Web App / SaaS',
     date: '2025-06-01', // update to your launch/start date
     description:
-      'Self-serve trials platform that lets SaaS teams spin up one-click trial links, track activation and conversion, and collect feedback in a clean, responsive dashboard.',
+      'Tryal is a startup I’m building with friends: a subscription platform where users redeem monthly credits to explore local experiences—from food tastings to fitness classes—while supporting community businesses.',
     techStack: {
       frontend: ['Next.js', 'React', 'TypeScript', 'Tailwind CSS', 'GSAP'],
       backend: ['Node.js', 'PostgreSQL', 'Prisma', 'NextAuth'],
