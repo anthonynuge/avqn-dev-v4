@@ -1,7 +1,8 @@
+import { useEffect, useState, useRef } from 'react'
 import { Link, useLocation } from 'react-router'
 import TransitionLink from '../shared/TransitionLink'
 
-function NavItem({ to, children }) {
+function NavItem({ to, children, onClick }) {
   const { pathname } = useLocation()
   const isActive = pathname === to
   return (
@@ -9,16 +10,49 @@ function NavItem({ to, children }) {
       to={to}
       className={isActive ? 'bg-accent text-bg px-1' : ''}
       data-active={isActive}
+      onClick={onClick}
     >
       {children}
     </TransitionLink>
   )
 }
 
+const navItems = [
+  { to: '/projects', label: 'Projects' },
+  { to: '/about', label: 'About' },
+  { to: '/resume.pdf', label: 'Resume', download: true },
+]
+
+const socialLinks = [
+  { href: 'https://github.com/anthonynuge', label: 'GitHub' },
+  { href: 'https://www.linkedin.com/in/anthony-nguyen-02861b331/', label: 'LinkedIn' },
+  { href: 'https://www.instagram.com/anthrnee/', label: 'Instagram' },
+]
+
 const Navbar = () => {
+  const [open, setOpen] = useState(false)
+  const panelRef = useRef(null)
+
+  // lock page scroll while open
+  useEffect(() => {
+    if (!open) return
+    const prev = document.body.style.overflow
+    document.body.style.overflow = 'hidden'
+    return () => (document.body.style.overflow = prev)
+  }, [open])
+
+  // close on escape
+  useEffect(() => {
+    if (!open) return
+    const onKey = (e) => e.key === 'Escape' && setOpen(false)
+    window.addEventListener('keydown', onKey)
+    return () => window.removeEventListener('keydown', onKey)
+  }, [open])
+
   return (
-    <header className="inner sticky top-0 z-50 flex w-full justify-between pt-2 md:pt-3">
-      <Link to="/">
+    <header className="inner sticky top-0 z-50 flex w-full items-center justify-between pt-2 md:pt-3">
+      <Link to="/" aria-label="Home">
+        {/* your logo unchanged */}
         <svg
           width="160"
           height="76"
@@ -34,24 +68,118 @@ const Navbar = () => {
         </svg>
       </Link>
 
-      {/* Hamburger Icon */}
-      <div className="block md:hidden"></div>
-
       <nav className="hidden md:block">
         <ul className="nav-link space-y-[0.5px]">
-          <li>
-            <NavItem to="/projects">Projects</NavItem>
-          </li>
-          <li>
-            <NavItem to="/about">About</NavItem>
-          </li>
-          <li>
-            <a href="/resume.pdf" download>
-              Resume
-            </a>
-          </li>
+          {navItems.map((item) => (
+            <li key={item.label}>
+              {item.download ? (
+                <a href={item.to} download>
+                  {item.label}
+                </a>
+              ) : (
+                <NavItem to={item.to}>{item.label}</NavItem>
+              )}
+            </li>
+          ))}
         </ul>
       </nav>
+
+      {/* MOBILE: hamburger */}
+      <button
+        className="relative block h-9 w-9 md:hidden"
+        aria-label={open ? 'Close menu' : 'Open menu'}
+        aria-expanded={open}
+        onClick={() => setOpen((v) => !v)}
+      >
+        {/* 3 bars that morph to X */}
+        <span
+          className={`bg-fg absolute top-[9px] left-1/2 block h-[2px] w-6 -translate-x-1/2 rounded transition-transform duration-300 ${
+            open ? 'translate-y-[7px] rotate-45' : ''
+          }`}
+        />
+        <span
+          className={`bg-fg absolute top-1/2 left-1/2 block h-[2px] w-6 -translate-x-1/2 -translate-y-1/2 rounded transition-all duration-300 ${
+            open ? 'opacity-0' : 'opacity-100'
+          }`}
+        />
+        <span
+          className={`bg-fg absolute bottom-[9px] left-1/2 block h-[2px] w-6 -translate-x-1/2 rounded transition-transform duration-300 ${
+            open ? '-translate-y-[7px] -rotate-45' : ''
+          }`}
+        />
+      </button>
+
+      {/* MOBILE: backdrop + sliding sheet */}
+      {/* Backdrop */}
+      <div
+        className={`bg-bg/60 fixed inset-0 z-40 backdrop-blur-sm transition-opacity duration-300 md:hidden ${
+          open ? 'pointer-events-auto opacity-100' : 'pointer-events-none opacity-0'
+        }`}
+        onClick={() => setOpen(false)}
+      />
+      {/* Sheet */}
+      <aside
+        ref={panelRef}
+        className={`bg-bg/95 ring-fg/10 fixed top-0 right-0 z-50 h-dvh w-[84%] max-w-sm p-4 shadow-2xl ring-1 transition-transform duration-300 md:hidden ${
+          open ? 'translate-x-0' : 'translate-x-full'
+        }`}
+        aria-hidden={!open}
+      >
+        <div className="mb-4 flex items-center justify-between">
+          <span className="text-caption-1 text-fg/60 tracking-wide uppercase">Menu</span>
+          <button
+            className="border-fg/20 hover:bg-fg/5 text-caption-1 px-3 py-1"
+            onClick={() => setOpen(false)}
+            aria-label="Close"
+          >
+            Close
+          </button>
+        </div>
+
+        {/* primary links */}
+        <ul className="mb-4 flex flex-col gap-1">
+          {navItems.map((item) => (
+            <li key={item.label}>
+              {item.download ? (
+                <a
+                  href={item.to}
+                  download
+                  className="hover:bg-fg/5 text-caption-1 block rounded-xl px-3 py-2 text-base"
+                  onClick={() => setOpen(false)}
+                >
+                  {item.label}
+                </a>
+              ) : (
+                <NavItem to={item.to} onClick={() => setOpen(false)}>
+                  <span className="hover:bg-fg/5 text-caption-1 block rounded-xl px-3 py-2 text-base">
+                    {item.label}
+                  </span>
+                </NavItem>
+              )}
+            </li>
+          ))}
+        </ul>
+
+        <div className="bg-fg/10 my-3 h-px w-full" />
+
+        {/* socials */}
+        <p className="text-fg/60 mb-2 text-sm tracking-wide uppercase">Social</p>
+        <ul className="text-caption-1 flex flex-col gap-2">
+          {socialLinks.map((s) => (
+            <li key={s.label}>
+              <a
+                href={s.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex flex-col px-3 py-1 text-sm"
+                onClick={() => setOpen(false)}
+              >
+                {s.label}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </aside>
     </header>
   )
 }
