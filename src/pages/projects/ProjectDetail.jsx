@@ -1,6 +1,6 @@
 import { useParams } from 'react-router'
 import { useState, useMemo } from 'react'
-import { sampleProjects } from '../../data/projects'
+import { projects } from '../../data/projects'
 import LinkButton from '../../components/ui/LinkButton'
 import CarouselView from '../../components/CarouselView'
 
@@ -9,7 +9,7 @@ const ProjectDetail = () => {
   const [index, setIndex] = useState(0)
 
   // Find the project by slug
-  const project = sampleProjects.find((p) => p.slug === projectSlug)
+  const project = projects.find((p) => p.slug === projectSlug)
 
   // Stable reference for images
   const images = useMemo(() => project.demos.filter(Boolean) ?? [], [project?.demos])
@@ -58,13 +58,13 @@ const ProjectDetail = () => {
 
           {/* Links */}
           <div className="flex w-full flex-col gap-2">
-            {project.liveUrl && (
-              <LinkButton to={project.liveUrl} external className="w-full md:h-8">
+            {project.links.live && (
+              <LinkButton to={project.links.live} external className="w-full md:h-8">
                 View Live Site
               </LinkButton>
             )}
-            {project.githubUrl && (
-              <LinkButton to={project.githubUrl} external className="w-full md:h-8">
+            {project.links.repo && (
+              <LinkButton to={project.links.repo} external className="w-full md:h-8">
                 View Code
               </LinkButton>
             )}
@@ -78,13 +78,7 @@ const ProjectDetail = () => {
 
       <div className="relative flex-1">
         {/* Carosuel Container */}
-        <CarouselView
-          images={images}
-          altPrefix={project.name}
-          shift={-200}
-          index={index}
-          cover={project.cover}
-        />
+        <CarouselView images={images} shift={-200} index={index} backdrop={project.backdrop.url} />
 
         {/* Carousel Controls */}
         <div className="absolute -top-0 right-0 z-50 flex h-[80px] -translate-x-1/2 translate-y-1/2 flex-col items-center justify-around gap-2 md:-top-14 md:w-[200px] md:-translate-y-0 md:flex-row md:gap-4">
@@ -110,7 +104,7 @@ const ProjectDetail = () => {
 
           <div className="grid-12 py-14">
             <div className="col-span-full grid grid-cols-subgrid gap-y-4 md:col-[4/12]">
-              {Object.entries(project.techStack).map(([key, value]) => (
+              {Object.entries(project.tech).map(([key, value]) => (
                 <div key={key} className="col-span-2 md:col-span-2">
                   <div className="text-accent font-mono text-sm uppercase">{key}</div>
                   <ul className="text-caption-2 flex flex-col">

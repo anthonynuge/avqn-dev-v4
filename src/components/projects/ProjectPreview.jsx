@@ -23,9 +23,9 @@ function preload(src) {
 }
 
 const ProjectPreview = memo(({ project }) => {
-  const [curSrc, setCurSrc] = useState(project?.cover || '')
+  const [curSrc, setCurSrc] = useState(project?.backdrop.url || '')
   const [prevSrc, setPrevSrc] = useState('')
-  const [ready, setReady] = useState(Boolean(project?.cover))
+  const [ready, setReady] = useState(Boolean(project?.backdrop.url))
   const lastReq = useRef('')
   const mounted = useRef(true)
 
@@ -37,7 +37,7 @@ const ProjectPreview = memo(({ project }) => {
   )
 
   useEffect(() => {
-    const next = project?.cover || ''
+    const next = project?.backdrop.url || ''
     if (!next) {
       setPrevSrc('')
       setCurSrc('')
@@ -68,7 +68,7 @@ const ProjectPreview = memo(({ project }) => {
         setReady(true)
       })
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [project?.cover])
+  }, [project?.backdrop.url])
 
   if (!project) {
     return (
@@ -83,7 +83,7 @@ const ProjectPreview = memo(({ project }) => {
 
   const title = project?.name ?? ''
   const desc = project?.description ?? ''
-  const alt = title ? `${title} cover` : ''
+  const alt = title ? `${title} backdrop` : ''
 
   return (
     <div className="relative flex h-full flex-col" style={{ contain: 'content' }}>

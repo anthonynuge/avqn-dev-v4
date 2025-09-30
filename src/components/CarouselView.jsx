@@ -9,10 +9,9 @@ import ParallaxImage from './shared/ParallaxImage'
 export default function CarouselView({
   images = [], // string[] of {URLs, overlay: boolean}
   index = 0, // which image to show
-  altPrefix = 'Slide', // used to build alt text
   shift = -200, // passed to ParallaxImage
   className = '',
-  cover,
+  backdrop,
   heightClass = 'h-[40dvh] md:h-[60dvh]',
 }) {
   if (!images.length) return null
@@ -22,20 +21,15 @@ export default function CarouselView({
   return (
     <div className={`relative overflow-hidden ${heightClass} ${className}`}>
       {/* Fill the frame; ParallaxImage is absolute/inset-0 internally */}
-      {slide.overlay && cover ? (
+      {slide.overlay && backdrop ? (
         <>
-          <ParallaxImage
-            src={cover}
-            alt={`${altPrefix} ${safeIndex + 1}`}
-            shift={shift}
-            className=""
-          />
+          <ParallaxImage src={backdrop} alt={backdrop.alt} shift={shift} className="" />
           <div className="absolute inset-0 z-[1] bg-black/50" />
 
-          {slide.video ? (
+          {slide.type === 'video' ? (
             <video
               src={slide.url}
-              alt={`${altPrefix} ${safeIndex + 1}`}
+              alt={slide.alt}
               className="absolute top-1/2 left-1/2 z-[2] aspect-video w-[95%] -translate-x-1/2 -translate-y-1/2 md:h-[525px] md:w-auto"
               autoPlay
               loop
@@ -45,13 +39,13 @@ export default function CarouselView({
           ) : (
             <img
               src={slide.url}
-              alt={`${altPrefix} ${safeIndex + 1}`}
+              alt={slide.alt}
               className="absolute top-1/2 left-1/2 z-[2] w-[95%] -translate-x-1/2 -translate-y-1/2 md:h-[525px] md:w-auto"
             />
           )}
         </>
       ) : (
-        <ParallaxImage src={slide.url} alt={`${altPrefix} ${safeIndex + 1}`} shift={shift} />
+        <ParallaxImage src={slide.url} alt={slide.alt} shift={shift} />
       )}
       {/* Gradient overlay */}
       <div className="pointer-events-none absolute inset-0">
