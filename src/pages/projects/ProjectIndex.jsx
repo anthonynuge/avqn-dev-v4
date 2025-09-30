@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router'
 import FilterPanel from '../../components/projects/FilterPanel'
 import ProjectList from '../../components/projects/ProjectList'
 import ProjectPreview from '../../components/projects/ProjectPreview'
-import { sampleProjects, initialFilters } from '../../data/projects'
+import { projects, initialFilters } from '../../data/projects'
 import { useGSAP, gsap } from '../../lib/gsapSetup'
 
 const ProjectIndex = () => {
@@ -48,11 +48,11 @@ const ProjectIndex = () => {
 
     // If no filters are active, show all projects
     if (activeFilters.length === 0) {
-      return sampleProjects
+      return projects
     }
 
     // Filter projects that contain any of the active technologies
-    return sampleProjects.filter((project) => {
+    return projects.filter((project) => {
       // Flatten all technologies from techStack into a single array
       const allTechnologies = [
         ...(project.techStack.frontend || []),

@@ -46,7 +46,7 @@ const ProjectDetail = () => {
             {/* Features */}
             <div className="col-span-full grid grid-cols-subgrid">
               <div className="text-meta-title">Features</div>
-              <ul className="col-span-full col-start-5">
+              <ul className="col-span-full col-start-4 self-end">
                 {project.features.map((feature) => (
                   <li className="text-meta-item" key={feature}>
                     {feature}
