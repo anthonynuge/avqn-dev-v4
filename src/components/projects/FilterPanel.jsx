@@ -2,6 +2,7 @@ import { useState } from 'react'
 
 const FilterPanel = ({ filters, onFilterChange, isMobileOpen, onMobileToggle }) => {
   const [expandedFolders, setExpandedFolders] = useState({
+    view: true,
     frontend: true,
     backend: true,
     tools: true,
@@ -51,112 +52,153 @@ const FilterPanel = ({ filters, onFilterChange, isMobileOpen, onMobileToggle }) 
 
       {/* Filter Tree */}
       <div className="grid grid-cols-2 space-y-4 p-2">
-        {/* Frontend Technologies */}
-        <div className="space-y-2">
-          <button
-            onClick={() => toggleFolder('frontend')}
-            className="text-accent hover:text-accent/80 flex w-full items-center gap-1 text-left font-mono text-xs tracking-wider uppercase transition-colors"
-          >
-            <span
-              className={`transform transition-transform ${expandedFolders.frontend ? 'rotate-90' : ''}`}
+        {/* Left Column */}
+        <div className="space-y-4">
+          {/* View */}
+          <div className="space-y-2">
+            <button
+              onClick={() => toggleFolder('view')}
+              className="text-accent hover:text-accent/80 flex w-full items-center gap-1 text-left font-mono text-xs tracking-wider uppercase transition-colors"
             >
-              ▶
-            </span>
-            <span>FRONTEND</span>
-            <span className="text-accent/50">
-              ({Object.values(filters.frontend).filter(Boolean).length})
-            </span>
-          </button>
+              <span
+                className={`transform transition-transform ${expandedFolders.view ? 'rotate-90' : ''}`}
+              >
+                ▶
+              </span>
+              <span>View</span>
+              <span className="text-accent/50">
+                ({Object.values(filters.view).filter(Boolean).length})
+              </span>
+            </button>
 
-          {expandedFolders.frontend && (
-            <div className="ml-4 space-y-0.5">
-              {Object.entries(filters.frontend).map(([tech, isActive]) => (
-                <label key={tech} className="group flex cursor-pointer items-center gap-2">
-                  <input
-                    type="checkbox"
-                    checked={isActive}
-                    onChange={() => handleTechToggle('frontend', tech)}
-                    className="border-accent/50 checked:bg-accent checked:border-accent relative h-3 w-3 appearance-none border bg-transparent"
-                  />
-                  <span className="text-fg-subtle group-hover:text-fg font-mono text-xs uppercase transition-colors">
-                    {tech}
-                  </span>
-                </label>
-              ))}
-            </div>
-          )}
+            {expandedFolders.view && (
+              <div className="ml-4 space-y-0.5">
+                {Object.entries(filters.view).map(([tech, isActive]) => (
+                  <label key={tech} className="group flex cursor-pointer items-center gap-2">
+                    <input
+                      type="checkbox"
+                      checked={isActive}
+                      onChange={() => handleTechToggle('view', tech)}
+                      className="border-accent/50 checked:bg-accent checked:border-accent relative h-3 w-3 appearance-none border bg-transparent"
+                    />
+                    <span className="text-fg-subtle group-hover:text-fg font-mono text-xs uppercase transition-colors">
+                      {tech}
+                    </span>
+                  </label>
+                ))}
+              </div>
+            )}
+          </div>
+
+          <div className="space-y-2">
+            <button
+              onClick={() => toggleFolder('frontend')}
+              className="text-accent hover:text-accent/80 flex w-full items-center gap-1 text-left font-mono text-xs tracking-wider uppercase transition-colors"
+            >
+              <span
+                className={`transform transition-transform ${expandedFolders.frontend ? 'rotate-90' : ''}`}
+              >
+                ▶
+              </span>
+              <span>FRONTEND</span>
+              <span className="text-accent/50">
+                ({Object.values(filters.frontend).filter(Boolean).length})
+              </span>
+            </button>
+
+            {expandedFolders.frontend && (
+              <div className="ml-4 space-y-0.5">
+                {Object.entries(filters.frontend).map(([tech, isActive]) => (
+                  <label key={tech} className="group flex cursor-pointer items-center gap-2">
+                    <input
+                      type="checkbox"
+                      checked={isActive}
+                      onChange={() => handleTechToggle('frontend', tech)}
+                      className="border-accent/50 checked:bg-accent checked:border-accent relative h-3 w-3 appearance-none border bg-transparent"
+                    />
+                    <span className="text-fg-subtle group-hover:text-fg font-mono text-xs uppercase transition-colors">
+                      {tech}
+                    </span>
+                  </label>
+                ))}
+              </div>
+            )}
+          </div>
         </div>
 
-        {/* Backend Technologies */}
-        <div className="space-y-2">
-          <button
-            onClick={() => toggleFolder('backend')}
-            className="text-accent hover:text-accent/80 flex w-full items-center gap-2 text-left font-mono text-xs tracking-wider uppercase transition-colors"
-          >
-            <span
-              className={`transform transition-transform ${expandedFolders.backend ? 'rotate-90' : ''}`}
+        {/* Right Column */}
+        <div className="space-y-4">
+          {/* Backend Technologies */}
+          <div className="space-y-2">
+            <button
+              onClick={() => toggleFolder('backend')}
+              className="text-accent hover:text-accent/80 flex w-full items-center gap-2 text-left font-mono text-xs tracking-wider uppercase transition-colors"
             >
-              ▶
-            </span>
-            <span>BACKEND</span>
-            <span className="text-accent/50">
-              ({Object.values(filters.backend).filter(Boolean).length})
-            </span>
-          </button>
+              <span
+                className={`transform transition-transform ${expandedFolders.backend ? 'rotate-90' : ''}`}
+              >
+                ▶
+              </span>
+              <span>BACKEND</span>
+              <span className="text-accent/50">
+                ({Object.values(filters.backend).filter(Boolean).length})
+              </span>
+            </button>
 
-          {expandedFolders.backend && (
-            <div className="ml-4 space-y-0.5">
-              {Object.entries(filters.backend).map(([tech, isActive]) => (
-                <label key={tech} className="group flex cursor-pointer items-center gap-2">
-                  <input
-                    type="checkbox"
-                    checked={isActive}
-                    onChange={() => handleTechToggle('backend', tech)}
-                    className="border-accent/50 checked:bg-accent checked:border-accent relative h-3 w-3 appearance-none border bg-transparent"
-                  />
-                  <span className="text-fg-subtle group-hover:text-fg font-mono text-xs uppercase transition-colors">
-                    {tech}
-                  </span>
-                </label>
-              ))}
-            </div>
-          )}
-        </div>
+            {expandedFolders.backend && (
+              <div className="ml-4 space-y-0.5">
+                {Object.entries(filters.backend).map(([tech, isActive]) => (
+                  <label key={tech} className="group flex cursor-pointer items-center gap-2">
+                    <input
+                      type="checkbox"
+                      checked={isActive}
+                      onChange={() => handleTechToggle('backend', tech)}
+                      className="border-accent/50 checked:bg-accent checked:border-accent relative h-3 w-3 appearance-none border bg-transparent"
+                    />
+                    <span className="text-fg-subtle group-hover:text-fg font-mono text-xs uppercase transition-colors">
+                      {tech}
+                    </span>
+                  </label>
+                ))}
+              </div>
+            )}
+          </div>
 
-        {/* Tools */}
-        <div className="space-y-2">
-          <button
-            onClick={() => toggleFolder('tools')}
-            className="text-accent hover:text-accent/80 flex w-full items-center gap-2 text-left font-mono text-xs tracking-wider uppercase transition-colors"
-          >
-            <span
-              className={`transform transition-transform ${expandedFolders.tools ? 'rotate-90' : ''}`}
+          {/* Tools */}
+          <div className="space-y-2">
+            <button
+              onClick={() => toggleFolder('tools')}
+              className="text-accent hover:text-accent/80 flex w-full items-center gap-2 text-left font-mono text-xs tracking-wider uppercase transition-colors"
             >
-              ▶
-            </span>
-            <span>TOOLS</span>
-            <span className="text-accent/50">
-              ({Object.values(filters.tools).filter(Boolean).length})
-            </span>
-          </button>
+              <span
+                className={`transform transition-transform ${expandedFolders.tools ? 'rotate-90' : ''}`}
+              >
+                ▶
+              </span>
+              <span>TOOLS</span>
+              <span className="text-accent/50">
+                ({Object.values(filters.tools).filter(Boolean).length})
+              </span>
+            </button>
 
-          {expandedFolders.tools && (
-            <div className="ml-4 space-y-1">
-              {Object.entries(filters.tools).map(([tech, isActive]) => (
-                <label key={tech} className="group flex cursor-pointer items-center gap-2">
-                  <input
-                    type="checkbox"
-                    checked={isActive}
-                    onChange={() => handleTechToggle('tools', tech)}
-                    className="border-accent/50 checked:bg-accent checked:border-accent relative h-3 w-3 appearance-none border bg-transparent"
-                  />
-                  <span className="text-fg-subtle group-hover:text-fg font-mono text-xs uppercase transition-colors">
-                    {tech}
-                  </span>
-                </label>
-              ))}
-            </div>
-          )}
+            {expandedFolders.tools && (
+              <div className="ml-4 space-y-1">
+                {Object.entries(filters.tools).map(([tech, isActive]) => (
+                  <label key={tech} className="group flex cursor-pointer items-center gap-2">
+                    <input
+                      type="checkbox"
+                      checked={isActive}
+                      onChange={() => handleTechToggle('tools', tech)}
+                      className="border-accent/50 checked:bg-accent checked:border-accent relative h-3 w-3 appearance-none border bg-transparent"
+                    />
+                    <span className="text-fg-subtle group-hover:text-fg font-mono text-xs uppercase transition-colors">
+                      {tech}
+                    </span>
+                  </label>
+                ))}
+              </div>
+            )}
+          </div>
         </div>
       </div>
     </div>

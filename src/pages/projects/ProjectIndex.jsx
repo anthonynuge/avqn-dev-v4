@@ -34,41 +34,64 @@ const ProjectIndex = () => {
     }
   }, [])
 
-  // Filter projects based on selected technologies
+  // Filter projects based on selected technologies and view filters
   const filteredProjects = useMemo(() => {
-    const activeFilters = []
-    // Collect all active filter technologies
-    Object.values(filters).forEach((category) => {
-      Object.entries(category).forEach(([tech, isActive]) => {
-        if (isActive) {
-          activeFilters.push(tech)
-        }
-      })
-    })
+    let filtered = projects
 
-    // If no filters are active, show all projects
-    if (activeFilters.length === 0) {
-      return projects
+    // Apply view filters first
+    const viewFilters = filters.view
+    if (viewFilters.Work || viewFilters.Personal || viewFilters.Live || viewFilters.Repo) {
+      filtered = filtered.filter((project) => {
+        const matchesOrigin =
+          (viewFilters.Work && project.origin === 'work') ||
+          (viewFilters.Personal && project.origin === 'personal')
+
+        const matchesStatus =
+          (viewFilters.Live && project.status === 'live') ||
+          (viewFilters.Repo && project.links && project.links.repo)
+
+        // If no origin filters are active, show all origins
+        // If no status filters are active, show all statuses
+        const originMatch = !viewFilters.Work && !viewFilters.Personal ? true : matchesOrigin
+        const statusMatch = !viewFilters.Live && !viewFilters.Repo ? true : matchesStatus
+
+        return originMatch && statusMatch
+      })
     }
 
-    // Filter projects that contain any of the active technologies
-    return projects.filter((project) => {
-      // Flatten all technologies from techStack into a single array
-      const allTechnologies = [
-        ...(project.techStack.frontend || []),
-        ...(project.techStack.backend || []),
-        ...(project.techStack.tools || []),
-      ]
-
-      // Check if any active filter matches any technology in the project
-      return activeFilters.some((tech) =>
-        allTechnologies.some(
-          (projectTech) =>
-            projectTech.toLowerCase().includes(tech.toLowerCase()) ||
-            tech.toLowerCase().includes(projectTech.toLowerCase()),
-        ),
-      )
+    // Apply technology filters
+    const techFilters = []
+    Object.entries(filters.frontend).forEach(([tech, isActive]) => {
+      if (isActive) techFilters.push(tech)
     })
+    Object.entries(filters.backend).forEach(([tech, isActive]) => {
+      if (isActive) techFilters.push(tech)
+    })
+    Object.entries(filters.tools).forEach(([tech, isActive]) => {
+      if (isActive) techFilters.push(tech)
+    })
+
+    if (techFilters.length > 0) {
+      filtered = filtered.filter((project) => {
+        // Flatten all technologies from tech into a single array
+        const allTechnologies = [
+          ...(project.tech.frontend || []),
+          ...(project.tech.backend || []),
+          ...(project.tech.tools || []),
+        ]
+
+        // Check if any active filter matches any technology in the project
+        return techFilters.some((tech) =>
+          allTechnologies.some(
+            (projectTech) =>
+              projectTech.toLowerCase().includes(tech.toLowerCase()) ||
+              tech.toLowerCase().includes(projectTech.toLowerCase()),
+          ),
+        )
+      })
+    }
+
+    return filtered
   }, [filters])
 
   const handleFilterChange = (category, tech) => {
