@@ -1,6 +1,7 @@
 import { useEffect, useState, useRef } from 'react'
 import { Link, useLocation } from 'react-router'
 import TransitionLink from '../shared/TransitionLink'
+import { socials } from '../../data/profile'
 
 function NavItem({ to, children, onClick }) {
   const { pathname } = useLocation()
@@ -20,13 +21,13 @@ function NavItem({ to, children, onClick }) {
 const navItems = [
   { to: '/projects', label: 'Projects' },
   { to: '/about', label: 'About' },
-  { to: '/resume-10-2025.pdf', label: 'Resume', download: true },
+  { to: `mailto:${socials.email}`, label: 'Contact' },
 ]
 
 const socialLinks = [
-  { href: 'https://github.com/anthonynuge', label: 'GitHub' },
-  { href: 'https://www.linkedin.com/in/anthony-nguyen-02861b331/', label: 'LinkedIn' },
-  { href: 'https://www.instagram.com/anthrnee/', label: 'Instagram' },
+  { href: socials.email, label: 'Contact' },
+  { href: socials.github, label: 'GitHub' },
+  { href: socials.linkedin, label: 'LinkedIn' },
 ]
 
 const Navbar = () => {
@@ -72,10 +73,8 @@ const Navbar = () => {
         <ul className="nav-link space-y-[0.5px]">
           {navItems.map((item) => (
             <li key={item.label}>
-              {item.download ? (
-                <a href={item.to} download>
-                  {item.label}
-                </a>
+              {item.label === 'Contact' ? (
+                <a href={item.to}>{item.label}</a>
               ) : (
                 <NavItem to={item.to}>{item.label}</NavItem>
               )}
@@ -167,15 +166,25 @@ const Navbar = () => {
         <ul className="text-caption-1 flex flex-col gap-2">
           {socialLinks.map((s) => (
             <li key={s.label}>
-              <a
-                href={s.href}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex flex-col px-3 py-1 text-sm"
-                onClick={() => setOpen(false)}
-              >
-                {s.label}
-              </a>
+              {s.href === socials.email ? (
+                <a
+                  href={`mailto:${s.href}`}
+                  className="flex flex-col px-3 py-1 text-sm"
+                  onClick={() => setOpen(false)}
+                >
+                  {s.label}
+                </a>
+              ) : (
+                <a
+                  href={s.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex flex-col px-3 py-1 text-sm"
+                  onClick={() => setOpen(false)}
+                >
+                  {s.label}
+                </a>
+              )}
             </li>
           ))}
         </ul>
