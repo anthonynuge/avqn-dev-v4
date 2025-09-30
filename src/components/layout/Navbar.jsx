@@ -25,7 +25,7 @@ const navItems = [
 ]
 
 const socialLinks = [
-  { href: socials.email, label: 'Contact' },
+  { href: socials.resume, label: 'Resume' },
   { href: socials.github, label: 'GitHub' },
   { href: socials.linkedin, label: 'LinkedIn' },
 ]
@@ -139,7 +139,7 @@ const Navbar = () => {
         <ul className="mb-4 flex flex-col gap-1">
           {navItems.map((item) => (
             <li key={item.label}>
-              {item.download ? (
+              {item.label === 'Contact' ? (
                 <a
                   href={item.to}
                   download
