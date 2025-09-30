@@ -1,0 +1,7 @@
+# robots.txt for avqn.dev portfolio
+
+User-agent: *
+Allow: /
+
+# Point crawlers to your sitemap
+Sitemap: https://www.avqn.dev/sitemap.xml
