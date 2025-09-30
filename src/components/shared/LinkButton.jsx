@@ -1,7 +1,7 @@
 import React from 'react'
 import ArrowRight from '../../assets/ArrowRight'
 
-const LinkButton = ({ to, className, children, ...props }) => {
+const LinkButton = ({ to, className, children, download, ...props }) => {
   const base =
     'inline-flex items-center justify-between hover:bg-accent w-full hover:text-bg group px-1'
   return (
@@ -9,6 +9,7 @@ const LinkButton = ({ to, className, children, ...props }) => {
       href={to}
       className={`${base} ${className}`}
       {...props}
+      download={download}
       target="_blank"
       rel="noopener noreferrer"
       data-out="fade"

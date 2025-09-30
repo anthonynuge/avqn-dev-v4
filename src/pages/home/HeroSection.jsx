@@ -3,8 +3,8 @@ import { scrambleOut, scrambleInAll } from '../../lib/animations/scramble'
 import { flicker } from '../../lib/animations/flicker'
 import usePageExit from '../../transition/usePageExit'
 import { useGSAP, gsap } from '../../lib/gsapSetup'
-import LinkButton from '../../components/shared/LinkButton'
 import FeaturedSlider from '@/components/AnimatedCarousel/FeaturedSlider'
+import SocialLinks from '../../components/shared/SocialLinks'
 
 const HeroSection = () => {
   const scope = useRef(null)
@@ -161,21 +161,7 @@ const HeroSection = () => {
       </div>
 
       <div className="hero-links">
-        <LinkButton to="https://github.com/anthonynuge">
-          <span data-in="scramble" data-out="scramble" data-text="GitHub">
-            GitHub
-          </span>
-        </LinkButton>
-        <LinkButton to="https://www.linkedin.com/in/anthony-nguyen-02861b331/">
-          <span data-in="scramble" data-out="scramble" data-text="LinkedIn">
-            LinkedIn
-          </span>
-        </LinkButton>
-        <LinkButton to="https://www.instagram.com/anthrnee/">
-          <span data-in="scramble" data-out="scramble" data-text="Instagram">
-            Instagram
-          </span>
-        </LinkButton>
+        <SocialLinks />
       </div>
 
       <div className="hero-featured relative" data-out="fade">
