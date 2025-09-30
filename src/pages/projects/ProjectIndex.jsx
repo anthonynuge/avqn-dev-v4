@@ -5,6 +5,7 @@ import ProjectList from '../../components/projects/ProjectList'
 import ProjectPreview from '../../components/projects/ProjectPreview'
 import { projects, initialFilters } from '../../data/projects'
 import { useGSAP, gsap } from '../../lib/gsapSetup'
+import useCanHover from '../../lib/utils/useCanHover'
 
 const ProjectIndex = () => {
   const navigate = useNavigate()
@@ -13,6 +14,7 @@ const ProjectIndex = () => {
   const [isMobileFilterOpen, setIsMobileFilterOpen] = useState(false)
   const hoverTimeoutRef = useRef(null)
   const ref = useRef(null)
+  const canHover = useCanHover()
 
   useGSAP(
     () => {
@@ -155,10 +157,12 @@ const ProjectIndex = () => {
           />
         </aside>
 
-        {/* Project Preview */}
-        <div className="project-index-preview mt-auto h-48">
-          <ProjectPreview project={hoveredProject} />
-        </div>
+        {/* Project Preview - Only show on devices that can hover (not mobile) */}
+        {canHover && (
+          <div className="project-index-preview mt-auto h-48">
+            <ProjectPreview project={hoveredProject} />
+          </div>
+        )}
         <div className="project-index-list">
           <ProjectList
             projects={filteredProjects}
