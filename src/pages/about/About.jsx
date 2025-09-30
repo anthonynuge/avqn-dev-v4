@@ -4,6 +4,7 @@ import HeadModel from '@/components/model/HeadModel'
 import LinkButton from '@/components/shared/LinkButton'
 import { useGSAP, gsap } from '@/lib/gsapSetup'
 import { flicker } from '@/lib/animations/flicker'
+import { socials } from '@/data/profile'
 
 const About = () => {
   const scope = useRef(null)
@@ -169,22 +170,17 @@ const About = () => {
           </div>
 
           <div
-            className="w-3/4 space-y-2 place-self-end font-mono text-xs uppercase md:w-1/2"
+            className="w-3/4 space-y-2 justify-self-end font-mono text-xs uppercase md:w-1/2 lg:mt-4"
             data-cta=""
           >
-            <LinkButton to="https://github.com/anthonynuge">
+            <LinkButton to={socials.github}>
               <span data-in="scramble" data-out="scramble" data-text="GitHub">
                 GitHub
               </span>
             </LinkButton>
-            <LinkButton to="https://www.linkedin.com/in/anthony-nguyen-02861b331/">
+            <LinkButton to={socials.linkedin}>
               <span data-in="scramble" data-out="scramble" data-text="LinkedIn">
                 LinkedIn
-              </span>
-            </LinkButton>
-            <LinkButton to="https://www.instagram.com/anthrnee/">
-              <span data-in="scramble" data-out="scramble" data-text="Instagram">
-                Instagram
               </span>
             </LinkButton>
           </div>
