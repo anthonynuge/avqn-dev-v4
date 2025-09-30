@@ -235,7 +235,9 @@ const ProjectList = memo(function ProjectList({
                 {/* Date */}
                 <div className="col-span-2 flex items-center">
                   <span className="font-mono text-xs opacity-80">
-                    {new Date(p.dates.ended ?? p.dates.started).toLocaleDateString('en-CA')}
+                    {new Date(
+                      (p.dates.ended ?? p.dates.started) + 'T00:00:00-06:00',
+                    ).toLocaleDateString('en-CA', { timeZone: 'America/Chicago' })}
                   </span>
                 </div>
 

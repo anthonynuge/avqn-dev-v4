@@ -157,7 +157,7 @@ export const projects = [
     description:
       'Fruit Vision is a commissioned machine learning project that classifies images of fruits with confidence scoring. Built with Python, TensorFlow, and Scikit-learn, the model uses convolutional neural networks to recognize patterns in vectorized image data. Though trained on fruit, the pipeline can be adapted for any image classification task with sufficient training data.',
 
-    dates: { started: '2024-11-01', ended: '2024-12-01' },
+    dates: { started: '2024-04-01', ended: '2024-06-01' },
 
     tech: {
       frontend: ['Tkinter', 'Matplotlib'],
@@ -228,7 +228,7 @@ export const projects = [
     description:
       'Maze Solver is a Java desktop application that visualizes how different pathfinding algorithms traverse a grid. To make exploration easier, the app includes a built-in maze generator, allowing endless scenarios without manual setup. Built with Java Swing and AWT, the project deepened my understanding of data structures and algorithms while creating an engaging, interactive learning tool.',
 
-    dates: { started: '2024-12-01', ended: '2025-01-15' }, // ✅ approximate "winter break"
+    dates: { started: '2023-12-01', ended: '2024-01-15' }, // ✅ approximate "winter break"
 
     tech: {
       frontend: ['Java Swing', 'JavaFX', 'Java AWT'],
@@ -415,7 +415,7 @@ export const projects = [
     description:
       'Midnite Agency, a Houston-based creative marketing firm, hired me to design and develop a custom site that communicates their service offerings with visual flair and technical polish. I delivered a scalable, performant website with integrated 3D visuals, animated UI, and automated email handling — all built with modern frontend tooling.',
 
-    dates: { started: '2025-07-01', ended: null },
+    dates: { started: '2025-06-01', ended: null },
 
     tech: {
       frontend: ['Next.js', 'React', 'TypeScript', 'Tailwind CSS', 'Framer Motion', 'Three.js'],
@@ -598,7 +598,7 @@ export const projects = [
     description:
       'NGX Token is a cryptocurrency project from NGX Consulting, launched on the Polygon network with a market cap of $2.6M. Built to innovate the energy sector, it powers crypto-based payments, user rewards, and business partnerships across Texas, with a public unlock phase planned for Winter 2025. I am contributing  to the launch by developing the public marketing site and dApp interface, ensuring a secure and polished user experience that supported the tokens entry into the market.',
 
-    dates: { started: '2025-01-01', ended: null },
+    dates: { started: '2025-06-01', ended: null },
 
     tech: {
       frontend: ['Next.js', 'React', 'TypeScript', 'Tailwind CSS'],
@@ -664,7 +664,7 @@ export const projects = [
     description:
       "Cofounder of Tryal, a startup project I'm building with few other developers: a subscription platform where users redeem monthly credits to explore local experiences—from food tastings to fitness classes—while supporting community businesses. The platform features secure billing, team-based accounts, and a responsive booking flow for both users and business partners.",
 
-    dates: { started: '2025-06-01', ended: null },
+    dates: { started: '2025-02-01', ended: null },
 
     tech: {
       frontend: ['Next.js', 'React', 'TypeScript', 'Tailwind CSS', 'GSAP'],
@@ -705,11 +705,6 @@ export const projects = [
         type: 'image',
         alt: 'Mockup of Tryal on laptop',
       },
-      {
-        url: '/projects/tryal-cover.webp',
-        type: 'image',
-        alt: 'Screenshot of Tryal landing page',
-      },
     ],
 
     tags: ['Startup', 'Subscriptions', 'Stripe', 'Next.js', 'Google Maps API'],
@@ -729,7 +724,7 @@ export const projects = [
     description:
       'Utility Buddys is a subscription platform from NGX Consulting that helps households save money by dynamically managing home utility plans. Users can sign up and pay through a secure portal, while the service handles sensitive data responsibly and automatically optimizes plan selections for cost efficiency. The platform combines a customer-facing site with an admin dashboard for lead capture, content management, and service updates.',
 
-    dates: { started: '2025-07-01', ended: null },
+    dates: { started: '2025-04-01', ended: null },
 
     tech: {
       frontend: ['Next.js', 'React', 'TypeScript', 'Tailwind CSS'],
