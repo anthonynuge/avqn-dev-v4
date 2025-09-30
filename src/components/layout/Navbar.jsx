@@ -3,13 +3,13 @@ import { Link, useLocation } from 'react-router'
 import TransitionLink from '../shared/TransitionLink'
 import { socials } from '../../data/profile'
 
-function NavItem({ to, children, onClick }) {
+function NavItem({ to, children, onClick, isMobile = false }) {
   const { pathname } = useLocation()
   const isActive = pathname === to
   return (
     <TransitionLink
       to={to}
-      className={isActive ? 'bg-accent text-bg px-1' : ''}
+      className={isActive && !isMobile ? 'bg-accent text-bg px-1' : ''}
       data-active={isActive}
       onClick={onClick}
     >
@@ -76,7 +76,9 @@ const Navbar = () => {
               {item.label === 'Contact' ? (
                 <a href={item.to}>{item.label}</a>
               ) : (
-                <NavItem to={item.to}>{item.label}</NavItem>
+                <NavItem to={item.to} isMobile={false}>
+                  {item.label}
+                </NavItem>
               )}
             </li>
           ))}
@@ -149,8 +151,8 @@ const Navbar = () => {
                   {item.label}
                 </a>
               ) : (
-                <NavItem to={item.to} onClick={() => setOpen(false)}>
-                  <span className="hover:bg-fg/5 text-caption-1 block rounded-xl px-3 py-2 text-base">
+                <NavItem to={item.to} onClick={() => setOpen(false)} isMobile={true}>
+                  <span className="hover:bg-fg/5 text-caption-1 data-[active]:text-bg block rounded-xl px-3 py-2 text-base data-[active]:underline data-[active]:decoration-2 data-[active]:underline-offset-4">
                     {item.label}
                   </span>
                 </NavItem>
