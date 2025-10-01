@@ -141,10 +141,10 @@ const ProjectIndex = () => {
 
   return (
     <section className="inner fill-offset overflow-hidden" ref={ref}>
-      <h1 className="text-accent text-display-1 font-mono text-4xl leading-tight font-bold uppercase">
+      <h1 className="project-index-header text-accent text-display-1 font-mono text-4xl leading-tight font-bold uppercase">
         Archive
       </h1>
-      {/* Main Layout */}
+
       <div className="project-index-grid relative h-full">
         {/* Filter Panel */}
         <aside className="project-index-filter min-h-7/10">

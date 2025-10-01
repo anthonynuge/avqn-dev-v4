@@ -14,6 +14,14 @@
   grid-area: preview;
 }
 
+.project-index-header {
+  grid-area: header;
+}
+
+.project-index-list-header {
+  grid-area: list-header;
+}
+
 .project-index-list {
   grid-area: list;
 }
