@@ -47,4 +47,8 @@
   .text-caption-3 {
     @apply font-mono text-[.64rem] uppercase;
   }
+
+  .text-caption-title {
+    @apply font-mono text-xs uppercase md:text-sm 2xl:text-base;
+  }
 }

@@ -96,7 +96,7 @@ const HeroSection = () => {
         {/* Skills */}
         <div className="hero-specs-item">
           <h3
-            className="text-accent font-mono uppercase"
+            className="text-accent text-caption-title font-mono uppercase"
             data-in="flicker"
             data-out="scramble"
             data-text="Skills"
@@ -125,7 +125,7 @@ const HeroSection = () => {
         {/* Experience */}
         <div className="hero-specs-item">
           <h3
-            className="text-accent font-mono uppercase"
+            className="text-accent text-caption-title font-mono uppercase"
             data-in="flicker"
             data-out="scramble"
             data-text="Experience"
@@ -142,7 +142,7 @@ const HeroSection = () => {
         {/* Currently */}
         <div className="hero-specs-item">
           <h3
-            className="text-accent font-mono uppercase"
+            className="text-accent text-caption-title font-mono uppercase"
             data-in="flicker"
             data-out="scramble"
             data-text="Currently"
