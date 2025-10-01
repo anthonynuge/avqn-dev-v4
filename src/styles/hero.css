@@ -4,7 +4,7 @@
   grid-template-rows:
     auto
     auto
-    1fr
+    auto
     auto;
 
   grid-template-areas:
@@ -28,7 +28,7 @@
   grid-area: i;
   /* Prevent layout shift during text animation */
   /* min-height: 5em; */
-  height: 8em;
+  height: 6em;
   line-height: 1.2;
   /* Ensure stable layout during animation */
   display: block;
@@ -84,11 +84,17 @@
   }
 }
 
+@media (max-height: 700px) {
+  .hero-specs {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
 .hero-featured {
   position: relative;
   width: 100%;
-  height: 30svh;
-  @apply self-start md:self-start;
+  height: 40svh;
+  @apply self-center md:self-start;
 }
 
 .featured-slider-title {
