@@ -1,12 +1,18 @@
 .hero-grid {
   display: grid;
-  grid-template-columns: 2fr;
-  grid-template-rows: 10dvh 9dvh 35dvh 25dvh;
+  grid-template-columns: 1fr;
+  grid-template-rows:
+    auto
+    auto
+    1fr
+    auto;
+
   grid-template-areas:
-    'h h'
-    'i i'
-    'f f'
-    's s';
+    'h'
+    'i'
+    'f'
+    's';
+  height: calc(var(--vh, 100svh) - var(--nav-h) - var(--footer-h));
   min-height: calc(
     100vh - var(--nav-h) - var(--footer-h)
   ); /* hero fills screen under fixed nav/footer */
@@ -21,7 +27,8 @@
 .hero-intro {
   grid-area: i;
   /* Prevent layout shift during text animation */
-  min-height: 1.2em;
+  /* min-height: 5em; */
+  height: 8em;
   line-height: 1.2;
   /* Ensure stable layout during animation */
   display: block;
@@ -75,109 +82,14 @@
     grid-template-columns: repeat(3, clamp(10ch, 10vw, 20ch));
     align-self: center;
   }
-
-  /* .hero-specs > * {
-    grid-column: span 2;
-  } */
 }
 
 .hero-featured {
   position: relative;
   width: 100%;
-  height: 30dvh;
+  height: 30svh;
   @apply self-start md:self-start;
 }
-
-/* .mask {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  background: url('/images/hero-slide-1.jpg') no-repeat 50% 50%;
-  background-size: cover;
-}
-
-.mask:nth-child(1) {
-  clip-path: polygon(0% 0, 0% 0, 0% 100%, 0 100%);
-}
-
-.mask:nth-child(2) {
-  clip-path: polygon(5% 0, 5% 0, 5% 100%, 5% 100%);
-}
-.mask:nth-child(3) {
-  clip-path: polygon(10% 0, 10% 0, 10% 100%, 10% 100%);
-}
-
-.mask:nth-child(4) {
-  clip-path: polygon(15% 0, 15% 0, 15% 100%, 15% 100%);
-}
-.mask:nth-child(5) {
-  clip-path: polygon(20% 0, 20% 0, 20% 100%, 20% 100%);
-}
-.mask:nth-child(6) {
-  clip-path: polygon(25% 0, 25% 0, 25% 100%, 25% 100%);
-}
-.mask:nth-child(7) {
-  clip-path: polygon(30% 0, 30% 0, 30% 100%, 30% 100%);
-}
-.mask:nth-child(8) {
-  clip-path: polygon(35% 0, 35% 0, 35% 100%, 35% 100%);
-}
-.mask:nth-child(9) {
-  clip-path: polygon(40% 0, 40% 0, 40% 100%, 40% 100%);
-}
-.mask:nth-child(10) {
-  clip-path: polygon(45% 0, 45% 0, 45% 100%, 45% 100%);
-}
-
-.mask:nth-child(11) {
-  clip-path: polygon(50% 0, 50% 0, 50% 100%, 50% 100%);
-}
-
-.mask:nth-child(12) {
-  clip-path: polygon(55% 0, 55% 0, 55% 100%, 55% 100%);
-}
-
-.mask:nth-child(13) {
-  clip-path: polygon(60% 0, 60% 0, 60% 100%, 60% 100%);
-}
-
-.mask:nth-child(14) {
-  clip-path: polygon(65% 0, 65% 0, 65% 100%, 65% 100%);
-}
-
-.mask:nth-child(15) {
-  clip-path: polygon(70% 0, 70% 0, 70% 100%, 70% 100%);
-}
-
-.mask:nth-child(16) {
-  clip-path: polygon(75% 0, 75% 0, 75% 100%, 75% 100%);
-}
-
-.mask:nth-child(17) {
-  clip-path: polygon(80% 0, 80% 0, 80% 100%, 80% 100%);
-}
-
-.mask:nth-child(18) {
-  clip-path: polygon(85% 0, 85% 0, 85% 100%, 85% 100%);
-}
-
-.mask:nth-child(19) {
-  clip-path: polygon(90% 0, 90% 0, 90% 100%, 90% 100%);
-}
-
-.mask:nth-child(20) {
-  clip-path: polygon(95% 0, 95% 0, 95% 100%, 95% 100%);
-} */
-
-/* .featured-grid {
-  display: grid;
-  grid-template-columns: repeat(12, 1fr);
-  grid-template-rows: 200px 300px 300px;
-  grid-template-areas:
-    '. . . . . . . t t t t t'
-    'c c c c . . . i i i i i '
-    '. . . . . . . . . . . .';
-} */
 
 .featured-slider-title {
   grid-area: t;
