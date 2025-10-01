@@ -3,9 +3,9 @@
   grid-template-columns: 1fr;
   grid-template-rows:
     auto
+    clamp(5rem, 10svh, 8rem)
     auto
-    auto
-    auto;
+    clamp(5rem, 25svh, 12rem);
 
   grid-template-areas:
     'h'
@@ -28,7 +28,7 @@
   grid-area: i;
   /* Prevent layout shift during text animation */
   /* min-height: 5em; */
-  height: 4rem;
+  height: 5rem;
   line-height: 1.2;
   /* Ensure stable layout during animation */
   display: block;
