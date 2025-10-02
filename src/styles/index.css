@@ -107,6 +107,14 @@
     .parallax-container {
       height: 60vh;
       height: 60dvh; /* Fallback to dynamic viewport height */
+      overflow: hidden; /* Prevent scaling from causing layout shifts */
+    }
+
+    .parallax-container img {
+      transform-origin: center center;
+      will-change: transform;
+      backface-visibility: hidden; /* Improve performance */
+      -webkit-backface-visibility: hidden;
     }
 
     /* Ensure smooth scrolling on mobile */

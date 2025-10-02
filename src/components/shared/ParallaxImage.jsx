@@ -7,17 +7,30 @@ export default function ParallaxImage({ src, alt, className = '', shift = 110, s
 
   useGSAP(
     () => {
-      // if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return
-      gsap.set(imgRef.current, { scale, willChange: 'transform' })
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
 
+      // Reduce parallax effect on mobile devices
+      const isMobile = window.innerWidth < 768
+      const adjustedShift = isMobile ? shift * 0.5 : shift
+      const adjustedScale = isMobile ? 1.02 : scale
+
+      // Set initial scale without animation
+      gsap.set(imgRef.current, {
+        scale: adjustedScale,
+        willChange: 'transform',
+        transformOrigin: 'center center',
+      })
+
+      // Create smooth parallax effect
       gsap.to(imgRef.current, {
-        y: shift,
+        y: adjustedShift,
         ease: 'none',
         scrollTrigger: {
           trigger: wrapRef.current,
           start: 'top bottom',
           end: 'bottom top',
-          scrub: true,
+          scrub: isMobile ? 0.5 : 1, // Less aggressive scrubbing on mobile
+          invalidateOnRefresh: true, // Recalculate on resize
         },
       })
     },
