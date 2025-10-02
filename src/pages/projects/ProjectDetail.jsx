@@ -33,7 +33,7 @@ const ProjectDetail = () => {
 
   return (
     <section className="">
-      <div className="inner grid-12 relative min-h-[60svh] md:min-h-[60svh] md:py-24">
+      <div className="inner grid-12 relative min-h-[60vh] md:min-h-[60vh] md:py-24">
         <h1 className="text-accent text-fluid-title col-span-5 self-end font-mono font-bold uppercase md:self-start lg:col-start-2">
           {project.name}
         </h1>

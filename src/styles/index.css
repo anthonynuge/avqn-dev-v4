@@ -19,13 +19,13 @@
   }
 
   .hero-grid {
-    @apply mx-auto grid min-h-[100svh] max-w-[1920px] grid-cols-4 md:grid-cols-12;
+    @apply mx-auto grid min-h-[100vh] max-w-[1920px] grid-cols-4 md:grid-cols-12;
   }
 }
 
 @layer utilities {
   .fill-offset {
-    min-height: calc(100svh - var(--nav-h) - var(--footer-h));
+    min-height: calc(100vh - var(--nav-h) - var(--footer-h));
   }
 
   /* Grid system for content */
@@ -93,6 +93,31 @@
   @media (prefers-reduced-motion: reduce) {
     .flicker-on {
       animation: none;
+    }
+  }
+
+  /* Mobile viewport stability fixes */
+  @media (max-width: 768px) {
+    .mobile-stable-height {
+      height: 100vh;
+      height: 100dvh; /* Use dynamic viewport height on mobile when supported */
+    }
+
+    /* Prevent jumping on mobile by using stable viewport units */
+    .parallax-container {
+      height: 60vh;
+      height: 60dvh; /* Fallback to dynamic viewport height */
+    }
+
+    /* Ensure smooth scrolling on mobile */
+    html {
+      scroll-behavior: smooth;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    /* Prevent layout shifts during scroll */
+    body {
+      overflow-x: hidden;
     }
   }
 }

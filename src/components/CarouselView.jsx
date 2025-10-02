@@ -12,7 +12,7 @@ export default function CarouselView({
   shift = -200, // passed to ParallaxImage
   className = '',
   backdrop,
-  heightClass = 'h-[40svh] md:h-[60svh]',
+  heightClass = 'h-[40vh] md:h-[60vh]',
 }) {
   if (!images.length) return null
   const safeIndex = ((index % images.length) + images.length) % images.length
