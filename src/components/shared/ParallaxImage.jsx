@@ -27,7 +27,7 @@ export default function ParallaxImage({ src, alt, className = '', shift = 110, s
   return (
     <div
       ref={wrapRef}
-      className={`absolute top-0 left-1/2 flex h-[60dvh] w-full -translate-x-1/2 justify-center md:h-[90dvh] lg:w-[100%] 2xl:w-[95%] ${className}`}
+      className={`absolute top-0 left-1/2 flex h-[60svh] w-full -translate-x-1/2 justify-center md:h-[90svh] lg:w-[100%] 2xl:w-[95%] ${className}`}
     >
       <img
         ref={imgRef}

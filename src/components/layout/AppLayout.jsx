@@ -4,7 +4,7 @@ import Footer from './Footer'
 
 function AppLayout() {
   return (
-    <div className="mx-auto grid min-h-dvh grid-rows-[auto_1fr_auto]">
+    <div className="mx-auto grid min-h-svh grid-rows-[auto_1fr_auto]">
       <Navbar />
       <main id="main">
         <Outlet />

@@ -19,13 +19,13 @@
   }
 
   .hero-grid {
-    @apply mx-auto grid min-h-[100dvh] max-w-[1920px] grid-cols-4 md:grid-cols-12;
+    @apply mx-auto grid min-h-[100svh] max-w-[1920px] grid-cols-4 md:grid-cols-12;
   }
 }
 
 @layer utilities {
   .fill-offset {
-    min-height: calc(100dvh - var(--nav-h) - 4rem);
+    min-height: calc(100svh - var(--nav-h) - var(--footer-h));
   }
 
   /* Grid system for content */

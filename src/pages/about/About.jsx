@@ -125,7 +125,7 @@ const About = () => {
   return (
     <div className="fill-offset inner relative grid grid-cols-1 md:grid-cols-2" ref={scope}>
       <div
-        className="mx-auto block h-[40dvh] w-full md:absolute md:w-[50vw] lg:top-1/2 lg:left-1/4 lg:h-full lg:w-[75vw] lg:-translate-x-1/2 lg:-translate-y-1/2"
+        className="mx-auto block h-[40svh] w-full md:absolute md:w-[50vw] lg:top-1/2 lg:left-1/4 lg:h-full lg:w-[75vw] lg:-translate-x-1/2 lg:-translate-y-1/2"
         ref={modelWrapperRef}
       >
         <HeadModel onReady={handleReady} />
