@@ -681,7 +681,7 @@ export const projects = [
     ],
 
     links: {
-      live: null, // no public URL yet
+      live: 'https://www.tryal.us/', // no public URL yet
       repo: null, // private repo
     },
 
