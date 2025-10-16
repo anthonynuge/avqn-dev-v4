@@ -32,14 +32,14 @@ export const projects = [
 
     tech: {
       frontend: ['Next.js', 'React', 'TypeScript', 'Tailwind CSS', 'GSAP'],
-      backend: ['Node.js', 'PostgreSQL', 'Prisma', 'NextAuth'],
-      tools: ['Vercel', 'Stripe', 'GitHub', 'Google Maps API'],
+      backend: ['Node.js', 'PostgreSQL', 'MongoDB', 'NextAuth', 'Spring Boot'],
+      tools: ['Vercel', 'Stripe', 'GitHub', 'Google Maps API', 'IntelliJ IDEA'],
     },
 
     features: [
       'Dynamic booking flow',
       'Google Maps API integration',
-      'Stripe billing & upgrades',
+      'Stripe billing & subscription management',
       'Authentication, roles & team management',
       'CMS for business partners',
     ],
@@ -662,7 +662,7 @@ export const projects = [
     dates: { started: '2025-06-01', ended: null },
 
     tech: {
-      frontend: ['Next.js', 'React', 'TypeScript', 'Tailwind CSS'],
+      frontend: ['Next.js', 'React', 'TypeScript', 'Tailwind CSS', 'GSAP'],
       backend: [],
       tools: ['Polygon', 'Vercel', 'GitHub'],
     },
@@ -733,8 +733,8 @@ export const projects = [
     },
 
     features: [
-      'Responsive Next.js + Tailwind UI',
-      'Service finder & quote flow',
+      'Cybersecurity-focused data handling',
+      'Stripe billing & subscription management',
       'Lead capture & email automation',
       'Admin dashboard with CRUD',
       'SEO, analytics & performance',
