@@ -15,6 +15,67 @@ export const getFeaturedProjects = () => {
 export const projects = [
   {
     id: 'P-01',
+    name: 'Tryal',
+    slug: 'tryal',
+    type: 'Startup',
+    origin: 'personal',
+    status: 'wip',
+    featured: true,
+
+    featuredCanvas: '/projects/tryal-feat-cropped.webp',
+
+    summary: 'Subscription platform for discovering local experiences through monthly credits.',
+    description:
+      "Cofounder of Tryal, a startup project I'm building with few other developers: a subscription platform where users redeem monthly credits to explore local experiences—from food tastings to fitness classes—while supporting community businesses. The platform features secure billing, team-based accounts, and a responsive booking flow for both users and business partners.",
+
+    dates: { started: '2025-02-01', ended: null },
+
+    tech: {
+      frontend: ['Next.js', 'React', 'TypeScript', 'Tailwind CSS', 'GSAP'],
+      backend: ['Node.js', 'PostgreSQL', 'Prisma', 'NextAuth'],
+      tools: ['Vercel', 'Stripe', 'GitHub', 'Google Maps API'],
+    },
+
+    features: [
+      'Dynamic booking flow',
+      'Google Maps API integration',
+      'Stripe billing & upgrades',
+      'Authentication, roles & team management',
+      'CMS for business partners',
+    ],
+
+    links: {
+      live: 'https://www.tryal.us/', // no public URL yet
+      repo: null, // private repo
+    },
+
+    // cover → backdrop
+    backdrop: {
+      url: '/projects/bd-5.webp',
+      type: 'image',
+      alt: 'Bulding Backdrop 5',
+    },
+
+    demos: [
+      {
+        url: '/projects/tryal-demo.webm',
+        type: 'video',
+        alt: 'Screen recording of Tryal marketing site',
+        overlay: true,
+        poster: '/projects/tryal-poster.webp',
+      },
+      {
+        url: '/projects/tryal-mock.webp',
+        type: 'image',
+        alt: 'Mockup of Tryal on laptop',
+      },
+    ],
+
+    tags: ['Startup', 'Subscriptions', 'Stripe', 'Next.js', 'Google Maps API'],
+  },
+
+  {
+    id: 'P-07',
     name: 'Susan AI',
     slug: 'susan-ai',
     type: 'Machine Learning App',
@@ -586,7 +647,7 @@ export const projects = [
   },
 
   {
-    id: 'P-07',
+    id: 'P-08',
     name: 'NGX Token',
     slug: 'ngx-token',
     type: 'Blockchain/Web3', // ✅ standardized (Blockchain/Web3 context in tags)
@@ -647,67 +708,6 @@ export const projects = [
     ],
 
     tags: ['Blockchain', 'Web3', 'Polygon', 'Energy'],
-  },
-
-  {
-    id: 'P-08',
-    name: 'Tryal',
-    slug: 'tryal',
-    type: 'Startup',
-    origin: 'personal',
-    status: 'wip',
-    featured: true,
-
-    featuredCanvas: '/projects/tryal-feat-cropped.webp',
-
-    summary: 'Subscription platform for discovering local experiences through monthly credits.',
-    description:
-      "Cofounder of Tryal, a startup project I'm building with few other developers: a subscription platform where users redeem monthly credits to explore local experiences—from food tastings to fitness classes—while supporting community businesses. The platform features secure billing, team-based accounts, and a responsive booking flow for both users and business partners.",
-
-    dates: { started: '2025-02-01', ended: null },
-
-    tech: {
-      frontend: ['Next.js', 'React', 'TypeScript', 'Tailwind CSS', 'GSAP'],
-      backend: ['Node.js', 'PostgreSQL', 'Prisma', 'NextAuth'],
-      tools: ['Vercel', 'Stripe', 'GitHub', 'Google Maps API'],
-    },
-
-    features: [
-      'Dynamic booking flow',
-      'Google Maps API integration',
-      'Stripe billing & upgrades',
-      'Authentication, roles & team management',
-      'CMS for business partners',
-    ],
-
-    links: {
-      live: 'https://www.tryal.us/', // no public URL yet
-      repo: null, // private repo
-    },
-
-    // cover → backdrop
-    backdrop: {
-      url: '/projects/bd-5.webp',
-      type: 'image',
-      alt: 'Bulding Backdrop 5',
-    },
-
-    demos: [
-      {
-        url: '/projects/tryal-demo.webm',
-        type: 'video',
-        alt: 'Screen recording of Tryal marketing site',
-        overlay: true,
-        poster: '/projects/tryal-poster.webp',
-      },
-      {
-        url: '/projects/tryal-mock.webp',
-        type: 'image',
-        alt: 'Mockup of Tryal on laptop',
-      },
-    ],
-
-    tags: ['Startup', 'Subscriptions', 'Stripe', 'Next.js', 'Google Maps API'],
   },
 
   {
