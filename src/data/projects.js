@@ -676,7 +676,7 @@ export const projects = [
     ],
 
     links: {
-      live: null, // no demo URL provided
+      live: 'https://dexscreener.com/polygon/0x8c78b2e5da5edb9aaa8cb016c9d05dac98b62c81', // no demo URL provided
       repo: null, // no repo URL provided
     },
 
