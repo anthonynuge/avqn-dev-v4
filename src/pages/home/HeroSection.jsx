@@ -86,10 +86,10 @@ const HeroSection = () => {
         className="text-caption-1 hero-intro"
         data-in="scramble"
         data-out="scramble"
-        data-text="Anthony Viet Quoc Nguyen is a creative full-stack developer building interactive websites with smooth motion and clean design. Available remotely, based in Houston."
+        data-text="Anthony Viet Quoc Nguyen [ AVQN ] is a full-stack developer focused on crafting scalable systems, and thoughtful digital experiences. Based in Houston, available remotely."
       >
-        Anthony Viet Quoc Nguyen is a creative full-stack developer building interactive websites
-        with smooth motion and clean design. Available remotely, based in Houston.
+        Anthony Viet Quoc Nguyen [ AVQN ] is a full-stack developer focused on crafting scalable
+        systems, and thoughtful digital experiences. Based in Houston, available remotely.
       </p>
 
       <div className="hero-specs">
