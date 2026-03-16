@@ -9,7 +9,7 @@ function NavItem({ to, children, onClick, isMobile = false }) {
   return (
     <TransitionLink
       to={to}
-      className={isActive && !isMobile ? 'text-accent' : ''}
+      className={`${isActive && !isMobile ? 'text-accent' : ''} group-hover:text-bg`}
       data-active={isActive}
       onClick={onClick}
     >
@@ -72,9 +72,11 @@ const Navbar = () => {
       <nav className="hidden md:block">
         <ul className="nav-link space-y-[0.5px]">
           {navItems.map((item) => (
-            <li key={item.label} className="hover:bg-accent hover:text-bg px-1 md:pr-6">
+            <li key={item.label} className="group hover:bg-accent px-1 md:pr-6">
               {item.label === 'Contact' ? (
-                <a href={item.to}>{item.label}</a>
+                <a href={item.to} className="group-hover:text-bg">
+                  {item.label}
+                </a>
               ) : (
                 <NavItem to={item.to} isMobile={false}>
                   {item.label}
