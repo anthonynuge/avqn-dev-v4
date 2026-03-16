@@ -763,6 +763,143 @@ export const projects = [
 
     tags: ['Utilities', 'Dashboard', 'Next.js', 'Lead Capture', 'Stripe', 'Supabase'],
   },
+
+  {
+    id: 'P-11',
+    name: 'QR Code Generator',
+    slug: 'qr-code-generator',
+    type: 'Web Application',
+    origin: 'personal',
+    status: 'live',
+    featured: false,
+
+    summary: 'Custom QR code generator that blends uploaded images into branded, scannable codes.',
+    description:
+      "Built after a Midnite Agency client needed a logo-branded menu QR code — and every tool online wanted a subscription for it. The generator accepts an image alongside a URL, virtual business card, or message, then extracts the image's color palette to style the output. Essential scanning cells are identified and protected, while contrast-matched colors are applied to the remaining cells to keep every code reliably scannable. SCAN THE DEMO TO SEE IT IN ACTION!",
+
+    dates: { started: '2026-03-13', ended: null },
+
+    tech: {
+      frontend: ['Next.js', 'React', 'TypeScript', 'Tailwind CSS'],
+      backend: [],
+      tools: ['Vercel', 'GitHub', 'Vite'],
+    },
+
+    features: [
+      'Image upload with color extraction',
+      'URL, vCard, and message QR types',
+      'Essential cell detection & protection',
+      'Contrast-aware color mapping',
+      'Downloadable QR code asset',
+    ],
+
+    links: {
+      live: 'https://branded-qr-generator.vercel.app/',
+      repo: 'https://github.com/anthonynuge/branded-qr-generator',
+    },
+
+    backdrop: {
+      url: '/projects/bd-5.webp',
+      type: 'image',
+      alt: 'Building Backdrop 5',
+    },
+
+    demos: [
+      {
+        url: '/projects/qr-demo.webm',
+        type: 'video',
+        alt: 'Screen recording of QR Code Generator',
+        overlay: true,
+      },
+      {
+        url: '/projects/qr-dev-card.webp',
+        type: 'image',
+        alt: 'Mockup of QR Code Generator',
+        overlay: true,
+      },
+
+      {
+        url: '/projects/qr-site.webp',
+        type: 'image',
+        alt: 'Mockup of QR Code Generator',
+        overlay: true,
+      },
+    ],
+
+    tags: ['Tool', 'QR Code', 'Next.js', 'Image Processing', 'Midnite Agency'],
+  },
+
+  {
+    id: 'E-04',
+    name: 'Tiffany Glam',
+    slug: 'tiffany-glam',
+    type: 'Web Development',
+    origin: 'work',
+    status: 'live',
+    featured: false,
+
+    role: 'Web Designer & Developer',
+
+    summary: 'Wix Studio site for a Houston makeup artist with bookings, courses, and CMS.',
+    description:
+      'Tiffany Glam is a Houston-based makeup artist offering bridal, event, and online course services. I worked with the client from start to finish — Figma design, Wix Studio development, hosting, and ongoing maintenance. The site covers responsive layouts across all breakpoints, HoneyBook integrations for booking automation and client pipeline, a custom CMS, image optimizations, and frontend animations refined through iterative client feedback.',
+
+    dates: { started: '2025-11-01', ended: '2026-02-01' },
+    tech: {
+      frontend: ['Wix Studio', 'CSS'],
+      backend: ['Wix CMS'],
+      tools: ['Figma', 'HoneyBook'],
+    },
+
+    features: [
+      'Figma design to Wix Studio build',
+      'HoneyBook booking & client pipeline automation',
+      'CMS for services and content',
+      'Custom frontend animations & transitions',
+    ],
+
+    links: {
+      live: 'https://www.tiffanyglam.com/',
+      repo: null,
+    },
+
+    backdrop: {
+      url: '/projects/bd-1.webp',
+      type: 'image',
+      alt: 'Building Backdrop 1',
+    },
+
+    demos: [
+      {
+        url: '/projects/tg-home.webm',
+        type: 'video',
+        alt: 'Screen recording of Tiffany Glam homepage',
+        overlay: true,
+        poster: '/projects/tg-home-poster.webp',
+      },
+      {
+        url: '/projects/tg-about.webm',
+        type: 'video',
+        alt: 'Screen recording of Tiffany Glam about section',
+        overlay: true,
+        poster: '/projects/tg-about-poster.webp',
+      },
+      {
+        url: '/projects/tg-figma.webp',
+        type: 'image',
+        alt: 'Figma design file for Tiffany Glam',
+        overlay: true,
+      },
+      {
+        url: '/projects/tg-nav.webp',
+        type: 'image',
+        alt: 'Navigation and header design for Tiffany Glam',
+        overlay: true,
+      },
+    ],
+
+    tags: ['Work', 'Web Design', 'Wix Studio', 'HoneyBook', 'Houston'],
+  },
 ]
 
 export const initialFilters = {
