@@ -26,6 +26,6 @@ dist-ssr
 .env*
 
 # Project files
-.cursor/*
-.claude/*
-.assets/*
+.cursor/
+.claude/
+.assets-src/
