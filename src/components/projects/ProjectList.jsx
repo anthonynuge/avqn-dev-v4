@@ -195,22 +195,22 @@ const ProjectList = memo(function ProjectList({
         <div className="min-w-full">
           {/* Table Header */}
           <div className="border-accent/10 bg-bg supports-[backdrop-filter]:bg-bg/95 sticky top-0 z-10 border-b backdrop-blur">
-            <div className="text-accent/80 grid grid-cols-12 gap-4 p-2 font-mono text-xs tracking-wider uppercase">
+            <div className="text-accent/80 grid grid-cols-12 gap-2 p-2 font-mono text-xs tracking-wider uppercase md:gap-4">
               <button
                 onClick={() => handleSort('date')}
-                className="hover:text-accent col-span-2 flex items-center gap-1 transition-colors"
+                className="hover:text-accent col-span-2 hidden items-center gap-1 transition-colors md:flex"
               >
                 DATE {icon('date')}
               </button>
               <button
                 onClick={() => handleSort('name')}
-                className="hover:text-accent col-span-6 flex items-center gap-1 transition-colors"
+                className="hover:text-accent col-span-7 flex items-center gap-1 transition-colors md:col-span-6"
               >
                 PROJECT NAME {icon('name')}
               </button>
               <button
                 onClick={() => handleSort('type')}
-                className="hover:text-accent col-span-4 flex items-center gap-1 transition-colors"
+                className="hover:text-accent col-span-5 flex items-center gap-1 transition-colors md:col-span-4"
               >
                 TYPE {icon('type')}
               </button>
@@ -226,14 +226,14 @@ const ProjectList = memo(function ProjectList({
                 tabIndex={0}
                 onFocus={() => onRowFocus(p.id)}
                 onClick={() => onProjectClick?.(p)}
-                className="hover:bg-accent hover:text-bg focus:bg-accent focus:text-bg grid cursor-pointer grid-cols-12 gap-2 p-2 transition-transform duration-150 will-change-[transform]"
+                className="hover:bg-accent hover:text-bg focus:bg-accent focus:text-bg grid cursor-pointer grid-cols-12 gap-2 p-2 transition-transform duration-150 will-change-[transform] md:gap-2"
                 style={{
                   contentVisibility: 'auto', // let browser skip offscreen work
                   containIntrinsicSize: '1px 48px', // fallback size to avoid jumps
                 }}
               >
-                {/* Date */}
-                <div className="col-span-2 flex items-center">
+                {/* Date - hidden on mobile, 2-col layout: title + type only */}
+                <div className="col-span-2 hidden items-center md:flex">
                   <span className="font-mono text-xs opacity-80">
                     {new Date(
                       (p.dates.ended ?? p.dates.started) + 'T00:00:00-06:00',
@@ -242,12 +242,12 @@ const ProjectList = memo(function ProjectList({
                 </div>
 
                 {/* Project Name */}
-                <div className="col-span-6 flex items-center font-mono uppercase">
-                  <span className="text-sm">{p.name}</span>
+                <div className="col-span-7 flex items-center font-mono uppercase md:col-span-6">
+                  <span className="text-xs md:text-sm">{p.name}</span>
                 </div>
 
                 {/* Type */}
-                <div className="col-span-4 flex items-center font-mono uppercase">
+                <div className="col-span-5 flex items-center font-mono uppercase md:col-span-4">
                   <span className="text-xs">{p.type}</span>
                 </div>
               </div>
