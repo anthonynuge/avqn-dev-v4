@@ -33,28 +33,11 @@ const ProjectList = memo(function ProjectList({
     arr.sort((a, b) => {
       let A, B
       if (sortBy === 'date') {
-        // Handle ongoing projects (ended is null) - they should be at the top as most recent
-        const aEnded = a.dates?.ended
-        const bEnded = b.dates?.ended
-
-        // If both are ongoing (null ended), sort by started date
-        if (!aEnded && !bEnded) {
-          A = new Date(a.dates?.started || 0)
-          B = new Date(b.dates?.started || 0)
-        }
-        // If only A is ongoing, A comes first (most recent)
-        else if (!aEnded && bEnded) {
-          return sortOrder === 'asc' ? 1 : -1
-        }
-        // If only B is ongoing, B comes first (most recent)
-        else if (aEnded && !bEnded) {
-          return sortOrder === 'asc' ? -1 : 1
-        }
-        // Both are completed, sort by ended date
-        else {
-          A = new Date(aEnded)
-          B = new Date(bEnded)
-        }
+        // Order by end date; if no end date, use start date (effective date)
+        const aEffective = new Date((a.dates?.ended ?? a.dates?.started) || 0)
+        const bEffective = new Date((b.dates?.ended ?? b.dates?.started) || 0)
+        A = aEffective
+        B = bEffective
       } else if (sortBy === 'name') {
         A = (a.name || '').toLowerCase()
         B = (b.name || '').toLowerCase()
