@@ -28,7 +28,7 @@ export const projects = [
     description:
       "Cofounder of Tryal, a startup project I'm building with few other developers: a subscription platform where users redeem monthly credits to explore local experiences—from food tastings to fitness classes—while supporting community businesses. The platform features secure billing, team-based accounts, and a responsive booking flow for both users and business partners.",
 
-    dates: { started: '2025-02-01', ended: null },
+    dates: { started: '2025-02-01', ended: '2026-01-31' },
 
     tech: {
       frontend: ['Next.js', 'React', 'TypeScript', 'Tailwind CSS', 'GSAP'],
