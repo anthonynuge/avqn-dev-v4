@@ -24,6 +24,9 @@
 
 .project-index-list {
   grid-area: list;
+  min-height: 0; /* allow flex child to shrink and show scrollbar */
+  display: flex;
+  flex-direction: column;
 }
 
 @media (min-width: 880px) {

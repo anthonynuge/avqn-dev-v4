@@ -659,7 +659,7 @@ export const projects = [
     description:
       'NGX Token is a cryptocurrency project from NGX Consulting, launched on the Polygon network with a market cap of $2.6M. Built to innovate the energy sector, it powers crypto-based payments, user rewards, and business partnerships across Texas, with a public unlock phase planned for Winter 2025. I am contributing  to the launch by developing the public marketing site and dApp interface, ensuring a secure and polished user experience that supported the tokens entry into the market.',
 
-    dates: { started: '2025-06-01', ended: null },
+    dates: { started: '2025-06-01', ended: '2025-12-31' },
 
     tech: {
       frontend: ['Next.js', 'React', 'TypeScript', 'Tailwind CSS', 'GSAP'],
