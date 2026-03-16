@@ -177,7 +177,7 @@ const ProjectList = memo(function ProjectList({
   return (
     <div className="flex min-h-0 flex-1 flex-col overflow-hidden">
       {/* Header - solid bg so scroll content never shows through */}
-      <div className="relative z-10 shrink-0 border-b border-accent/10 bg-bg p-2">
+      <div className="border-accent/10 bg-bg relative z-10 shrink-0 border-b p-2 md:pt-0">
         <div className="flex items-center justify-between">
           <h1 className="text-accent font-mono text-sm tracking-wider uppercase">
             PROJECTS ({projects.length})
@@ -191,10 +191,10 @@ const ProjectList = memo(function ProjectList({
       </div>
 
       {/* Table - scrollable; minimal scrollbar via .project-list-scroll */}
-      <div className="project-list-scroll flex-1 min-h-0 overflow-auto">
+      <div className="project-list-scroll min-h-0 flex-1 overflow-auto">
         <div className="min-w-full">
           {/* Table Header */}
-          <div className="sticky top-0 z-10 border-b border-accent/10 bg-bg backdrop-blur supports-[backdrop-filter]:bg-bg/95">
+          <div className="border-accent/10 bg-bg supports-[backdrop-filter]:bg-bg/95 sticky top-0 z-10 border-b backdrop-blur">
             <div className="text-accent/80 grid grid-cols-12 gap-4 p-2 font-mono text-xs tracking-wider uppercase">
               <button
                 onClick={() => handleSort('date')}
