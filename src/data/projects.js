@@ -787,10 +787,8 @@ export const projects = [
 
     features: [
       'Image upload with color extraction',
-      'URL, vCard, and message QR types',
-      'Essential cell detection & protection',
+      'URL, vCard, and text input QR types',
       'Contrast-aware color mapping',
-      'Downloadable QR code asset',
     ],
 
     links: {
