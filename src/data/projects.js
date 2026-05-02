@@ -14,6 +14,77 @@ export const getFeaturedProjects = () => {
 
 export const projects = [
   {
+    id: 'E-05',
+    name: 'Midnite Agency',
+    slug: 'midnite-agency-v2',
+    type: 'Web Development',
+    origin: 'work',
+    status: 'live',
+    featured: true,
+
+    role: 'Frontend Developer & Designer',
+
+    featuredCanvas: '/projects/midnite-v2-hero.webp',
+
+    summary: 'Full rebrand and redesign of Midnite Agency with heavy GSAP-driven animations.',
+    description:
+      'A ground-up rebrand and rebuild of Midnite Agency, a Houston-based creative marketing firm. The new site sheds the old visual identity for a sharper, motion-forward presentation built around GSAP timelines, Lenis smooth scrolling, and Matter.js physics interactions. Every section is animated with intent — from scroll-driven reveals to interactive components — to better reflect the agency’s creative work.',
+
+    dates: { started: '2026-04-27', ended: '2026-05-01' },
+
+    tech: {
+      frontend: ['Next.js', 'React', 'TypeScript', 'Tailwind CSS', 'GSAP', 'Lenis', 'Matter.js'],
+      backend: [],
+      tools: ['Vercel', 'Resend', 'GitHub'],
+    },
+
+    features: [
+      'Full Rebrand & Visual Identity',
+      'GSAP Scroll-Driven Animations',
+      'Animated UI Element Mockups',
+      'Matter.js Physics Interactions',
+      'Responsive Next.js + Tailwind Build',
+    ],
+
+    links: {
+      live: 'https://www.midnite-agency.com/',
+      repo: null,
+    },
+
+    backdrop: {
+      url: '/projects/bd-2.webp',
+      type: 'image',
+      alt: 'Building Backdrop 2',
+    },
+
+    demos: [
+      {
+        url: '/projects/midnite-v2-home.webm',
+        type: 'video',
+        alt: 'Screen recording of Midnite Marketing Agency homepage',
+        overlay: true,
+        poster: '/projects/midnite-v2-hero.webp',
+      },
+      {
+        url: '/projects/midnite-v2-works.webm',
+        type: 'video',
+        alt: 'Screen recording of Midnite Marketing Agency works section',
+        overlay: true,
+        poster: '/projects/midnite-v2-hero.webp',
+      },
+      {
+        url: '/projects/midnite-v2-components.webm',
+        type: 'video',
+        alt: 'Screen recording of animated components on Midnite Marketing Agency site',
+        overlay: true,
+        poster: '/projects/midnite-v2-hero.webp',
+      },
+    ],
+
+    tags: ['Work', 'Rebrand', 'Frontend', 'Next.js', 'GSAP', 'Animation'],
+  },
+
+  {
     id: 'P-01',
     name: 'Tryal',
     slug: 'tryal',
@@ -463,20 +534,21 @@ export const projects = [
 
   {
     id: 'E-01',
-    name: 'Midnite Agency',
-    slug: 'midnite-agency',
-    type: 'Web Development', // ✅ standardized (was "Work Experience")
-    origin: 'work', // E-* → work experience
-    status: 'live',
+    name: 'Midnite Agency V1',
+    slug: 'midnite-agency-v1',
+    type: 'Web Development',
+    origin: 'work',
+    status: 'archived',
     featured: false,
 
     role: 'Frontend Developer & Site Maintainer',
 
-    summary: 'Houston-based creative agency website built with Next.js, Tailwind, and 3D visuals.',
+    summary:
+      'Original Midnite Agency site — Next.js, Tailwind, and 3D visuals, since superseded by the V2 rebrand.',
     description:
-      'Midnite Agency, a Houston-based creative marketing firm, hired me to design and develop a custom site that communicates their service offerings with visual flair and technical polish. I delivered a scalable, performant website with integrated 3D visuals, animated UI, and automated email handling — all built with modern frontend tooling.',
+      'The first build of the Midnite Agency site — a Houston-based creative marketing firm that hired me to design and develop a custom presence with visual flair and technical polish. Shipped with integrated 3D visuals, animated UI, and automated email handling on a modern frontend stack. Replaced in 2026 by a full rebrand and rebuild (see the V2 entry).',
 
-    dates: { started: '2025-06-01', ended: null },
+    dates: { started: '2025-06-01', ended: '2025-07-01' },
 
     tech: {
       frontend: ['Next.js', 'React', 'TypeScript', 'Tailwind CSS', 'Framer Motion', 'Three.js'],
@@ -493,7 +565,7 @@ export const projects = [
     ],
 
     links: {
-      live: 'https://www.midnite-agency.com',
+      live: 'https://midnite-site.vercel.app/',
       repo: null,
     },
 
@@ -828,6 +900,52 @@ export const projects = [
   },
 
   {
+    id: 'P-12',
+    name: 'Energy Panda',
+    slug: 'energy-panda',
+    type: 'SaaS',
+    origin: 'personal',
+    status: 'wip',
+    featured: false,
+
+    summary: 'Subscription platform that finds and manages the best energy plan for you.',
+    description:
+      'Energy Panda is a subscription-based SaaS platform that removes the hassle of managing your energy plan. Users subscribe and the service handles the rest — sourcing, comparing, and switching to the best available plan on their behalf. Built with Next.js, Supabase, and Stripe, the platform includes an admin dashboard, an SEO-optimized blog, transactional emails via Resend, and security-hardened data handling throughout.',
+
+    dates: { started: '2025-04-01', ended: null },
+
+    tech: {
+      frontend: ['Next.js', 'React', 'TypeScript', 'Tailwind CSS', 'shadcn/ui'],
+      backend: ['Supabase', 'PostgreSQL'],
+      tools: ['Vercel', 'Stripe', 'Resend', 'GitHub'],
+    },
+
+    features: [
+      'Stripe subscription billing & management',
+      'Admin dashboard with full CRUD',
+      'SEO-optimized frontend blog',
+      'Transactional emails via Resend',
+      'Security-focused auth & data handling',
+      'Supabase backend & storage',
+    ],
+
+    links: {
+      live: null,
+      repo: null,
+    },
+
+    backdrop: {
+      url: '/projects/bd-3.webp',
+      type: 'image',
+      alt: 'Building Backdrop 3',
+    },
+
+    demos: [],
+
+    tags: ['SaaS', 'Subscriptions', 'Energy', 'Next.js', 'Stripe', 'Supabase'],
+  },
+
+  {
     id: 'E-04',
     name: 'Tiffany Glam',
     slug: 'tiffany-glam',
@@ -927,6 +1045,9 @@ export const initialFilters = {
     Recharts: false,
     'Three.js': false,
     GSAP: false,
+    'shadcn/ui': false,
+    Lenis: false,
+    'Matter.js': false,
   },
   backend: {
     'Node.js': false,
@@ -959,5 +1080,6 @@ export const initialFilters = {
     SendGrid: false,
     Polygon: false,
     DNS: false,
+    Resend: false,
   },
 }
