@@ -718,69 +718,69 @@ export const projects = [
     tags: ['Work', 'Analytics', 'Creator Economy'],
   },
 
-  {
-    id: 'P-08',
-    name: 'NGX Token',
-    slug: 'ngx-token',
-    type: 'Blockchain/Web3', // ✅ standardized (Blockchain/Web3 context in tags)
-    origin: 'work',
-    status: 'wip', // still experimental, no live/repo links provided
-    featured: false,
+  // {
+  //   id: 'P-08',
+  //   name: 'NGX Token',
+  //   slug: 'ngx-token',
+  //   type: 'Blockchain/Web3', // ✅ standardized (Blockchain/Web3 context in tags)
+  //   origin: 'work',
+  //   status: 'wip', // still experimental, no live/repo links provided
+  //   featured: false,
 
-    summary: 'ERC-20 utility token with a Next.js dApp for minting, transfers, and admin actions.',
-    description:
-      'NGX Token is a cryptocurrency project from NGX Consulting, launched on the Polygon network with a market cap of $2.6M. Built to innovate the energy sector, it powers crypto-based payments, user rewards, and business partnerships across Texas, with a public unlock phase planned for Winter 2025. I am contributing  to the launch by developing the public marketing site and dApp interface, ensuring a secure and polished user experience that supported the tokens entry into the market.',
+  //   summary: 'ERC-20 utility token with a Next.js dApp for minting, transfers, and admin actions.',
+  //   description:
+  //     'NGX Token is a cryptocurrency project from NGX Consulting, launched on the Polygon network with a market cap of $2.6M. Built to innovate the energy sector, it powers crypto-based payments, user rewards, and business partnerships across Texas, with a public unlock phase planned for Winter 2025. I am contributing  to the launch by developing the public marketing site and dApp interface, ensuring a secure and polished user experience that supported the tokens entry into the market.',
 
-    dates: { started: '2025-06-01', ended: '2025-12-31' },
+  //   dates: { started: '2025-06-01', ended: '2025-12-31' },
 
-    tech: {
-      frontend: ['Next.js', 'React', 'TypeScript', 'Tailwind CSS', 'GSAP'],
-      backend: [],
-      tools: ['Polygon', 'Vercel', 'GitHub'],
-    },
+  //   tech: {
+  //     frontend: ['Next.js', 'React', 'TypeScript', 'Tailwind CSS', 'GSAP'],
+  //     backend: [],
+  //     tools: ['Polygon', 'Vercel', 'GitHub'],
+  //   },
 
-    features: [
-      'Public launch marketing site',
-      'Polygon network integration',
-      'Crypto-powered payments & rewards',
-      'Business partnerships in Texas',
-      'WalletConnect & MetaMask support',
-    ],
+  //   features: [
+  //     'Public launch marketing site',
+  //     'Polygon network integration',
+  //     'Crypto-powered payments & rewards',
+  //     'Business partnerships in Texas',
+  //     'WalletConnect & MetaMask support',
+  //   ],
 
-    links: {
-      live: 'https://dexscreener.com/polygon/0x8c78b2e5da5edb9aaa8cb016c9d05dac98b62c81', // no demo URL provided
-      repo: null, // no repo URL provided
-    },
+  //   links: {
+  //     live: 'https://dexscreener.com/polygon/0x8c78b2e5da5edb9aaa8cb016c9d05dac98b62c81', // no demo URL provided
+  //     repo: null, // no repo URL provided
+  //   },
 
-    // cover → backdrop
-    backdrop: {
-      url: '/projects/bd-4.webp',
-      type: 'image',
-      alt: 'Bulding Backdrop 4',
-    },
+  //   // cover → backdrop
+  //   backdrop: {
+  //     url: '/projects/bd-4.webp',
+  //     type: 'image',
+  //     alt: 'Bulding Backdrop 4',
+  //   },
 
-    demos: [
-      {
-        url: '/projects/ngx-token-mock.webp',
-        type: 'image',
-        alt: 'Mockup of NGX Token page',
-      },
-      {
-        url: '/projects/ngx-token-demo.webm',
-        type: 'video',
-        alt: 'Screen recording of NGX Token page',
-        overlay: true,
-        poster: '/projects/ngx-token-poster.webp',
-      },
-      {
-        url: '/projects/ngx-token-2.webp',
-        type: 'image',
-        alt: 'Screenshot of NGX Token page',
-      },
-    ],
+  //   demos: [
+  //     {
+  //       url: '/projects/ngx-token-mock.webp',
+  //       type: 'image',
+  //       alt: 'Mockup of NGX Token page',
+  //     },
+  //     {
+  //       url: '/projects/ngx-token-demo.webm',
+  //       type: 'video',
+  //       alt: 'Screen recording of NGX Token page',
+  //       overlay: true,
+  //       poster: '/projects/ngx-token-poster.webp',
+  //     },
+  //     {
+  //       url: '/projects/ngx-token-2.webp',
+  //       type: 'image',
+  //       alt: 'Screenshot of NGX Token page',
+  //     },
+  //   ],
 
-    tags: ['Blockchain', 'Web3', 'Polygon', 'Energy'],
-  },
+  //   tags: ['Blockchain', 'Web3', 'Polygon', 'Energy'],
+  // },
 
   {
     id: 'P-10',
