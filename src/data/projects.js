@@ -899,6 +899,61 @@ export const projects = [
     tags: ['Tool', 'QR Code', 'Next.js', 'Image Processing', 'Midnite Agency'],
   },
 
+  {
+    id: 'P-13',
+    name: 'Blah2Text',
+    slug: 'blah2text',
+    type: 'Desktop Application',
+    origin: 'personal',
+    status: 'wip',
+    featured: false,
+
+    summary: 'Local, offline push-to-talk dictation for Windows that transcribes speech and types it at the cursor.',
+    description:
+      "Blah2Text reproduces the Wispr Flow push-to-talk dictation experience entirely on-device. Hold a hotkey, speak, and release; the audio is transcribed by a local faster-whisper model, cleaned by a rule-based pass plus a local Ollama LLM, and injected at the cursor in whatever app has focus. The whole pipeline runs offline with no cloud calls and no telemetry, the differentiator against Wispr Flow's cloud-only service. It falls back to CPU on a broken CUDA setup and never blocks dictation when the LLM stalls.",
+
+    dates: { started: '2026-07-03', ended: null },
+
+    tech: {
+      frontend: ['tkinter'],
+      backend: ['Python', 'faster-whisper', 'CTranslate2', 'Silero VAD', 'Ollama'],
+      tools: ['Win32 SendInput', 'GitHub'],
+    },
+
+    features: [
+      'Push-to-talk dictation',
+      'Fully offline, no telemetry',
+      'GPU with automatic CPU fallback',
+      'Latency-aware LLM cleanup',
+      'Terminal-aware text injection',
+      'Live waveform overlay',
+    ],
+
+    links: {
+      live: null,
+      repo: 'https://github.com/anthonynuge/blah2text',
+    },
+
+    backdrop: {
+      url: '/projects/bd-4.webp',
+      type: 'image',
+      alt: 'Building Backdrop 4',
+    },
+
+    demos: [
+      {
+        url: '/projects/blah2Text-demo.webm',
+        type: 'video',
+        alt: 'Screen recording of Blah2Text dictation',
+        overlay: true,
+      },
+    ],
+
+    featuredCanvas: null,
+
+    tags: ['AI', 'Dictation', 'Whisper', 'Offline', 'Python'],
+  },
+
   // {
   //   id: 'P-12',
   //   name: 'Energy Panda',
