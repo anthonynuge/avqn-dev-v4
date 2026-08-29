@@ -1222,6 +1222,62 @@ export const projects = [
 
     tags: ['Work', 'CRM', 'Energy', 'Next.js', 'Internal Tool'],
   },
+
+  {
+    id: 'P-14',
+    name: 'ESID Lookup',
+    slug: 'esid-lookup',
+    type: 'Web Application',
+    origin: 'personal',
+    status: 'live',
+    featured: false,
+
+    summary:
+      'Address search across 13M+ ERCOT records that returns a Texas meter ID in under 100ms.',
+    description:
+      "Every Texas electricity account is keyed to an ESID, and the only public source is ERCOT's raw TDSP extract — multi-million-row CSVs behind a ZIP download. ESID Lookup turns that into a search box. A cron job pulls the extract daily, normalizes it, and batch-upserts roughly 13M address rows into PostgreSQL; the API layers exact btree lookup, trigram fuzzy match for typos, and prefix autocomplete, with Redis in front and graceful fallback when it drops.",
+
+    dates: { started: '2026-03-07', ended: null },
+
+    tech: {
+      frontend: ['React', 'TypeScript', 'Vite', 'Tailwind CSS', 'shadcn/ui'],
+      backend: ['Node.js', 'Express', 'TypeScript', 'PostgreSQL', 'Redis'],
+      tools: ['Docker', 'AWS EC2', 'AWS RDS', 'Vercel', 'GitHub'],
+    },
+
+    features: [
+      'Daily Cron Sync From ERCOT',
+      '13M+ Row Ingestion Pipeline',
+      'Exact, Fuzzy & Prefix Search',
+      'Trigram Indexes For Typo Tolerance',
+      'Redis Cache With Graceful Fallback',
+      'Debounced Autocomplete UI',
+    ],
+
+    links: {
+      live: 'https://esid-lookup-frontend.vercel.app/',
+      repo: null,
+    },
+
+    backdrop: {
+      url: '/projects/bd-1.webp',
+      type: 'image',
+      alt: 'Building Backdrop 1',
+    },
+
+    demos: [
+      {
+        url: '/projects/esiid-lookup.webp',
+        type: 'image',
+        alt: 'ESID Lookup search result showing utility provider and load zone',
+        overlay: true,
+      },
+    ],
+
+    featuredCanvas: null,
+
+    tags: ['Energy', 'ERCOT', 'Data Pipeline', 'PostgreSQL', 'Full Stack'],
+  },
 ]
 
 export const initialFilters = {
@@ -1275,6 +1331,9 @@ export const initialFilters = {
   },
   tools: {
     Vercel: false,
+    Docker: false,
+    'AWS EC2': false,
+    'AWS RDS': false,
     GitHub: false,
     'VS Code': false,
     'Jupyter Notebook': false,
