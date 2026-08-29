@@ -908,7 +908,8 @@ export const projects = [
     status: 'wip',
     featured: false,
 
-    summary: 'Local, offline push-to-talk dictation for Windows that transcribes speech and types it at the cursor.',
+    summary:
+      'Local, offline push-to-talk dictation for Windows that transcribes speech and types it at the cursor.',
     description:
       "Blah2Text reproduces the Wispr Flow push-to-talk dictation experience entirely on-device. Hold a hotkey, speak, and release; the audio is transcribed by a local faster-whisper model, cleaned by a rule-based pass plus a local Ollama LLM, and injected at the cursor in whatever app has focus. The whole pipeline runs offline with no cloud calls and no telemetry, the differentiator against Wispr Flow's cloud-only service. It falls back to CPU on a broken CUDA setup and never blocks dictation when the LLM stalls.",
 
