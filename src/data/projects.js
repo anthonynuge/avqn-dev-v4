@@ -1072,6 +1072,156 @@ export const projects = [
 
     tags: ['Work', 'Web Design', 'Wix Studio', 'HoneyBook', 'Houston'],
   },
+
+  {
+    id: 'E-06',
+    name: 'Electric Decisions',
+    slug: 'electric-decisions',
+    type: 'Web Application',
+    origin: 'work',
+    status: 'live',
+    featured: false,
+
+    role: 'Full Stack Developer',
+
+    summary: 'Texas electricity comparison site that folds hidden fees into a real per-kWh rate.',
+    description:
+      'Electric Decisions is a plan comparison platform for the Texas deregulated market, built at National Grid X. Shoppers enter a ZIP code and get ranked plans from 500+ offers across the major retail providers, with delivery charges and tiered credits folded into a single effective rate instead of the headline number providers advertise. A bill analyzer parses an uploaded PDF or photo into a usage dashboard, and ESID lookup ties a plan to the exact service premise.',
+
+    dates: { started: '2026-06-24', ended: null },
+
+    tech: {
+      frontend: ['Next.js', 'React', 'TypeScript', 'Tailwind CSS', 'GSAP'],
+      backend: ['PostgreSQL', 'Neon'],
+      tools: ['Vercel', 'GitHub'],
+    },
+
+    features: [
+      'ZIP-Based Plan Comparison',
+      'True Effective Rate Calculation',
+      'Bill Analyzer With PDF Upload',
+      'ESID Premise Lookup',
+      'Savings Calculator',
+      'SEO City & Zone Pages',
+    ],
+
+    links: {
+      live: 'https://www.electricdecisions.com/',
+      repo: null,
+    },
+
+    backdrop: {
+      url: '/projects/bd-3.webp',
+      type: 'image',
+      alt: 'Building Backdrop 3',
+    },
+
+    demos: [
+      {
+        url: '/projects/electric-decisions-home-page.webm',
+        type: 'video',
+        alt: 'Screen recording of the Electric Decisions homepage',
+        overlay: true,
+      },
+      {
+        url: '/projects/electric-decisions-feat.webp',
+        type: 'image',
+        alt: 'Bill Analyzer feature section on Electric Decisions',
+        overlay: true,
+      },
+      {
+        url: '/projects/electric-decisions-hero.webp',
+        type: 'image',
+        alt: 'Electric Decisions homepage hero with ZIP code search',
+        overlay: true,
+      },
+      {
+        url: '/projects/electric-decisions-form.webp',
+        type: 'image',
+        alt: 'Plan comparison form on Electric Decisions',
+        overlay: true,
+      },
+    ],
+
+    featuredCanvas: null,
+
+    tags: ['Work', 'Energy', 'Next.js', 'Comparison Tool', 'Texas'],
+  },
+
+  {
+    id: 'E-07',
+    name: 'Energy CRM',
+    slug: 'energy-crm',
+    type: 'SaaS',
+    origin: 'work',
+    status: 'live',
+    featured: false,
+
+    role: 'Full Stack Developer',
+
+    summary: 'Broker CRM that runs energy deals from lead intake through signed contract.',
+    description:
+      'Energy CRM is the internal deal engine behind National Grid X, covering both the commercial and residential pipelines. Commercial deals move through a matrix board where supplier pricing is snapshotted at quote time, so a rate never silently shifts under a deal; a custom RFP flow walks brokers through ESID verification, interval data collection, supplier dispatch, and proposal modeling. The residential side assembles a click-to-copy enrollment packet that turns a customer record into a provider signup in one pass.',
+
+    dates: { started: '2026-07-01', ended: null },
+
+    tech: {
+      frontend: ['Next.js', 'React', 'TypeScript', 'Tailwind CSS', 'shadcn/ui'],
+      backend: ['PostgreSQL', 'Neon', 'Redis', 'AWS'],
+      tools: ['Vercel', 'GitHub', 'Better Auth'],
+    },
+
+    features: [
+      'Matrix Deal Pipeline',
+      'Snapshotted Supplier Quotes',
+      'Custom RFP Workflow',
+      'ESID Verification & Interval Data',
+      'Residential Enrollment Packet',
+      'Pricing Upload & Dead Letter Queue',
+    ],
+
+    links: {
+      live: null,
+      repo: null,
+    },
+
+    backdrop: {
+      url: '/projects/bd-5.webp',
+      type: 'image',
+      alt: 'Building Backdrop 5',
+    },
+
+    demos: [
+      {
+        url: '/projects/crm-commercial.webp',
+        type: 'image',
+        alt: 'Custom RFP deal workflow with ESID verification steps',
+        overlay: true,
+      },
+      {
+        url: '/projects/crm-commercial-2.webp',
+        type: 'image',
+        alt: 'Commercial deal detail view in Energy CRM',
+        overlay: true,
+      },
+      {
+        url: '/projects/crm-matrix-demo.webp',
+        type: 'image',
+        alt: 'Matrix pipeline board with a quote snapshot panel open',
+        overlay: true,
+      },
+      {
+        url: '/projects/crm-resi-demo.webp',
+        type: 'image',
+        alt: 'Residential customer record with enrollment packet panel',
+        overlay: true,
+      },
+    ],
+
+    featuredCanvas: null,
+
+    tags: ['Work', 'CRM', 'Energy', 'Next.js', 'Internal Tool'],
+  },
 ]
 
 export const initialFilters = {
@@ -1116,6 +1266,8 @@ export const initialFilters = {
     NumPy: false,
     Java: false,
     PostgreSQL: false,
+    Neon: false,
+    Redis: false,
     MongoDB: false,
     Supabase: false,
     Prisma: false,
