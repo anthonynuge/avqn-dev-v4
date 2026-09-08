@@ -788,32 +788,26 @@ export const projects = [
     slug: 'utility-buddys',
     type: 'SaaS', // ✅ standardized
     origin: 'work', // sounds client-facing; adjust to 'personal' if it’s just a demo
-    status: 'wip', // no live link yet
+    status: 'live',
     featured: false,
 
     summary:
-      'Customer-facing site and admin dashboard for utilities services with lead capture and automation.',
+      'Utility concierge platform that sets up electricity, cable, and insurance for people moving in.',
     description:
-      'Utility Buddys is a subscription platform from NGX Consulting that helps households save money by dynamically managing home utility plans. Users can sign up and pay through a secure portal, while the service handles sensitive data responsibly and automatically optimizes plan selections for cost efficiency. The platform combines a customer-facing site with an admin dashboard for lead capture, content management, and service updates.',
+      'Utility Buddys is a utility concierge platform from NGX Consulting. People moving into a new home submit one request and the service gets their electricity, cable, and insurance set up for them, so they can focus on the move instead of juggling providers. The site pairs a lead capture flow with Sanity-managed content and transactional email so the team can update offerings and follow up with customers without touching code.',
 
     dates: { started: '2025-04-01', ended: null },
 
     tech: {
-      frontend: ['Next.js', 'React', 'TypeScript', 'Tailwind CSS'],
-      backend: ['Node.js', 'PostgreSQL', 'NextAuth'],
-      tools: ['Vercel', 'SendGrid', 'GitHub', 'Stripe', 'Supabase'],
+      frontend: ['Next.js', 'React', 'Tailwind CSS'],
+      backend: ['Node.js', 'PostgreSQL', 'Resend'],
+      tools: ['Sanity', 'Vercel', 'GitHub'],
     },
 
-    features: [
-      'Cybersecurity-focused data handling',
-      'Stripe billing & subscription management',
-      'Lead capture & email automation',
-      'Admin dashboard with CRUD',
-      'SEO, analytics & performance',
-    ],
+    features: ['One-request setup', 'Lead capture & email', 'Sanity CMS', 'SEO & analytics'],
 
     links: {
-      live: null, // no URL yet
+      live: 'https://utilitybuddies.com/',
       repo: null, // no public repo
     },
 
@@ -826,14 +820,14 @@ export const projects = [
 
     demos: [
       {
-        url: '/projects/utility-buddy.webp',
+        url: '/projects/utility-buddies.webp',
         type: 'image',
-        alt: 'Utility Buddys dashboard mockup',
+        alt: 'Utility Buddys marketing site home page',
         overlay: true,
       },
     ],
 
-    tags: ['Utilities', 'Dashboard', 'Next.js', 'Lead Capture', 'Stripe', 'Supabase'],
+    tags: ['Utilities', 'Concierge', 'Next.js', 'Lead Capture', 'Sanity', 'Postgres'],
   },
 
   {
