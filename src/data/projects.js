@@ -949,51 +949,65 @@ export const projects = [
     tags: ['AI', 'Dictation', 'Whisper', 'Offline', 'Python'],
   },
 
-  // {
-  //   id: 'P-12',
-  //   name: 'Energy Panda',
-  //   slug: 'energy-panda',
-  //   type: 'SaaS',
-  //   origin: 'personal',
-  //   status: 'wip',
-  //   featured: false,
+  {
+    id: 'P-12',
+    name: 'Energy Panda',
+    slug: 'energy-panda',
+    type: 'SaaS',
+    origin: 'personal',
+    status: 'live',
+    featured: false,
 
-  //   summary: 'Subscription platform that finds and manages the best energy plan for you.',
-  //   description:
-  //     'Energy Panda is a subscription-based SaaS platform that removes the hassle of managing your energy plan. Users subscribe and the service handles the rest — sourcing, comparing, and switching to the best available plan on their behalf. Built with Next.js, Supabase, and Stripe, the platform includes an admin dashboard, an SEO-optimized blog, transactional emails via Resend, and security-hardened data handling throughout.',
+    summary: 'Subscription platform that finds and manages the best energy plan for you.',
+    description:
+      'Energy Panda is a subscription-based SaaS platform that removes the hassle of managing your energy plan. Users subscribe and the service handles the rest — sourcing, comparing, and switching to the best available plan on their behalf. Built with Next.js, Supabase, and Stripe, the platform includes an admin dashboard, an SEO-optimized blog, transactional emails via Resend, and security-hardened data handling throughout.',
 
-  //   dates: { started: '2025-04-01', ended: null },
+    dates: { started: '2025-04-01', ended: null },
 
-  //   tech: {
-  //     frontend: ['Next.js', 'React', 'TypeScript', 'Tailwind CSS', 'shadcn/ui'],
-  //     backend: ['Supabase', 'PostgreSQL'],
-  //     tools: ['Vercel', 'Stripe', 'Resend', 'GitHub'],
-  //   },
+    tech: {
+      frontend: ['Next.js', 'React', 'TypeScript', 'Tailwind CSS', 'shadcn/ui'],
+      backend: ['Supabase', 'PostgreSQL'],
+      tools: ['Vercel', 'Stripe', 'Resend', 'GitHub'],
+    },
 
-  //   features: [
-  //     'Stripe subscription billing & management',
-  //     'Admin dashboard with full CRUD',
-  //     'SEO-optimized frontend blog',
-  //     'Transactional emails via Resend',
-  //     'Security-focused auth & data handling',
-  //     'Supabase backend & storage',
-  //   ],
+    features: [
+      'Stripe subscription billing & management',
+      'Admin dashboard with full CRUD',
+      'SEO-optimized frontend blog',
+      'Transactional emails via Resend',
+      'Security-focused auth & data handling',
+      'Supabase backend & storage',
+    ],
 
-  //   links: {
-  //     live: null,
-  //     repo: null,
-  //   },
+    links: {
+      live: 'https://energypanda.com/',
+      repo: null,
+    },
 
-  //   backdrop: {
-  //     url: '/projects/bd-3.webp',
-  //     type: 'image',
-  //     alt: 'Building Backdrop 3',
-  //   },
+    backdrop: {
+      url: '/projects/bd-3.webp',
+      type: 'image',
+      alt: 'Building Backdrop 3',
+    },
 
-  //   demos: [],
+    demos: [
+      {
+        url: '/projects/energy-panda-demo.webm',
+        type: 'video',
+        alt: 'Screen recording of the Energy Panda site',
+        overlay: true,
+        poster: '/projects/energy-panda-home.webp',
+      },
+      {
+        url: '/projects/energy-panda-home.webp',
+        type: 'image',
+        alt: 'Energy Panda home page',
+        overlay: true,
+      },
+    ],
 
-  //   tags: ['SaaS', 'Subscriptions', 'Energy', 'Next.js', 'Stripe', 'Supabase'],
-  // },
+    tags: ['SaaS', 'Subscriptions', 'Energy', 'Next.js', 'Stripe', 'Supabase'],
+  },
 
   {
     id: 'E-04',
