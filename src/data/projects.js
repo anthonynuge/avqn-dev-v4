@@ -941,6 +941,7 @@ export const projects = [
         type: 'video',
         alt: 'Screen recording of Blah2Text dictation',
         overlay: true,
+        poster: '/projects/blah2Text-poster.webp',
       },
     ],
 
