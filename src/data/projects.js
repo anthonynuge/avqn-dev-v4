@@ -1066,15 +1066,15 @@ export const projects = [
         poster: '/projects/tg-about-poster.webp',
       },
       {
-        url: '/projects/tg-figma.webp',
-        type: 'image',
-        alt: 'Figma design file for Tiffany Glam',
-        overlay: true,
-      },
-      {
         url: '/projects/tg-nav.webp',
         type: 'image',
         alt: 'Navigation and header design for Tiffany Glam',
+        overlay: true,
+      },
+      {
+        url: '/projects/tg-figma.webp',
+        type: 'image',
+        alt: 'Figma design file for Tiffany Glam',
         overlay: true,
       },
     ],
