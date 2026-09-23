@@ -1,5 +1,17 @@
 import { memo, useEffect, useRef, useState } from 'react'
 
+// Cover = project screenshot; fall back to the generic backdrop
+const coverOf = (p) => {
+  const demos = p?.demos ?? []
+  return (
+    p?.featuredCanvas ||
+    demos.find((d) => d?.type === 'image')?.url ||
+    demos.find((d) => d?.poster)?.poster ||
+    p?.backdrop?.url ||
+    ''
+  )
+}
+
 // Tiny in-memory cache of decoded URLs
 const decoded = new Set()
 
@@ -23,9 +35,10 @@ function preload(src) {
 }
 
 const ProjectPreview = memo(({ project }) => {
-  const [curSrc, setCurSrc] = useState(project?.backdrop.url || '')
+  const cover = coverOf(project)
+  const [curSrc, setCurSrc] = useState(cover)
   const [prevSrc, setPrevSrc] = useState('')
-  const [ready, setReady] = useState(Boolean(project?.backdrop.url))
+  const [ready, setReady] = useState(Boolean(cover))
   const lastReq = useRef('')
   const mounted = useRef(true)
 
@@ -37,7 +50,7 @@ const ProjectPreview = memo(({ project }) => {
   )
 
   useEffect(() => {
-    const next = project?.backdrop.url || ''
+    const next = cover
     if (!next) {
       setPrevSrc('')
       setCurSrc('')
@@ -68,7 +81,7 @@ const ProjectPreview = memo(({ project }) => {
         setReady(true)
       })
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [project?.backdrop.url])
+  }, [cover])
 
   if (!project) {
     return (
@@ -83,7 +96,7 @@ const ProjectPreview = memo(({ project }) => {
 
   const title = project?.name ?? ''
   const desc = project?.description ?? ''
-  const alt = title ? `${title} backdrop` : ''
+  const alt = title ? `${title} cover` : ''
 
   return (
     <div className="relative flex h-full flex-col" style={{ contain: 'content' }}>
@@ -116,7 +129,7 @@ const ProjectPreview = memo(({ project }) => {
           </div>
         )}
 
-        <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/85 to-transparent" />
+        <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/95 via-black/60 to-black/20" />
         <div className="absolute bottom-4 left-4 max-w-[85%] text-white">
           <h2 className="font-bold tracking-wider uppercase">{title}</h2>
           <p className="line-clamp-2 text-sm/5 opacity-90">{desc}</p>
