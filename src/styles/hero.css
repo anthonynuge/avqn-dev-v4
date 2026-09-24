@@ -103,6 +103,22 @@
   @apply text-accent font-mono text-xl leading-none font-medium uppercase md:text-5xl 2xl:text-6xl;
 }
 
+/* Sits in the gutter left of the preview; wheel nav only, so hidden where there's no hover */
+.scroll-hint {
+  @apply text-accent/50 absolute top-1/2 right-full mr-3 hidden -translate-y-1/2 flex-col items-center gap-1 font-mono text-[9px] uppercase;
+}
+@media (hover: hover) and (min-width: 880px) {
+  .scroll-hint {
+    display: flex;
+  }
+}
+
+.scroll-hint-label {
+  writing-mode: vertical-rl;
+  text-orientation: upright;
+  letter-spacing: -0.05em;
+}
+
 .links {
   @apply font-mono text-xs uppercase md:space-y-2 md:self-end;
 }

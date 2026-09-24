@@ -195,22 +195,32 @@ const FeaturedSlider = forwardRef(function FeaturedSlider(props, ref) {
   return (
     <div ref={scope} className="">
       <div ref={titleRef} className="featured-slider-title w-full py-1" />
-      {/* The "window" controls the size; canvas just fills it */}
-      <div
-        ref={wrapRef}
-        className="carousel-window relative aspect-video w-full touch-none overflow-hidden overscroll-contain select-none"
-      >
-        <TransitionLink to={`/projects/${projects[index].slug}`}>
-          <FeaturedCanvas ref={canvasRef} className="absolute inset-0 h-full w-full" />
-        </TransitionLink>
-        {showIntro && (
-          <RevealMask
-            ref={revealMaskRef}
-            slices={20}
-            delay={2}
-            onDone={() => setShowIntro(false)}
-          />
-        )}
+      <div className="relative">
+        {/* Hint: wheel anywhere on the page cycles the preview */}
+        <div className="scroll-hint" aria-hidden="true" data-in="fade">
+          <span className="scroll-hint-label">Scroll</span>
+          <svg viewBox="0 0 10 6" className="h-1 w-2" fill="none" stroke="currentColor">
+            <path d="M1 1l4 4 4-4" />
+          </svg>
+        </div>
+
+        {/* The "window" controls the size; canvas just fills it */}
+        <div
+          ref={wrapRef}
+          className="carousel-window relative aspect-video w-full touch-none overflow-hidden overscroll-contain select-none"
+        >
+          <TransitionLink to={`/projects/${projects[index].slug}`}>
+            <FeaturedCanvas ref={canvasRef} className="absolute inset-0 h-full w-full" />
+          </TransitionLink>
+          {showIntro && (
+            <RevealMask
+              ref={revealMaskRef}
+              slices={20}
+              delay={2}
+              onDone={() => setShowIntro(false)}
+            />
+          )}
+        </div>
       </div>
 
       <div className="carousel-control flex h-4 w-full items-center justify-between self-end py-4">
