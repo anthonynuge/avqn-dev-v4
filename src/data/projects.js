@@ -166,7 +166,7 @@ export const projects = [
     capabilities: ['APIs', 'Security'],
     origin: 'personal',
     status: 'live',
-    featured: true,
+    featured: false,
     featuredCanvas: '/projects/susan-feat-cropped.webp',
 
     summary: 'LLM chat app with auth and markdown/code rendering.',
@@ -1426,7 +1426,7 @@ export const projects = [
     stackHighlight: ['Rust', 'SQLite', 'Ollama'],
     origin: 'personal',
     status: 'wip',
-    featured: false,
+    featured: true,
 
     summary: 'Offline Rust CLI and daemon for undoable file management with local AI search.',
     description:
@@ -1490,7 +1490,7 @@ export const projects = [
       },
     ],
 
-    featuredCanvas: null,
+    featuredCanvas: '/projects/atlas-rename.webp',
 
     tags: ['CLI', 'Rust', 'Local-First', 'AI', 'Semantic Search', 'Daemon'],
   },
