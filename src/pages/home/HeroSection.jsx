@@ -7,6 +7,9 @@ import { useGSAP, gsap } from '../../lib/gsapSetup'
 import FeaturedSlider from '@/components/AnimatedCarousel/FeaturedSlider'
 import SocialLinks from '../../components/shared/SocialLinks'
 
+const INTRO =
+  'Anthony Viet Quoc Nguyen [ AVQN ] is a full-stack developer focused on crafting scalable systems, and thoughtful digital experiences. Based in Houston, available remotely.'
+
 const HeroSection = () => {
   const scope = useRef(null)
   const sliderRef = useRef(null)
@@ -94,14 +97,15 @@ const HeroSection = () => {
         </div>
       </div>
 
-      <p
-        className="text-caption-1 hero-intro"
-        data-in="scramble"
-        data-out="scramble"
-        data-text="Anthony Viet Quoc Nguyen [ AVQN ] is a full-stack developer focused on crafting scalable systems, and thoughtful digital experiences. Based in Houston, available remotely."
-      >
-        Anthony Viet Quoc Nguyen [ AVQN ] is a full-stack developer focused on crafting scalable
-        systems, and thoughtful digital experiences. Based in Houston, available remotely.
+      {/* Invisible copy sets the height to the finished text; the scramble plays on top,
+          so the stack below never moves while it resolves */}
+      <p className="text-caption-1 hero-intro relative">
+        <span className="invisible" aria-hidden="true">
+          {INTRO}
+        </span>
+        <span className="absolute inset-0" data-in="scramble" data-out="scramble" data-text={INTRO}>
+          {INTRO}
+        </span>
       </p>
 
       <div className="hero-specs">
@@ -177,7 +181,7 @@ const HeroSection = () => {
       </div>
 
       <div className="hero-featured relative" data-out="fade">
-        <div className="absolute inset-0">
+        <div className="min-[880px]:absolute min-[880px]:inset-0">
           <FeaturedSlider ref={sliderRef} />
         </div>
       </div>

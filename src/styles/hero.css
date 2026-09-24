@@ -1,11 +1,9 @@
 .hero-grid {
   display: grid;
   grid-template-columns: 1fr;
-  grid-template-rows:
-    auto
-    clamp(5rem, 10vh, 8rem)
-    auto
-    clamp(5rem, 25vh, 12rem);
+  /* Stacked top-down; spare height falls below the specs, keeping the footer at the bottom */
+  grid-template-rows: auto auto auto 1fr;
+  align-items: start;
 
   grid-template-areas:
     'h'
@@ -93,8 +91,13 @@
 .hero-featured {
   position: relative;
   width: 100%;
-  height: 40vh;
   @apply self-center md:self-start;
+}
+/* Fixed height only where the preview sits beside the text; stacked, it sizes to its content */
+@media (min-width: 880px) {
+  .hero-featured {
+    height: 40vh;
+  }
 }
 
 .featured-slider-title {
@@ -139,4 +142,50 @@
   width: 100%;
   position: absolute;
   inset: 0;
+}
+
+/* Below lg the footer is in the page flow, so fill the layout's middle row (nav and footer
+   heights vary by breakpoint) instead of subtracting nominal values from 100vh */
+@media (max-width: 1023.98px) {
+  .hero-grid {
+    height: 100%;
+    min-height: 0;
+  }
+}
+
+@media (max-width: 879.98px) {
+  .hero-grid {
+    row-gap: 1.5rem;
+  }
+  /* Slightly larger type on phones (shared caption classes stay as-is elsewhere) */
+  .hero-header {
+    margin-bottom: 0; /* the 1.5rem row gap handles it; keeps every gap in the stack equal */
+  }
+  .hero-header .text-display {
+    font-size: 1.75rem;
+  }
+  /* Featured project name: bigger, but capped by width so the longest name
+     ("National Grid X", 15 mono chars) stays on one line down to 320px screens */
+  .featured-slider-title {
+    font-size: min(1.75rem, 7vw);
+  }
+  .hero-intro {
+    font-size: 0.875rem;
+    height: auto; /* sized by the invisible copy of the text, see HeroSection */
+  }
+  /* Skills (the long list) takes the left column; Experience + Currently stack on the right */
+  .hero-specs {
+    grid-template-columns: repeat(2, 1fr);
+    row-gap: 1.25rem;
+  }
+  .hero-specs-item:first-child {
+    grid-row: span 2;
+  }
+  .hero-specs .text-caption-title {
+    font-size: 0.875rem;
+  }
+  .hero-specs .text-caption-3 {
+    font-size: 0.8125rem;
+    line-height: 1.5;
+  }
 }
