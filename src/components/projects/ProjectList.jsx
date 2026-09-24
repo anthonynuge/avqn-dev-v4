@@ -1,12 +1,22 @@
 // src/components/projects/ProjectList.jsx
 import { memo, useCallback, useEffect, useMemo, useRef, useState, startTransition } from 'react'
 import useCanHover from '../../lib/utils/useCanHover'
+import { topStack } from '../../data/filters'
+
+// Shared by header + rows so columns align: [date] name [stack] focus [status]
+// Wide screens: name/stack/focus share the leftover space (1 : 1.25 : 0.75) above minimums that
+// fit their content (longest name ~168px, stack ~252px), and status is a fixed column at the right edge.
+// Tracks use fixed bounds, not content sizing, so every row lines up. Mins sum to ~745px, so it
+// fits the ~770px list at 1280px.
+const COLS =
+  'grid grid-cols-[1fr_6.5rem] gap-2 md:grid-cols-[5rem_1fr_6.5rem] xl:grid-cols-[5rem_minmax(11.5rem,1fr)_minmax(16rem,1.25fr)_minmax(6.5rem,0.75fr)_5.5rem]'
 
 const ProjectList = memo(function ProjectList({
   projects,
   onProjectHover,
   onProjectLeave,
   onProjectClick,
+  showPinned,
 }) {
   const canHover = useCanHover()
 
@@ -157,6 +167,75 @@ const ProjectList = memo(function ProjectList({
     [commitHover, mapById],
   )
 
+  // Featured projects pin to the top, but only in the default view (unfiltered, newest first);
+  // any sort or filter gives a plain list
+  // (newest 3 featured only; the rest stay in date order under All)
+  const pinned = sorted.filter((p) => p.featured).slice(0, 3)
+  const groups =
+    showPinned && sortBy === 'date' && sortOrder === 'desc' && pinned.length
+      ? [
+          ['Pinned', pinned],
+          ['All', sorted.filter((p) => !pinned.includes(p))],
+        ]
+      : null
+
+  // One table row; also used inside the pinned/all groups
+  const renderRow = (p) => (
+    <div
+      key={p.id}
+      data-proj-id={p.id}
+      tabIndex={0}
+      onFocus={() => onRowFocus(p.id)}
+      onClick={() => onProjectClick?.(p)}
+      className={`hover:bg-accent hover:text-bg focus:bg-accent focus:text-bg group ${COLS} cursor-pointer p-2 transition-transform duration-150 will-change-[transform]`}
+      style={{
+        contentVisibility: 'auto', // let browser skip offscreen work
+        containIntrinsicSize: '1px 48px', // fallback size to avoid jumps
+      }}
+    >
+      {/* Date - hidden on mobile, 2-col layout: title + type only */}
+      <div className="hidden items-center md:flex">
+        <span className="font-mono text-xs whitespace-nowrap opacity-80">
+          {/* YYYY.MM straight from the ISO date string */}
+          {(p.dates.ended ?? p.dates.started).slice(0, 7).replace('-', '.')}
+        </span>
+      </div>
+
+      {/* Project Name */}
+      <div className="flex items-center font-mono uppercase">
+        <span className="text-xs md:text-sm">{p.name}</span>
+      </div>
+
+      {/* Stack - wide screens only */}
+      <div className="hidden min-w-0 items-center xl:flex">
+        <span className="truncate font-mono text-xs uppercase opacity-80">
+          {topStack(p).join(' / ')}
+        </span>
+      </div>
+
+      {/* Focus */}
+      <div className="flex items-center font-mono uppercase">
+        <span className="text-xs">{p.type}</span>
+      </div>
+
+      {/* Status - wide screens only. Left-aligned with a fixed dot slot so dots and labels
+          line up. Filled = done, outline = in progress, accent = usable now:
+          live = accent fill, repo = muted fill, wip = muted outline, archived = empty */}
+      <div className="hidden items-center gap-2 font-mono text-xs uppercase xl:flex">
+        <span
+          className={`size-1.5 shrink-0 rounded-full ${
+            {
+              live: 'bg-accent group-hover:bg-bg group-focus:bg-bg',
+              repo: 'group-hover:bg-bg group-focus:bg-bg bg-[hsl(var(--fg-muted))]',
+              wip: 'group-hover:border-bg group-focus:border-bg border border-[hsl(var(--fg-muted))]',
+            }[p.status] ?? ''
+          }`}
+        />
+        <span className={p.status === 'live' ? '' : 'opacity-50'}>{p.status}</span>
+      </div>
+    </div>
+  )
+
   return (
     <div className="flex min-h-0 flex-1 flex-col overflow-hidden">
       {/* Header - solid bg so scroll content never shows through */}
@@ -178,63 +257,45 @@ const ProjectList = memo(function ProjectList({
         <div className="min-w-full">
           {/* Table Header */}
           <div className="border-accent/10 bg-bg supports-[backdrop-filter]:bg-bg/95 sticky top-0 z-10 border-b backdrop-blur">
-            <div className="text-accent/80 grid grid-cols-12 gap-2 p-2 font-mono text-xs tracking-wider uppercase md:gap-4">
+            <div
+              className={`text-accent/80 ${COLS} p-2 font-mono text-xs tracking-wider uppercase`}
+            >
               <button
                 onClick={() => handleSort('date')}
-                className="hover:text-accent col-span-2 hidden items-center gap-1 transition-colors md:flex"
+                className="hover:text-accent hidden items-center gap-1 transition-colors md:flex"
               >
                 DATE {icon('date')}
               </button>
               <button
                 onClick={() => handleSort('name')}
-                className="hover:text-accent col-span-7 flex items-center gap-1 transition-colors md:col-span-6"
+                className="hover:text-accent flex items-center gap-1 transition-colors"
               >
                 PROJECT NAME {icon('name')}
               </button>
+              <span className="hidden items-center xl:flex">STACK</span>
               <button
                 onClick={() => handleSort('type')}
-                className="hover:text-accent col-span-5 flex items-center gap-1 transition-colors md:col-span-4"
+                className="hover:text-accent flex items-center gap-1 transition-colors"
               >
-                TYPE {icon('type')}
+                FOCUS {icon('type')}
               </button>
+              <span className="hidden items-center xl:flex">STATUS</span>
             </div>
           </div>
 
           {/* Delegation root */}
           <div ref={tableRef} className="divide-accent/10 divide-y">
-            {sorted.map((p) => (
-              <div
-                key={p.id}
-                data-proj-id={p.id}
-                tabIndex={0}
-                onFocus={() => onRowFocus(p.id)}
-                onClick={() => onProjectClick?.(p)}
-                className="hover:bg-accent hover:text-bg focus:bg-accent focus:text-bg grid cursor-pointer grid-cols-12 gap-2 p-2 transition-transform duration-150 will-change-[transform] md:gap-2"
-                style={{
-                  contentVisibility: 'auto', // let browser skip offscreen work
-                  containIntrinsicSize: '1px 48px', // fallback size to avoid jumps
-                }}
-              >
-                {/* Date - hidden on mobile, 2-col layout: title + type only */}
-                <div className="col-span-2 hidden items-center md:flex">
-                  <span className="font-mono text-xs opacity-80">
-                    {new Date(
-                      (p.dates.ended ?? p.dates.started) + 'T00:00:00-06:00',
-                    ).toLocaleDateString('en-CA', { timeZone: 'America/Chicago' })}
-                  </span>
-                </div>
-
-                {/* Project Name */}
-                <div className="col-span-7 flex items-center font-mono uppercase md:col-span-6">
-                  <span className="text-xs md:text-sm">{p.name}</span>
-                </div>
-
-                {/* Type */}
-                <div className="col-span-5 flex items-center font-mono uppercase md:col-span-4">
-                  <span className="text-xs">{p.type}</span>
-                </div>
-              </div>
-            ))}
+            {groups
+              ? groups.map(([label, rows]) => [
+                  <div
+                    key={label}
+                    className="text-accent p-2 font-mono text-xs tracking-wider uppercase"
+                  >
+                    // {label}
+                  </div>,
+                  ...rows.map(renderRow),
+                ])
+              : sorted.map(renderRow)}
           </div>
 
           {/* Empty State */}
