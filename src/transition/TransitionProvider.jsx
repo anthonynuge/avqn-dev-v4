@@ -12,6 +12,18 @@ export function TransitionProvider({ children }) {
   const navigate = useNavigate()
   const exitsRef = useRef(new Set()) // stores exit functions
   const busyRef = useRef(false) // prevent double trigger
+  const locksRef = useRef(0) // held by entrance animations; nav is ignored while > 0
+
+  /** Block navigation until the returned release fn runs (safe to call twice) */
+  const lock = useCallback(() => {
+    locksRef.current++
+    let held = true
+    return () => {
+      if (!held) return
+      held = false
+      locksRef.current--
+    }
+  }, [])
 
   /** Register an exit; returns an unregister fn for convenience */
   const setExit = useCallback((fnOrNull) => {
@@ -35,7 +47,7 @@ export function TransitionProvider({ children }) {
   /** Public navigation entry: await exits → navigate */
   const transitionTo = useCallback(
     async (to, options) => {
-      if (busyRef.current) return
+      if (busyRef.current || locksRef.current) return
       busyRef.current = true
       try {
         await runAllExits()
@@ -52,6 +64,7 @@ export function TransitionProvider({ children }) {
       value={{
         setExit,
         transitionTo,
+        lock,
         isTransitioning: busyRef.current,
       }}
     >

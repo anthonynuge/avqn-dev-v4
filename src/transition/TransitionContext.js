@@ -6,5 +6,6 @@ import { createContext } from 'react'
 export const TransitionCtx = createContext({
   setExit: () => {}, // register/unregister an exit
   transitionTo: async () => {}, // navigate after exits
+  lock: () => () => {}, // block nav during entrances; returns release fn
   isTransitioning: false,
 })

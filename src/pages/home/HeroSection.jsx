@@ -2,6 +2,7 @@ import { useRef, useCallback } from 'react'
 import { scrambleOut, scrambleInAll } from '../../lib/animations/scramble'
 import { flicker } from '../../lib/animations/flicker'
 import usePageExit from '../../transition/usePageExit'
+import useTransition from '../../transition/useTransition'
 import { useGSAP, gsap } from '../../lib/gsapSetup'
 import FeaturedSlider from '@/components/AnimatedCarousel/FeaturedSlider'
 import SocialLinks from '../../components/shared/SocialLinks'
@@ -9,11 +10,14 @@ import SocialLinks from '../../components/shared/SocialLinks'
 const HeroSection = () => {
   const scope = useRef(null)
   const sliderRef = useRef(null)
+  const { lock } = useTransition()
 
   // Entry animation — runs on mount, auto-reverts on unmount
   useGSAP(
     () => {
       const q = (sel) => scope.current.querySelectorAll(sel)
+      // Hold navigation until the whole intro (hero + slider) has played
+      const unlock = lock()
 
       // 1) Hide everything marked for entry right away (prevents FOUC)
       gsap.set(q('[data-in]'), { autoAlpha: 0 })
@@ -39,9 +43,17 @@ const HeroSection = () => {
       if (fadeItems.length) {
         tl.add(gsap.to(fadeItems, { autoAlpha: 1, duration: 0.9, stagger: 0.05 }), 'in+=1.9')
       }
-      tl.add(() => sliderRef.current.playEnter(), 'in+=1.9')
+      let sliderDone
+      const sliderIn = new Promise((r) => (sliderDone = r))
+      tl.add(() => {
+        const t = sliderRef.current?.playEnter()
+        t ? t.then(sliderDone) : sliderDone()
+      }, 'in+=1.9')
+      Promise.all([tl.then(), sliderIn]).then(unlock)
+
+      return unlock // killed early (unmount / StrictMode) → release
     },
-    { scope: scope },
+    { scope: scope, dependencies: [lock] },
   )
 
   // Exit animation — runs on unmount
