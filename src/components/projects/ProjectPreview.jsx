@@ -31,12 +31,14 @@ const ProjectPreview = memo(({ project }) => {
   const lastReq = useRef('')
   const mounted = useRef(true)
 
-  useEffect(
-    () => () => {
+  // Set true in setup, not just false in cleanup: StrictMode's dev remount runs the cleanup,
+  // which left this stuck false, so the first hover's preload result was always dropped
+  useEffect(() => {
+    mounted.current = true
+    return () => {
       mounted.current = false
-    },
-    [],
-  )
+    }
+  }, [])
 
   useEffect(() => {
     const next = cover
