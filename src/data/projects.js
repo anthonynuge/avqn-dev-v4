@@ -1318,4 +1318,144 @@ export const projects = [
 
     tags: ['Energy', 'ERCOT', 'Data Pipeline', 'PostgreSQL', 'Full Stack'],
   },
+  {
+    id: 'P-15',
+    name: 'Grounded RAG',
+    slug: 'grounded-rag',
+    type: 'AI / ML',
+    capabilities: ['System Design', 'Data'],
+    stackHighlight: ['Python', 'FastAPI', 'Ollama'],
+    origin: 'personal',
+    status: 'repo',
+    featured: false,
+
+    summary:
+      'Local-first RAG chat that answers from your documents with citations, inside 6K tokens.',
+    description:
+      'Local document Q&A app built around a strict 6,144-token context window. I combined BM25 and vector retrieval with deterministic token-budget packing to choose what reaches the model, then added source citations and refusals when evidence is missing. A custom evaluation harness with an LLM judge helped improve citation accuracy from 69% to 94%.',
+
+    dates: { started: '2026-07-17', ended: '2026-07-20' },
+
+    tech: {
+      frontend: ['React', 'TypeScript', 'Vite', 'Tailwind CSS'],
+      backend: ['Python', 'FastAPI', 'Ollama', 'NumPy', 'tiktoken'],
+      tools: ['uv', 'pytest', 'GitHub'],
+    },
+
+    features: [
+      'Token-Budget Packing',
+      'Hybrid BM25 + Vector Search',
+      'Heading-Aware Chunking',
+      'Cited Answers & Refusals',
+      'Streaming Responses',
+      'LLM Evaluation Harness',
+    ],
+
+    links: {
+      live: null,
+      repo: 'https://github.com/anthonynuge/Local-Rag-Chat-Bot',
+    },
+
+    backdrop: {
+      url: '/projects/bd-3.webp',
+      type: 'image',
+      alt: 'Building Backdrop 3',
+    },
+
+    demos: [
+      {
+        url: '/projects/grounded-rag.webm',
+        type: 'video',
+        alt: 'Grounded RAG answering questions with cited sources while the debug REPL shows token budgets',
+        overlay: true,
+        poster: '/projects/grounded-rag.webp',
+      },
+      {
+        url: '/projects/grounded-rag.webp',
+        type: 'image',
+        alt: 'Grounded RAG chat citing its source file beside a terminal showing the token budget and latency',
+        overlay: true,
+      },
+    ],
+
+    featuredCanvas: null,
+
+    tags: ['AI', 'RAG', 'LLM', 'Local-First', 'Python', 'Evals'],
+  },
+  {
+    id: 'P-16',
+    name: 'Atlas',
+    slug: 'atlas',
+    type: 'Tools',
+    capabilities: ['System Design', 'Data', 'Automation'],
+    stackHighlight: ['Rust', 'SQLite', 'Ollama'],
+    origin: 'personal',
+    status: 'wip',
+    featured: false,
+
+    summary: 'Offline Rust CLI and daemon for undoable file management with local AI search.',
+    description:
+      'Built for my own workflow at Midnite Agency, where I regularly handle hundreds of images and creative assets. Atlas is a Rust CLI and Yazi plugin for repetitive file tasks, with a background daemon that watches folders and processes new files automatically. Ollama runs renaming, classification, OCR, and semantic search locally, keeping client files private and API-free, while SQLite journals every operation for one-step undo and the core keeps working without the AI.',
+
+    dates: { started: '2026-07-03', ended: null },
+
+    tech: {
+      frontend: ['CLI (clap)', 'Yazi Plugin (Lua)'],
+      backend: ['Rust', 'Tokio', 'SQLite', 'sqlite-vec', 'Ollama', 'BLAKE3'],
+      tools: ['Cargo', 'GitHub'],
+    },
+
+    features: [
+      'Undoable File Operations',
+      'Duplicate Detection',
+      'AI Renaming & Classification',
+      'Semantic File Search',
+      'Background Watch Daemon',
+      'Screenshot OCR',
+    ],
+
+    links: {
+      live: null,
+      repo: 'https://github.com/anthonynuge/atlas',
+    },
+
+    backdrop: {
+      url: '/projects/bd-2.webp',
+      type: 'image',
+      alt: 'Building Backdrop 2',
+    },
+
+    demos: [
+      {
+        url: '/projects/atlas-rename.webm',
+        type: 'video',
+        alt: 'Atlas renaming files with local AI suggestions',
+        overlay: true,
+        poster: '/projects/atlas-rename.webp',
+      },
+      {
+        url: '/projects/atlas-organize.webm',
+        type: 'video',
+        alt: 'Atlas organizing a folder by prompt',
+        overlay: true,
+        poster: '/projects/atlas-rename.webp',
+      },
+      {
+        url: '/projects/atlas-rename.webp',
+        type: 'image',
+        alt: 'Atlas AI rename preview in Yazi turning 11 generic filenames into descriptive ones',
+        overlay: true,
+      },
+      {
+        url: '/projects/atlas-search.webp',
+        type: 'image',
+        alt: 'Atlas semantic search in Yazi answering a question with a cited source document',
+        overlay: true,
+      },
+    ],
+
+    featuredCanvas: null,
+
+    tags: ['CLI', 'Rust', 'Local-First', 'AI', 'Semantic Search', 'Daemon'],
+  },
 ]
