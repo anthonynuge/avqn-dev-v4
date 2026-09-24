@@ -1,16 +1,5 @@
 import { memo, useEffect, useRef, useState } from 'react'
-
-// Cover = project screenshot; fall back to the generic backdrop
-const coverOf = (p) => {
-  const demos = p?.demos ?? []
-  return (
-    p?.featuredCanvas ||
-    demos.find((d) => d?.type === 'image')?.url ||
-    demos.find((d) => d?.poster)?.poster ||
-    p?.backdrop?.url ||
-    ''
-  )
-}
+import coverOf from '../../lib/utils/coverOf'
 
 // Tiny in-memory cache of decoded URLs
 const decoded = new Set()

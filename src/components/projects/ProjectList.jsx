@@ -2,6 +2,7 @@
 import { memo, useCallback, useEffect, useMemo, useRef, useState, startTransition } from 'react'
 import useCanHover from '../../lib/utils/useCanHover'
 import { topStack } from '../../data/filters'
+import coverOf from '../../lib/utils/coverOf'
 
 // Shared by header + rows so columns align: [date] name [stack] focus [status]
 // Wide screens: name/stack/focus share the leftover space (1 : 1.25 : 0.75) above minimums that
@@ -148,7 +149,7 @@ const ProjectList = memo(function ProjectList({
           if (!en.isIntersecting) continue
           const id = en.target.getAttribute('data-proj-id')
           const p = mapById.get(id)
-          if (p?.cover) prewarm(p.cover)
+          prewarm(coverOf(p)) // same image the hover preview will show
         }
       },
       { root, rootMargin: '200px 0px 400px 0px', threshold: 0 },
