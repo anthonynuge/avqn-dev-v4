@@ -36,7 +36,8 @@ export const projects = [
     tech: {
       frontend: ['Next.js', 'React', 'TypeScript', 'Tailwind CSS', 'GSAP', 'Lenis', 'Matter.js'],
       backend: [],
-      tools: ['Vercel', 'Resend', 'GitHub'],
+      platform: ['Vercel', 'Resend'],
+      tools: ['GitHub', 'Cursor'],
     },
 
     features: [
@@ -105,8 +106,18 @@ export const projects = [
 
     tech: {
       frontend: ['Next.js', 'React', 'TypeScript', 'Tailwind CSS', 'GSAP'],
-      backend: ['Java', 'Spring Boot', 'Node.js', 'PostgreSQL', 'MongoDB', 'NextAuth', 'Redis'],
-      tools: ['Vercel', 'Stripe', 'GitHub', 'Google Maps API', 'IntelliJ IDEA', 'Docker'],
+      backend: [
+        'Java',
+        'Spring Boot',
+        'Node.js',
+        'PostgreSQL',
+        'MongoDB',
+        'Redis',
+        'NextAuth',
+        'Zod',
+      ],
+      platform: ['Vercel', 'Docker', 'Stripe', 'Google Maps API'],
+      tools: ['GitHub', 'IntelliJ IDEA'],
     },
 
     features: [
@@ -166,8 +177,9 @@ export const projects = [
 
     tech: {
       frontend: ['React', 'Vite', 'TypeScript', 'Tailwind CSS', 'Framer Motion'],
-      backend: ['Node.js', 'Appwrite', 'Appwrite Auth'],
-      tools: ['Vercel', 'GitHub', 'VS Code', 'Gemini API'],
+      backend: ['Node.js', 'Appwrite Auth'],
+      platform: ['Vercel', 'Appwrite', 'Gemini API'],
+      tools: ['GitHub', 'VS Code'],
     },
 
     features: [
@@ -239,9 +251,10 @@ export const projects = [
     dates: { started: '2025-02-01', ended: '2025-02-14' },
 
     tech: {
-      frontend: ['React', 'Vite', 'JavaScript', 'HTML', 'CSS', 'Tailwind CSS', 'Framer Motion'],
+      frontend: ['React', 'Vite', 'JavaScript', 'Tailwind CSS', 'Framer Motion'],
       backend: [],
-      tools: ['Vercel', 'GitHub', 'VS Code'],
+      platform: ['Vercel'],
+      tools: ['GitHub', 'VS Code'],
     },
 
     features: [
@@ -299,7 +312,8 @@ export const projects = [
     tech: {
       frontend: ['Tkinter', 'Matplotlib'],
       backend: ['Python', 'TensorFlow', 'Scikit-Learn', 'NumPy'],
-      tools: ['Jupyter Notebook', 'VS Code', 'GitHub'],
+      platform: [],
+      tools: ['GitHub', 'VS Code', 'Jupyter Notebook'],
     },
 
     features: [
@@ -372,7 +386,8 @@ export const projects = [
     tech: {
       frontend: ['Java Swing', 'JavaFX', 'Java AWT'],
       backend: ['Java'],
-      tools: ['IntelliJ IDEA', 'Maven', 'GitHub'],
+      platform: [],
+      tools: ['GitHub', 'IntelliJ IDEA', 'Maven'],
     },
 
     features: [
@@ -425,7 +440,8 @@ export const projects = [
     tech: {
       frontend: ['Tkinter', 'Matplotlib', 'Seaborn'],
       backend: ['Python', 'Scikit-Learn', 'NumPy'],
-      tools: ['Jupyter Notebook', 'VS Code', 'GitHub'],
+      platform: [],
+      tools: ['GitHub', 'VS Code', 'Jupyter Notebook'],
     },
 
     features: [
@@ -490,18 +506,10 @@ export const projects = [
     dates: { started: '2024-01-01', ended: '2024-02-15' }, // placeholder range
 
     tech: {
-      frontend: [
-        'React',
-        'Next.js',
-        'TypeScript',
-        'Tailwind CSS',
-        'Redux',
-        'HTML',
-        'CSS',
-        'Recharts',
-      ],
+      frontend: ['Next.js', 'React', 'TypeScript', 'Tailwind CSS', 'Redux', 'Recharts'],
       backend: ['Node.js', 'Express', 'PostgreSQL'],
-      tools: ['VS Code', 'GitHub', 'Postman'],
+      platform: [],
+      tools: ['GitHub', 'VS Code', 'Postman'],
     },
 
     features: [
@@ -570,7 +578,8 @@ export const projects = [
     tech: {
       frontend: ['Next.js', 'React', 'TypeScript', 'Tailwind CSS', 'Framer Motion', 'Three.js'],
       backend: [],
-      tools: ['Vercel'],
+      platform: ['Vercel'],
+      tools: ['GitHub', 'Cursor'],
     },
 
     features: [
@@ -631,9 +640,10 @@ export const projects = [
     dates: { started: '2025-03-01', ended: null },
 
     tech: {
-      frontend: ['Next.js', 'React', 'Tailwind CSS', 'Framer Motion', 'GSAP'],
-      backend: ['PostgreSQL', 'Supabase', 'Node.js'],
-      tools: ['Vercel', 'DNS'],
+      frontend: ['Next.js', 'React', 'Tailwind CSS', 'Framer Motion', 'GSAP', 'Lenis', 'Recharts'],
+      backend: ['Node.js', 'PostgreSQL'],
+      platform: ['Vercel', 'Supabase'],
+      tools: ['GitHub', 'VS Code'],
     },
 
     features: [
@@ -700,8 +710,9 @@ export const projects = [
 
     tech: {
       frontend: ['Next.js', 'React', 'TypeScript', 'Tailwind CSS', 'Recharts'],
-      backend: ['Node.js', 'MongoDB', 'Express', 'JWT'],
-      tools: ['Git', 'Jira', 'VS Code', 'Postman'],
+      backend: ['Node.js', 'Express', 'MongoDB', 'JWT', 'Zod'],
+      platform: [],
+      tools: ['GitHub', 'VS Code', 'Postman', 'Jira'],
     },
 
     features: [
@@ -821,8 +832,9 @@ export const projects = [
 
     tech: {
       frontend: ['Next.js', 'React', 'Tailwind CSS'],
-      backend: ['Node.js', 'Resend'],
-      tools: ['Sanity', 'Vercel', 'GitHub'],
+      backend: ['Node.js'],
+      platform: ['Vercel', 'Sanity', 'Resend'],
+      tools: ['GitHub', 'VS Code'],
     },
 
     features: ['Multi-Service Lead Form', 'Automated Lead Emails', 'Sanity CMS', 'SEO & Analytics'],
@@ -868,9 +880,10 @@ export const projects = [
     dates: { started: '2026-03-13', ended: null },
 
     tech: {
-      frontend: ['Next.js', 'React', 'TypeScript', 'Tailwind CSS'],
+      frontend: ['Next.js', 'React', 'TypeScript', 'Tailwind CSS', 'Color Thief'],
       backend: [],
-      tools: ['Vercel', 'GitHub', 'Vite'],
+      platform: ['Vercel'],
+      tools: ['GitHub', 'Cursor'],
     },
 
     features: [
@@ -936,8 +949,16 @@ export const projects = [
 
     tech: {
       frontend: ['Tkinter'],
-      backend: ['Python', 'faster-whisper', 'CTranslate2', 'Silero VAD', 'Ollama'],
-      tools: ['Win32 SendInput', 'GitHub'],
+      backend: [
+        'Python',
+        'faster-whisper',
+        'CTranslate2',
+        'Silero VAD',
+        'Ollama',
+        'Win32 SendInput',
+      ],
+      platform: [],
+      tools: ['GitHub', 'Cursor'],
     },
 
     features: [
@@ -992,9 +1013,18 @@ export const projects = [
     dates: { started: '2025-09-27', ended: '2026-07-26' },
 
     tech: {
-      frontend: ['Next.js', 'React', 'TypeScript', 'Tailwind CSS', 'shadcn/ui'],
-      backend: ['Supabase', 'Supabase Auth', 'PostgreSQL', 'AWS KMS', 'Redis'],
-      tools: ['Vercel', 'Stripe', 'Resend', 'GitHub', 'Docker'],
+      frontend: [
+        'Next.js',
+        'React',
+        'TypeScript',
+        'Tailwind CSS',
+        'shadcn/ui',
+        'Recharts',
+        'Framer Motion',
+      ],
+      backend: ['PostgreSQL', 'Redis', 'Supabase Auth', 'Zod'],
+      platform: ['Vercel', 'Supabase', 'Cloudflare', 'Docker', 'AWS KMS', 'Stripe', 'Resend'],
+      tools: ['GitHub', 'Cursor', 'Jest'],
     },
 
     features: [
@@ -1056,7 +1086,8 @@ export const projects = [
     tech: {
       frontend: ['Wix Studio', 'CSS'],
       backend: ['Wix CMS'],
-      tools: ['Figma', 'HoneyBook'],
+      platform: ['HoneyBook'],
+      tools: ['Figma'],
     },
 
     features: [
@@ -1130,8 +1161,9 @@ export const projects = [
 
     tech: {
       frontend: ['Next.js', 'React', 'TypeScript', 'Tailwind CSS', 'GSAP'],
-      backend: ['PostgreSQL', 'Neon', 'Gemini API', 'Redis'],
-      tools: ['Vercel', 'GitHub', 'Docker'],
+      backend: ['PostgreSQL', 'Prisma', 'Redis', 'Papa Parse'],
+      platform: ['Vercel', 'Neon', 'Upstash', 'Sanity', 'Docker', 'Gemini API'],
+      tools: ['GitHub', 'Cursor', 'Jest'],
     },
 
     features: [
@@ -1206,8 +1238,9 @@ export const projects = [
 
     tech: {
       frontend: ['Next.js', 'React', 'TypeScript', 'Tailwind CSS', 'shadcn/ui'],
-      backend: ['PostgreSQL', 'Neon', 'Redis', 'AWS', 'Gemini API', 'Ollama'],
-      tools: ['Vercel', 'GitHub', 'Better Auth', 'Docker'],
+      backend: ['PostgreSQL', 'Prisma', 'Redis', 'Better Auth', 'Ollama'],
+      platform: ['Vercel', 'Neon', 'Docker', 'AWS', 'Cloudflare R2', 'Resend', 'Gemini API'],
+      tools: ['GitHub', 'Cursor', 'Jest'],
     },
 
     features: [
@@ -1280,9 +1313,10 @@ export const projects = [
     dates: { started: '2026-03-07', ended: null },
 
     tech: {
-      frontend: ['React', 'TypeScript', 'Vite', 'Tailwind CSS', 'shadcn/ui'],
-      backend: ['Node.js', 'Express', 'TypeScript', 'PostgreSQL', 'Redis'],
-      tools: ['Docker', 'AWS EC2', 'AWS RDS', 'Vercel', 'GitHub'],
+      frontend: ['React', 'Vite', 'TypeScript', 'Tailwind CSS', 'shadcn/ui'],
+      backend: ['Node.js', 'Express', 'TypeScript', 'PostgreSQL', 'Redis', 'csv-parse'],
+      platform: ['Vercel', 'Docker', 'AWS EC2', 'AWS RDS', 'Linux'],
+      tools: ['GitHub', 'VS Code', 'Jest', 'Bash'],
     },
 
     features: [
@@ -1337,9 +1371,10 @@ export const projects = [
     dates: { started: '2026-07-17', ended: '2026-07-20' },
 
     tech: {
-      frontend: ['React', 'TypeScript', 'Vite', 'Tailwind CSS'],
+      frontend: ['React', 'Vite', 'TypeScript', 'Tailwind CSS'],
       backend: ['Python', 'FastAPI', 'Ollama', 'NumPy', 'tiktoken'],
-      tools: ['uv', 'pytest', 'GitHub'],
+      platform: [],
+      tools: ['GitHub', 'Cursor', 'uv', 'pytest'],
     },
 
     features: [
@@ -1402,7 +1437,8 @@ export const projects = [
     tech: {
       frontend: ['CLI (clap)', 'Yazi Plugin (Lua)'],
       backend: ['Rust', 'Tokio', 'SQLite', 'sqlite-vec', 'Ollama', 'BLAKE3'],
-      tools: ['Cargo', 'GitHub'],
+      platform: [],
+      tools: ['GitHub', 'VS Code', 'Cargo'],
     },
 
     features: [
