@@ -938,7 +938,7 @@ export const projects = [
     capabilities: ['Automation'],
     origin: 'personal',
     status: 'repo',
-    featured: false,
+    featured: true,
 
     summary:
       'Local, offline push-to-talk dictation for Windows that transcribes speech and types it at the cursor.',
@@ -991,7 +991,7 @@ export const projects = [
       },
     ],
 
-    featuredCanvas: null,
+    featuredCanvas: '/projects/blah2Text-poster.webp',
 
     tags: ['AI', 'Dictation', 'Whisper', 'Offline', 'Python'],
   },
@@ -1426,7 +1426,7 @@ export const projects = [
     stackHighlight: ['Rust', 'SQLite', 'Ollama'],
     origin: 'personal',
     status: 'wip',
-    featured: true,
+    featured: false,
 
     summary: 'Offline Rust CLI and daemon for undoable file management with local AI search.',
     description:
@@ -1490,7 +1490,7 @@ export const projects = [
       },
     ],
 
-    featuredCanvas: '/projects/atlas-rename.webp',
+    featuredCanvas: null,
 
     tags: ['CLI', 'Rust', 'Local-First', 'AI', 'Semantic Search', 'Daemon'],
   },
