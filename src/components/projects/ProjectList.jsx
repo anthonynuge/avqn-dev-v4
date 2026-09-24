@@ -8,9 +8,10 @@ import coverOf from '../../lib/utils/coverOf'
 // Wide screens: name/stack/focus share the leftover space (1 : 1.25 : 0.75) above minimums that
 // fit their content (longest name ~168px, stack ~252px), and status is a fixed column at the right edge.
 // Tracks use fixed bounds, not content sizing, so every row lines up. Mins sum to ~745px, so it
-// fits the ~770px list at 1280px.
+// fits the ~770px list at 1280px. Phones: focus gets just enough for "FULL-STACK" (~72px) so the
+// name takes the rest.
 const COLS =
-  'grid grid-cols-[1fr_6.5rem] gap-2 md:grid-cols-[5rem_1fr_6.5rem] xl:grid-cols-[5rem_minmax(11.5rem,1fr)_minmax(16rem,1.25fr)_minmax(6.5rem,0.75fr)_5.5rem]'
+  'grid grid-cols-[1fr_5.5rem] gap-2 md:grid-cols-[5rem_1fr_6.5rem] xl:grid-cols-[5rem_minmax(11.5rem,1fr)_minmax(16rem,1.25fr)_minmax(6.5rem,0.75fr)_5.5rem]'
 
 const ProjectList = memo(function ProjectList({
   projects,
@@ -188,10 +189,11 @@ const ProjectList = memo(function ProjectList({
       tabIndex={0}
       onFocus={() => onRowFocus(p.id)}
       onClick={() => onProjectClick?.(p)}
-      className={`hover:bg-accent hover:text-bg focus:bg-accent focus:text-bg group ${COLS} cursor-pointer p-2 transition-transform duration-150 will-change-[transform]`}
+      className={`hover:bg-accent hover:text-bg focus:bg-accent focus:text-bg group ${COLS} cursor-pointer px-2 py-3.5 transition-transform duration-150 will-change-[transform] md:p-2`}
       style={{
         contentVisibility: 'auto', // let browser skip offscreen work
-        containIntrinsicSize: '1px 48px', // fallback size to avoid jumps
+        // content-box estimate (one line of text); 'auto' then remembers each row's real size
+        containIntrinsicSize: 'auto 1px auto 20px',
       }}
     >
       {/* Date - hidden on mobile, 2-col layout: title + type only */}
@@ -204,7 +206,7 @@ const ProjectList = memo(function ProjectList({
 
       {/* Project Name */}
       <div className="flex items-center font-mono uppercase">
-        <span className="text-xs md:text-sm">{p.name}</span>
+        <span className="text-sm">{p.name}</span>
       </div>
 
       {/* Stack - wide screens only */}
@@ -246,8 +248,8 @@ const ProjectList = memo(function ProjectList({
             PROJECTS ({projects.length})
           </h1>
           <div className="text-fg-subtle flex items-center gap-4 font-mono text-xs">
-            <span>VIEW: LIST</span>
-            <span>|</span>
+            <span className="hidden md:inline">VIEW: LIST</span>
+            <span className="hidden md:inline">|</span>
             <span>FILTERED: {projects.length}</span>
           </div>
         </div>

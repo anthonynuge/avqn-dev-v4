@@ -75,15 +75,34 @@ const ProjectIndex = () => {
     [navigate],
   )
 
+  const activeFilters =
+    (filters.category ? 1 : 0) +
+    (filters.origin ? 1 : 0) +
+    (filters.live ? 1 : 0) +
+    filters.capabilities.length +
+    filters.skills.length
+
   const toggleMobileFilter = () => {
     setIsMobileFilterOpen(!isMobileFilterOpen)
   }
 
   return (
     <section className="inner fill-offset overflow-hidden" ref={ref}>
-      <h1 className="project-index-header text-accent text-display-1 font-mono text-4xl leading-tight font-bold uppercase">
-        Archive
-      </h1>
+      {/* Filter toggle shares the title row below 880px (side-by-side layout shows the panel) */}
+      <div className="flex items-end justify-between">
+        <h1 className="project-index-header text-accent text-display-1 font-mono text-4xl leading-tight font-bold uppercase">
+          Archive
+        </h1>
+        <button
+          onClick={toggleMobileFilter}
+          aria-expanded={isMobileFilterOpen}
+          className="text-accent/70 hover:text-accent pb-2 font-mono text-xs tracking-wider uppercase transition-colors min-[880px]:hidden"
+        >
+          {isMobileFilterOpen
+            ? '// Close'
+            : `// Filter${activeFilters ? ` (${activeFilters})` : ''}`}
+        </button>
+      </div>
 
       <div className="project-index-grid relative h-full">
         {/* Filter Panel */}
@@ -92,14 +111,14 @@ const ProjectIndex = () => {
             filters={filters}
             onFilterChange={setFilters}
             isMobileOpen={isMobileFilterOpen}
-            onMobileToggle={toggleMobileFilter}
             className="h-[500px]"
           />
         </aside>
 
         {/* Project Preview - Only show on devices that can hover (not mobile) */}
         {canHover && (
-          <div className="project-index-preview mt-auto h-48">
+          // No preview slot in the stacked layout; rendering it there adds a stray grid column
+          <div className="project-index-preview mt-auto hidden h-48 min-[880px]:block">
             <ProjectPreview project={hoveredProject} />
           </div>
         )}

@@ -45,7 +45,7 @@ const Group = ({ title, active, gap = 'gap-1', children }) => {
   )
 }
 
-const FilterPanel = ({ filters, onFilterChange, isMobileOpen, onMobileToggle }) => {
+const FilterPanel = ({ filters, onFilterChange, isMobileOpen }) => {
   const set = (patch) => onFilterChange((prev) => ({ ...prev, ...patch }))
   // Multi-select lists (capabilities, skills)
   const toggle = (key, v) =>
@@ -58,7 +58,7 @@ const FilterPanel = ({ filters, onFilterChange, isMobileOpen, onMobileToggle }) 
     <div
       className={`project-scrollbar h-full overflow-y-auto backdrop-blur-sm ${
         isMobileOpen ? 'block' : 'hidden'
-      } md:block`}
+      } min-[880px]:block`}
     >
       {/* Header */}
       <div className="">
@@ -71,14 +71,6 @@ const FilterPanel = ({ filters, onFilterChange, isMobileOpen, onMobileToggle }) 
             // CLEAR FILTERS
           </button>
         </div>
-
-        {/* Mobile close button */}
-        <button
-          onClick={onMobileToggle}
-          className="text-accent/70 hover:text-accent mb-4 font-mono text-xs tracking-wider uppercase transition-colors md:hidden"
-        >
-          CLOSE FILTER
-        </button>
       </div>
 
       <div className="grid grid-cols-2 space-y-4 p-2">
