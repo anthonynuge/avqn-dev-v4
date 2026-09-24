@@ -1,9 +1,18 @@
-import { useRef } from 'react'
+import { useRef, useState } from 'react'
 import { gsap, useGSAP } from '../../lib/gsapSetup'
 
-export default function ParallaxImage({ src, alt, className = '', shift = 110, scale = 1.08 }) {
+export default function ParallaxImage({
+  src,
+  alt,
+  className = '',
+  shift = 110,
+  scale = 1.08,
+  priority = false, // fetch now at high priority (e.g. the carousel backdrop, seen first)
+}) {
   const wrapRef = useRef(null)
   const imgRef = useRef(null)
+  // Fade in once decoded instead of popping in (the late pop read as a dark-to-light flash)
+  const [loaded, setLoaded] = useState(false)
 
   useGSAP(
     () => {
@@ -46,8 +55,10 @@ export default function ParallaxImage({ src, alt, className = '', shift = 110, s
         ref={imgRef}
         src={src}
         alt={alt}
-        className={`min-w-[100%] object-cover`}
-        loading="lazy"
+        className={`min-w-[100%] object-cover transition-opacity duration-700 ease-out motion-reduce:transition-none ${loaded ? 'opacity-100' : 'opacity-0'}`}
+        loading={priority ? 'eager' : 'lazy'}
+        fetchPriority={priority ? 'high' : 'auto'}
+        onLoad={() => setLoaded(true)}
       />
     </div>
   )
