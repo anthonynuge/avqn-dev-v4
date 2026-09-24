@@ -100,8 +100,14 @@
   }
 }
 
+.carousel-window[data-intro-closed] canvas {
+  visibility: hidden;
+}
+
 .featured-slider-title {
   grid-area: t;
+  /* Reserve the line before the intro types the name in, so the preview doesn't jump down */
+  min-height: calc(1lh + 0.5rem);
   place-self: end;
   @apply text-accent font-mono text-xl leading-none font-medium uppercase md:text-5xl 2xl:text-6xl;
 }

@@ -20,6 +20,7 @@ const FeaturedSlider = forwardRef(function FeaturedSlider(props, ref) {
   const titleRef = useRef(null)
   const [index, setIndex] = useState(0)
   const [showIntro, setShowIntro] = useState(true)
+  const [revealing, setRevealing] = useState(false)
 
   const armedRef = useRef(false)
   const revealMaskRef = useRef(null)
@@ -47,6 +48,7 @@ const FeaturedSlider = forwardRef(function FeaturedSlider(props, ref) {
           )
           .add(revealMaskRef.current.play(), 0)
 
+        setRevealing(true) // canvas may show now that the mask starts opening
         // …and arm future auto-scrambles
         armedRef.current = true
         return tl
@@ -208,6 +210,9 @@ const FeaturedSlider = forwardRef(function FeaturedSlider(props, ref) {
         <div
           ref={wrapRef}
           className="carousel-window relative aspect-video w-full touch-none overflow-hidden overscroll-contain select-none"
+          // Canvas stays hidden behind the closed mask: at fractional DPR (Pixel ~2.6x) its image
+          // bled through the anti-aliased strip edges as hairline bars before the reveal started
+          data-intro-closed={showIntro && !revealing ? '' : undefined}
         >
           <TransitionLink to={`/projects/${projects[index].slug}`}>
             <FeaturedCanvas ref={canvasRef} className="absolute inset-0 h-full w-full" />
