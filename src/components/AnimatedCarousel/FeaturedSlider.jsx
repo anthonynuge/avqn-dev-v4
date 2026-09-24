@@ -176,7 +176,21 @@ const FeaturedSlider = forwardRef(function FeaturedSlider(props, ref) {
         onUp: goPrev, // wheel up = previous
       })
 
-      return () => ob.kill()
+      // Touch: horizontal swipe on the preview (finger left = next). Vertical drags are left to
+      // the page (touch-pan-y on the window), and goNext/goPrev's lock keeps it one slide per swipe
+      const swipe = Observer.create({
+        target: wrapRef.current,
+        type: 'touch',
+        lockAxis: true,
+        tolerance: 30,
+        onLeft: goNext,
+        onRight: goPrev,
+      })
+
+      return () => {
+        ob.kill()
+        swipe.kill()
+      }
     },
     { scope },
   )
@@ -209,7 +223,7 @@ const FeaturedSlider = forwardRef(function FeaturedSlider(props, ref) {
         {/* The "window" controls the size; canvas just fills it */}
         <div
           ref={wrapRef}
-          className="carousel-window relative aspect-video w-full touch-none overflow-hidden overscroll-contain select-none"
+          className="carousel-window relative aspect-video w-full touch-pan-y overflow-hidden overscroll-contain select-none"
           // Canvas stays hidden behind the closed mask: at fractional DPR (Pixel ~2.6x) its image
           // bled through the anti-aliased strip edges as hairline bars before the reveal started
           data-intro-closed={showIntro && !revealing ? '' : undefined}
