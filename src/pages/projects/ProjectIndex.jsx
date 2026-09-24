@@ -3,7 +3,8 @@ import { useNavigate } from 'react-router'
 import FilterPanel from '../../components/projects/FilterPanel'
 import ProjectList from '../../components/projects/ProjectList'
 import ProjectPreview from '../../components/projects/ProjectPreview'
-import { projects, initialFilters } from '../../data/projects'
+import { projects } from '../../data/projects'
+import { hasSkill, initialFilters } from '../../data/filters'
 import { useGSAP, gsap } from '../../lib/gsapSetup'
 import useCanHover from '../../lib/utils/useCanHover'
 
@@ -36,80 +37,19 @@ const ProjectIndex = () => {
     }
   }, [])
 
-  // Filter projects based on selected technologies and view filters
-  const filteredProjects = useMemo(() => {
-    let filtered = projects
-
-    // Apply view filters first
-    const viewFilters = filters.view
-    if (viewFilters.Work || viewFilters.Personal || viewFilters.Live || viewFilters.Repo) {
-      filtered = filtered.filter((project) => {
-        const matchesOrigin =
-          (viewFilters.Work && project.origin === 'work') ||
-          (viewFilters.Personal && project.origin === 'personal')
-
-        const matchesStatus =
-          (viewFilters.Live && project.status === 'live') ||
-          (viewFilters.Repo && project.links && project.links.repo)
-
-        // If no origin filters are active, show all origins
-        // If no status filters are active, show all statuses
-        const originMatch = !viewFilters.Work && !viewFilters.Personal ? true : matchesOrigin
-        const statusMatch = !viewFilters.Live && !viewFilters.Repo ? true : matchesStatus
-
-        return originMatch && statusMatch
-      })
-    }
-
-    // Apply technology filters
-    const techFilters = []
-    Object.entries(filters.frontend).forEach(([tech, isActive]) => {
-      if (isActive) techFilters.push(tech)
-    })
-    Object.entries(filters.backend).forEach(([tech, isActive]) => {
-      if (isActive) techFilters.push(tech)
-    })
-    Object.entries(filters.tools).forEach(([tech, isActive]) => {
-      if (isActive) techFilters.push(tech)
-    })
-
-    if (techFilters.length > 0) {
-      filtered = filtered.filter((project) => {
-        // Flatten all technologies from tech into a single array
-        const allTechnologies = [
-          ...(project.tech.frontend || []),
-          ...(project.tech.backend || []),
-          ...(project.tech.tools || []),
-        ]
-
-        // Check if any active filter matches any technology in the project
-        return techFilters.some((tech) =>
-          allTechnologies.some(
-            (projectTech) =>
-              projectTech.toLowerCase().includes(tech.toLowerCase()) ||
-              tech.toLowerCase().includes(projectTech.toLowerCase()),
-          ),
-        )
-      })
-    }
-
-    return filtered
-  }, [filters])
-
-  const handleFilterChange = (category, tech) => {
-    if (category === 'clear') {
-      setFilters(initialFilters)
-      return
-    }
-
-    setFilters((prev) => ({
-      ...prev,
-      [category]: {
-        ...prev[category],
-        [tech]: !prev[category][tech],
-      },
-    }))
-  }
+  // Every active filter must match; selected capabilities/skills are AND-ed so a recruiter can check a job's full stack
+  const filteredProjects = useMemo(
+    () =>
+      projects.filter(
+        (p) =>
+          (!filters.category || p.type === filters.category) &&
+          (!filters.origin || p.origin === filters.origin) &&
+          (!filters.live || p.status === 'live') &&
+          filters.capabilities.every((c) => p.capabilities.includes(c)) &&
+          filters.skills.every((s) => hasSkill(p, s)),
+      ),
+    [filters],
+  )
 
   const handleProjectHover = useCallback((project) => {
     // Clear any existing timeout
@@ -150,7 +90,7 @@ const ProjectIndex = () => {
         <aside className="project-index-filter min-h-7/10">
           <FilterPanel
             filters={filters}
-            onFilterChange={handleFilterChange}
+            onFilterChange={setFilters}
             isMobileOpen={isMobileFilterOpen}
             onMobileToggle={toggleMobileFilter}
             className="h-[500px]"
@@ -169,6 +109,7 @@ const ProjectIndex = () => {
             onProjectHover={handleProjectHover}
             onProjectLeave={handleProjectLeave}
             onProjectClick={handleProjectClick}
+            showPinned={filteredProjects.length === projects.length}
           />
         </div>
       </div>

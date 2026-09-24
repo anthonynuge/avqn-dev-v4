@@ -17,7 +17,8 @@ export const projects = [
     id: 'E-05',
     name: 'Midnite Agency',
     slug: 'midnite-agency-v2',
-    type: 'Web Development',
+    type: 'Frontend',
+    capabilities: ['Animation'],
     origin: 'work',
     status: 'live',
     featured: true,
@@ -28,7 +29,7 @@ export const projects = [
 
     summary: 'Full rebrand and redesign of Midnite Agency with heavy GSAP-driven animations.',
     description:
-      'A ground-up rebrand and rebuild of Midnite Agency, a Houston-based creative marketing firm. The new site sheds the old visual identity for a sharper, motion-forward presentation built around GSAP timelines, Lenis smooth scrolling, and Matter.js physics interactions. Every section is animated with intent — from scroll-driven reveals to interactive components — to better reflect the agency’s creative work.',
+      'Rebuilt the Midnite Agency website as part of a full rebrand for the creative marketing firm. The new site uses GSAP for scroll-driven sequences and transitions, Lenis for smooth scrolling, and Matter.js for physics-based interactions, creating a more motion-focused presentation of the agency and its work.',
 
     dates: { started: '2026-04-27', ended: '2026-05-01' },
 
@@ -39,11 +40,11 @@ export const projects = [
     },
 
     features: [
-      'Full Rebrand & Visual Identity',
-      'GSAP Scroll-Driven Animations',
-      'Animated UI Element Mockups',
+      'Scroll-Driven GSAP Animations',
       'Matter.js Physics Interactions',
-      'Responsive Next.js + Tailwind Build',
+      'Interactive UI Mockups',
+      'Responsive Frontend',
+      'Custom Visual System',
     ],
 
     links: {
@@ -88,7 +89,8 @@ export const projects = [
     id: 'P-01',
     name: 'Tryal',
     slug: 'tryal',
-    type: 'Startup',
+    type: 'Full-Stack',
+    capabilities: ['System Design', 'APIs', 'Payments', 'Security', 'Animation'],
     origin: 'personal',
     status: 'wip',
     featured: true,
@@ -97,22 +99,22 @@ export const projects = [
 
     summary: 'Subscription platform for discovering local experiences through monthly credits.',
     description:
-      "Cofounder of Tryal, a startup project I'm building with few other developers: a subscription platform where users redeem monthly credits to explore local experiences—from food tastings to fitness classes—while supporting community businesses. The platform features secure billing, team-based accounts, and a responsive booking flow for both users and business partners.",
+      "Cofounder of Tryal, a startup I'm building with a small team of developers. The platform gives members monthly credits they can redeem for local experiences, from food tastings to fitness classes. I worked across the product on the booking flow, recurring Stripe subscriptions, role-based accounts, business management tools, and location-based discovery through Google Maps, supporting both customers and business partners.",
 
     dates: { started: '2025-02-01', ended: '2026-01-31' },
 
     tech: {
       frontend: ['Next.js', 'React', 'TypeScript', 'Tailwind CSS', 'GSAP'],
-      backend: ['Node.js', 'PostgreSQL', 'MongoDB', 'NextAuth', 'Spring Boot'],
-      tools: ['Vercel', 'Stripe', 'GitHub', 'Google Maps API', 'IntelliJ IDEA'],
+      backend: ['Java', 'Spring Boot', 'Node.js', 'PostgreSQL', 'MongoDB', 'NextAuth', 'Redis'],
+      tools: ['Vercel', 'Stripe', 'GitHub', 'Google Maps API', 'IntelliJ IDEA', 'Docker'],
     },
 
     features: [
-      'Dynamic booking flow',
-      'Google Maps API integration',
-      'Stripe billing & subscription management',
-      'Authentication, roles & team management',
-      'CMS for business partners',
+      'Credit-Based Booking',
+      'Stripe Subscriptions',
+      'Business Partner CMS',
+      'Role-Based Accounts',
+      'Google Maps Integration',
     ],
 
     links: {
@@ -149,7 +151,8 @@ export const projects = [
     id: 'P-07',
     name: 'Susan AI',
     slug: 'susan-ai',
-    type: 'Machine Learning App',
+    type: 'AI / ML',
+    capabilities: ['APIs', 'Security'],
     origin: 'personal',
     status: 'live',
     featured: true,
@@ -157,21 +160,21 @@ export const projects = [
 
     summary: 'LLM chat app with auth and markdown/code rendering.',
     description:
-      'ChatGPT-inspired assistant powered by Gemini Flash 2.0. Built as an AI alternative for times when I ran out of free ChatGPT calls—and because I wanted to create something AI-driven myself. Users can sign up, create an account, and chat, ask questions, or even generate code. Responses are rendered in markdown with built-in syntax highlighting for a clean, readable experience.',
+      'Chat application built around Gemini while I was learning LLM APIs and conversational interfaces. Users can create accounts, maintain conversations, and receive streaming responses with Markdown and syntax-highlighted code. I built the authentication, chat interface, response rendering, and API integration to understand the pieces behind a production-style AI chat experience.',
 
     dates: { started: '2025-02-01', ended: '2025-02-21' },
 
     tech: {
       frontend: ['React', 'Vite', 'TypeScript', 'Tailwind CSS', 'Framer Motion'],
-      backend: ['Node.js', 'Appwrite'],
+      backend: ['Node.js', 'Appwrite', 'Appwrite Auth'],
       tools: ['Vercel', 'GitHub', 'VS Code', 'Gemini API'],
     },
 
     features: [
-      'AI chat with streaming',
-      'User authentication',
-      'Markdown + syntax highlighting',
-      'Code generation',
+      'Streaming AI Responses',
+      'User Authentication',
+      'Markdown Rendering',
+      'Syntax Highlighting',
     ],
 
     links: {
@@ -224,27 +227,28 @@ export const projects = [
     id: 'P-02',
     name: 'Portfolio Website V2',
     slug: 'portfolio-website-v2',
-    type: 'Web Development', // ✅ standardized
+    type: 'Frontend',
+    capabilities: ['Animation'],
     origin: 'personal',
-    status: 'live',
+    status: 'archived',
 
     summary: 'Personal portfolio with animated UI, responsive design, and fast loads.',
     description:
-      'My old personal portfolio built to showcase my projects, skills, and growth as a developer. Designed with performance, motion, and responsiveness in mind, the site serves as both a learning playground and a polished presentation of my work.',
+      'The previous version of my developer portfolio, built with React, Vite, Tailwind CSS, and Framer Motion. I used the project to showcase my work while experimenting with responsive layouts, animated interfaces, and project presentation. It also served as a place to improve my frontend skills before building the current portfolio.',
 
     dates: { started: '2025-02-01', ended: '2025-02-14' },
 
     tech: {
       frontend: ['React', 'Vite', 'JavaScript', 'HTML', 'CSS', 'Tailwind CSS', 'Framer Motion'],
-      backend: ['Node.js', 'Express'],
+      backend: [],
       tools: ['Vercel', 'GitHub', 'VS Code'],
     },
 
     features: [
       'Project Showcase',
-      'Interactive UI/UX',
-      'Animation and Motion',
-      'Responsive Design',
+      'Framer Motion Animations',
+      'Responsive Layouts',
+      'Interactive Navigation',
     ],
 
     links: {
@@ -280,14 +284,15 @@ export const projects = [
     id: 'P-03',
     name: 'Fruit Vision',
     slug: 'fruit-vision',
-    type: 'Desktop Application', // ✅ standardized (instead of "Machine Learning")
-    origin: 'work', // commissioned project → work
-    status: 'archived', // project completed; not live
+    type: 'AI / ML',
+    capabilities: [],
+    origin: 'personal',
+    status: 'repo',
     featured: false,
 
     summary: 'Python ML app that classifies fruit images with confidence scoring.',
     description:
-      'Fruit Vision is a commissioned machine learning project that classifies images of fruits with confidence scoring. Built with Python, TensorFlow, and Scikit-learn, the model uses convolutional neural networks to recognize patterns in vectorized image data. Though trained on fruit, the pipeline can be adapted for any image classification task with sufficient training data.',
+      'Commissioned machine learning project for classifying fruit images and returning a confidence score for each prediction. I built the workflow in Python and TensorFlow, covering image preprocessing, data augmentation, CNN training, and model evaluation, then added a desktop interface for running individual or batch predictions against the trained model.',
 
     dates: { started: '2024-04-01', ended: '2024-06-01' },
 
@@ -298,10 +303,11 @@ export const projects = [
     },
 
     features: [
-      'Image Classification',
-      'Data Augmentation & Processing',
-      'GUI with Batch Processing',
-      'Model Training & Evaluation',
+      'CNN Image Classification',
+      'Image Preprocessing',
+      'Data Augmentation',
+      'Batch Classification',
+      'Model Evaluation',
     ],
 
     links: {
@@ -351,14 +357,15 @@ export const projects = [
     id: 'P-04',
     name: 'Maze Solver',
     slug: 'maze-solver',
-    type: 'Desktop Application', // ✅ standardized type
+    type: 'Tools',
+    capabilities: [],
     origin: 'personal', // built during winter break
-    status: 'archived', // finished project, not live
+    status: 'repo',
     featured: false,
 
     summary: 'Interactive Java app that visualizes pathfinding algorithms on auto-generated mazes.',
     description:
-      'Maze Solver is a Java desktop application that visualizes how different pathfinding algorithms traverse a grid. To make exploration easier, the app includes a built-in maze generator, allowing endless scenarios without manual setup. Built with Java Swing and AWT, the project deepened my understanding of data structures and algorithms while creating an engaging, interactive learning tool.',
+      'Java desktop application for visualizing how pathfinding algorithms traverse a grid. I built a maze generator to create new layouts without manual setup, then connected it to an interactive interface that shows each algorithm exploring cells and finding a valid route. The project was built to strengthen my understanding of search algorithms and data structures.',
 
     dates: { started: '2023-12-01', ended: '2024-01-15' }, // ✅ approximate "winter break"
 
@@ -368,7 +375,12 @@ export const projects = [
       tools: ['IntelliJ IDEA', 'Maven', 'GitHub'],
     },
 
-    features: ['Maze generation', 'Algorithm visualization', 'Interactive GUI'],
+    features: [
+      'Procedural Maze Generation',
+      'Pathfinding Visualization',
+      'Interactive Grid Controls',
+      'Multiple Search Algorithms',
+    ],
 
     links: {
       live: null, // no live deployment
@@ -398,14 +410,15 @@ export const projects = [
     id: 'P-05',
     name: 'Fake News Detection',
     slug: 'fake-news-detection',
-    type: 'Machine Learning App', // ✅ standardized (ML noted in tags)
+    type: 'AI / ML',
+    capabilities: ['Data'],
     origin: 'personal', // capstone project
-    status: 'archived', // completed, not live
+    status: 'repo',
     featured: false,
 
     summary: 'Capstone project using NLP and machine learning to classify fake vs real news.',
     description:
-      'Fake News Detection is a machine learning capstone project that tackles misinformation by analyzing text to classify articles as fake or real news. Built with Python, Scikit-learn, and NLP techniques, the project includes data preprocessing, feature extraction, model training, and visualization of results. While designed for news articles, the same pipeline can be applied to other text classification problems.',
+      'Machine learning capstone project for classifying news articles as real or fake from their text. I built the pipeline from data cleaning and NLP preprocessing through TF-IDF feature extraction, model training, and evaluation. I also created visualizations to inspect patterns in the dataset and compare how different classification approaches performed.',
 
     dates: { started: '2024-03-01', ended: '2024-05-01' },
 
@@ -416,10 +429,11 @@ export const projects = [
     },
 
     features: [
-      'Proposal & Budgeting',
-      'Data Processing & NLP',
-      'Trend Analysis & Visualization',
-      'Model Training & Evaluation',
+      'Text Classification',
+      'NLP Preprocessing',
+      'TF-IDF Feature Extraction',
+      'Model Evaluation',
+      'Data Visualization',
     ],
 
     links: {
@@ -462,15 +476,16 @@ export const projects = [
     id: 'P-06',
     name: 'E-commerce Dashboard',
     slug: 'e-commerce-dashboard',
-    type: 'web-app', // ✅ standardized (covers full-stack apps)
+    type: 'Full-Stack',
+    capabilities: ['Data', 'Payments', 'Security'],
     origin: 'personal', // proof of concept project
-    status: 'archived', // completed, not live
+    status: 'repo',
     featured: false,
 
     summary:
       'Full-stack e-commerce dashboard with payments, analytics, and store management tools.',
     description:
-      'E-commerce Dashboard is a proof-of-concept full-stack platform designed to streamline online store management. It brings together product management, order tracking, and real-time analytics in a single interface. Built with React, Next.js, and PostgreSQL, the project demonstrates secure payment integration and dynamic data visualizations for business insights.',
+      'Full-stack proof of concept for managing an online store from a single interface. Built with Next.js, Node.js, and PostgreSQL, it brings together product management, inventory tracking, user authentication, and analytics dashboards to explore how frontend administration tools connect to a relational backend and application API.',
 
     dates: { started: '2024-01-01', ended: '2024-02-15' }, // placeholder range
 
@@ -490,10 +505,11 @@ export const projects = [
     },
 
     features: [
-      'Product management dashboard',
+      'Product Management',
+      'Inventory Tracking',
       'User Authentication',
-      'Inventory Management',
-      'Analytics & Reporting',
+      'Analytics Dashboard',
+      'PostgreSQL Data Layer',
     ],
 
     links: {
@@ -536,7 +552,8 @@ export const projects = [
     id: 'E-01',
     name: 'Midnite Agency V1',
     slug: 'midnite-agency-v1',
-    type: 'Web Development',
+    type: 'Frontend',
+    capabilities: ['Automation', 'Animation'],
     origin: 'work',
     status: 'archived',
     featured: false,
@@ -546,7 +563,7 @@ export const projects = [
     summary:
       'Original Midnite Agency site — Next.js, Tailwind, and 3D visuals, since superseded by the V2 rebrand.',
     description:
-      'The first build of the Midnite Agency site — a Houston-based creative marketing firm that hired me to design and develop a custom presence with visual flair and technical polish. Shipped with integrated 3D visuals, animated UI, and automated email handling on a modern frontend stack. Replaced in 2026 by a full rebrand and rebuild (see the V2 entry).',
+      "The first version of the Midnite Agency website, built before the agency's later rebrand. I designed and developed the site with Next.js, Framer Motion, and Three.js, combining responsive layouts with animated interfaces, 3D visuals, lead forms, and automated email handling for the agency's original online presence.",
 
     dates: { started: '2025-06-01', ended: '2025-07-01' },
 
@@ -557,11 +574,11 @@ export const projects = [
     },
 
     features: [
-      'Responsive Next.js + Tailwind Frontend',
-      'Framer Motion & Three.js Interactions',
-      'Automated Lead & Form Emails',
-      'SEO, Performance & Accessibility Improvements',
-      'Vercel Deploy with Domain & DNS Setup',
+      'Three.js Visuals',
+      'Framer Motion Animations',
+      'Automated Lead Emails',
+      'Responsive Frontend',
+      'SEO & Performance',
     ],
 
     links: {
@@ -599,7 +616,8 @@ export const projects = [
     id: 'E-02',
     name: 'National Grid X',
     slug: 'national-grid-x',
-    type: 'Web Development', // ✅ standardized (was "Work Experience")
+    type: 'Frontend',
+    capabilities: ['Animation'],
     origin: 'work',
     status: 'live',
     featured: true,
@@ -608,21 +626,22 @@ export const projects = [
 
     summary: 'Commercial energy brokerage website built and maintained with Next.js and Supabase.',
     description:
-      'National Grid X is a commercial energy brokerage firm that helps businesses procure energy plans tailored to their usage. I built and deployed their website from scratch and continue to provide maintenance and feature updates. The site serves as the company’s digital presence, streamlining lead generation and building client trust.',
+      'Commercial energy brokerage where I work as a Full Stack Developer across its web products and internal systems. I built and maintain the company website and contribute to customer-facing platforms, operational tools, and data services used by the business. My work spans frontend development, backend systems, integrations, deployment, and ongoing product development.',
 
     dates: { started: '2025-03-01', ended: null },
 
     tech: {
-      frontend: ['Next.js', 'React', 'Tailwind CSS', 'Framer Motion'],
+      frontend: ['Next.js', 'React', 'Tailwind CSS', 'Framer Motion', 'GSAP'],
       backend: ['PostgreSQL', 'Supabase', 'Node.js'],
       tools: ['Vercel', 'DNS'],
     },
 
     features: [
-      'Responsive Next.js Frontend',
-      'Post-launch Maintenance & Optimization',
-      'End-to-end Deployment (Domain, DNS, Vercel)',
-      'Stakeholder Collaboration & Rapid Iteration',
+      'Company Website',
+      'Customer Platforms',
+      'Internal Tools',
+      'Data Services',
+      'Production Deployment',
     ],
 
     links: {
@@ -664,7 +683,8 @@ export const projects = [
     id: 'E-03',
     name: 'Aesyn',
     slug: 'aesyn',
-    type: 'Web Application', // standardized category
+    type: 'Full-Stack',
+    capabilities: ['Data', 'APIs', 'Payments', 'Security'],
     origin: 'work',
     status: 'live',
     featured: false,
@@ -674,22 +694,22 @@ export const projects = [
     summary:
       'Social marketing platform work: analytics features, real-time insights, payments, and campaign tracking.',
     description:
-      'Aesyn is an Austin-based platform that matches businesses with creators and streamlines social marketing. I contributed across the stack—building analytics features with Recharts, supporting real-time insights, integrating payments, and improving campaign tracking—while collaborating through Git and Jira.',
+      'Worked as a software developer intern on Aesyn, a platform connecting businesses with creators for social marketing campaigns. I contributed across the stack, building analytics and data visualizations with Recharts, supporting campaign tracking and payment flows, and handling bug fixes and performance improvements within the existing Next.js and Node.js application.',
 
     dates: { started: '2024-07-01', ended: '2025-01-31' },
 
     tech: {
       frontend: ['Next.js', 'React', 'TypeScript', 'Tailwind CSS', 'Recharts'],
-      backend: ['Node.js', 'MongoDB', 'Express'],
+      backend: ['Node.js', 'MongoDB', 'Express', 'JWT'],
       tools: ['Git', 'Jira', 'VS Code', 'Postman'],
     },
 
     features: [
-      'Centralized influencer metrics',
-      'Visual insights with Recharts',
-      'Responsive, accessible UI',
-      'Payments and campaign tracking',
-      'Bug fixes and performance improvements',
+      'Creator Analytics',
+      'Recharts Dashboards',
+      'Campaign Tracking',
+      'Payment Flows',
+      'Full-Stack Bug Fixes',
     ],
 
     links: {
@@ -784,9 +804,10 @@ export const projects = [
 
   {
     id: 'P-10',
-    name: 'Utility Buddys',
-    slug: 'utility-buddys',
-    type: 'SaaS', // ✅ standardized
+    name: 'Utility Buddies',
+    slug: 'utility-buddies',
+    type: 'Frontend',
+    capabilities: ['APIs', 'Automation'],
     origin: 'work', // sounds client-facing; adjust to 'personal' if it’s just a demo
     status: 'live',
     featured: false,
@@ -794,17 +815,17 @@ export const projects = [
     summary:
       'Utility concierge platform that sets up electricity, cable, and insurance for people moving in.',
     description:
-      'Utility Buddys is a utility concierge platform from NGX Consulting. People moving into a new home submit one request and the service gets their electricity, cable, and insurance set up for them, so they can focus on the move instead of juggling providers. The site pairs a lead capture flow with Sanity-managed content and transactional email so the team can update offerings and follow up with customers without touching code.',
+      'Utility concierge platform I built at National Grid X for customers moving into a new home. Customers submit one request for electricity, internet, and other services instead of contacting each provider separately. I built the lead capture flow, automated follow-up emails, and Sanity-managed content system so the team could update services and content without code changes.',
 
-    dates: { started: '2025-04-01', ended: null },
+    dates: { started: '2025-04-01', ended: '2026-09-01' },
 
     tech: {
       frontend: ['Next.js', 'React', 'Tailwind CSS'],
-      backend: ['Node.js', 'PostgreSQL', 'Resend'],
+      backend: ['Node.js', 'Resend'],
       tools: ['Sanity', 'Vercel', 'GitHub'],
     },
 
-    features: ['One-request setup', 'Lead capture & email', 'Sanity CMS', 'SEO & analytics'],
+    features: ['Multi-Service Lead Form', 'Automated Lead Emails', 'Sanity CMS', 'SEO & Analytics'],
 
     links: {
       live: 'https://utilitybuddies.com/',
@@ -815,33 +836,34 @@ export const projects = [
     backdrop: {
       url: '/projects/bd-2.webp',
       type: 'image',
-      alt: 'Bulding Backdrop 2',
+      alt: 'Building Backdrop 2',
     },
 
     demos: [
       {
         url: '/projects/utility-buddies.webp',
         type: 'image',
-        alt: 'Utility Buddys marketing site home page',
+        alt: 'Utility Buddies marketing site home page',
         overlay: true,
       },
     ],
 
-    tags: ['Utilities', 'Concierge', 'Next.js', 'Lead Capture', 'Sanity', 'Postgres'],
+    tags: ['Utilities', 'Concierge', 'Next.js', 'Lead Capture', 'Sanity'],
   },
 
   {
     id: 'P-11',
     name: 'QR Code Generator',
     slug: 'qr-code-generator',
-    type: 'Web Application',
+    type: 'Tools',
+    capabilities: [],
     origin: 'personal',
     status: 'live',
     featured: false,
 
     summary: 'Custom QR code generator that blends uploaded images into branded, scannable codes.',
     description:
-      "Built after a Midnite Agency client needed a logo-branded menu QR code — and every tool online wanted a subscription for it. The generator accepts an image alongside a URL, virtual business card, or message, then extracts the image's color palette to style the output. Essential scanning cells are identified and protected, while contrast-matched colors are applied to the remaining cells to keep every code reliably scannable. SCAN THE DEMO TO SEE IT IN ACTION!",
+      "Built after a Midnite Agency client needed a QR code that incorporated their brand logo. The generator accepts a logo and QR content, extracts the image's color palette, protects cells required for reliable scanning, and applies contrast-aware colors to the remaining pattern to create a branded code that stays scannable.",
 
     dates: { started: '2026-03-13', ended: null },
 
@@ -852,9 +874,11 @@ export const projects = [
     },
 
     features: [
-      'Image upload with color extraction',
-      'URL, vCard, and text input QR types',
-      'Contrast-aware color mapping',
+      'Image Palette Extraction',
+      'Protected QR Cells',
+      'Contrast-Aware Mapping',
+      'URL, vCard & Text Codes',
+      'Branded QR Generation',
     ],
 
     links: {
@@ -897,31 +921,32 @@ export const projects = [
     id: 'P-13',
     name: 'Blah2Text',
     slug: 'blah2text',
-    type: 'Desktop Application',
+    type: 'AI / ML',
+    capabilities: ['Automation'],
     origin: 'personal',
-    status: 'wip',
+    status: 'repo',
     featured: false,
 
     summary:
       'Local, offline push-to-talk dictation for Windows that transcribes speech and types it at the cursor.',
     description:
-      "Blah2Text reproduces the Wispr Flow push-to-talk dictation experience entirely on-device. Hold a hotkey, speak, and release; the audio is transcribed by a local faster-whisper model, cleaned by a rule-based pass plus a local Ollama LLM, and injected at the cursor in whatever app has focus. The whole pipeline runs offline with no cloud calls and no telemetry, the differentiator against Wispr Flow's cloud-only service. It falls back to CPU on a broken CUDA setup and never blocks dictation when the LLM stalls.",
+      'Offline push-to-talk dictation tool for Windows that transcribes speech and types it directly at the active cursor. I built the pipeline around faster-whisper, rule-based cleanup, and a local Ollama model, with GPU-to-CPU fallback and safeguards that keep transcription working when the LLM stalls or is unavailable.',
 
     dates: { started: '2026-07-03', ended: null },
 
     tech: {
-      frontend: ['tkinter'],
+      frontend: ['Tkinter'],
       backend: ['Python', 'faster-whisper', 'CTranslate2', 'Silero VAD', 'Ollama'],
       tools: ['Win32 SendInput', 'GitHub'],
     },
 
     features: [
-      'Push-to-talk dictation',
-      'Fully offline, no telemetry',
-      'GPU with automatic CPU fallback',
-      'Latency-aware LLM cleanup',
-      'Terminal-aware text injection',
-      'Live waveform overlay',
+      'Push-to-Talk Dictation',
+      'Local Whisper Transcription',
+      'LLM Text Cleanup',
+      'Automatic CPU Fallback',
+      'Cursor-Level Text Injection',
+      'Live Waveform Overlay',
     ],
 
     links: {
@@ -954,30 +979,31 @@ export const projects = [
     id: 'P-12',
     name: 'Energy Panda',
     slug: 'energy-panda',
-    type: 'SaaS',
-    origin: 'personal',
+    type: 'Full-Stack',
+    capabilities: ['System Design', 'APIs', 'Payments', 'Security', 'Animation'],
+    origin: 'work',
     status: 'live',
     featured: false,
 
     summary: 'Subscription platform that finds and manages the best energy plan for you.',
     description:
-      'Energy Panda is a subscription-based SaaS platform that removes the hassle of managing your energy plan. Users subscribe and the service handles the rest — sourcing, comparing, and switching to the best available plan on their behalf. Built with Next.js, Supabase, and Stripe, the platform includes an admin dashboard, an SEO-optimized blog, transactional emails via Resend, and security-hardened data handling throughout.',
+      'Subscription energy management platform I helped build at National Grid X for handling electricity plan shopping, enrollment, and ongoing account management. I worked across the customer experience and backend systems, including Stripe subscriptions, onboarding flows, internal operations, transactional email, and protected customer data handling across the signup and fulfillment process.',
 
-    dates: { started: '2025-04-01', ended: null },
+    dates: { started: '2025-09-27', ended: '2026-07-26' },
 
     tech: {
       frontend: ['Next.js', 'React', 'TypeScript', 'Tailwind CSS', 'shadcn/ui'],
-      backend: ['Supabase', 'PostgreSQL'],
-      tools: ['Vercel', 'Stripe', 'Resend', 'GitHub'],
+      backend: ['Supabase', 'Supabase Auth', 'PostgreSQL', 'AWS KMS', 'Redis'],
+      tools: ['Vercel', 'Stripe', 'Resend', 'GitHub', 'Docker'],
     },
 
     features: [
-      'Stripe subscription billing & management',
-      'Admin dashboard with full CRUD',
-      'SEO-optimized frontend blog',
-      'Transactional emails via Resend',
-      'Security-focused auth & data handling',
-      'Supabase backend & storage',
+      'Subscription Billing',
+      'Customer Onboarding',
+      'Admin Operations',
+      'Transactional Email',
+      'Secure Data Handling',
+      'Plan Enrollment Workflow',
     ],
 
     links: {
@@ -1014,7 +1040,8 @@ export const projects = [
     id: 'E-04',
     name: 'Tiffany Glam',
     slug: 'tiffany-glam',
-    type: 'Web Development',
+    type: 'Frontend',
+    capabilities: ['Automation', 'Animation'],
     origin: 'work',
     status: 'live',
     featured: false,
@@ -1023,7 +1050,7 @@ export const projects = [
 
     summary: 'Wix Studio site for a Houston makeup artist with bookings, courses, and CMS.',
     description:
-      'Tiffany Glam is a Houston-based makeup artist offering bridal, event, and online course services. I worked with the client from start to finish — Figma design, Wix Studio development, hosting, and ongoing maintenance. The site covers responsive layouts across all breakpoints, HoneyBook integrations for booking automation and client pipeline, a custom CMS, image optimizations, and frontend animations refined through iterative client feedback.',
+      'Designed and built a Wix Studio site for Tiffany Glam, a Houston makeup artist offering bridal, event, and online course services. I took the project from Figma through development, connecting HoneyBook for booking and client pipeline automation, setting up a CMS for editable content, and building responsive layouts and frontend animations.',
 
     dates: { started: '2025-11-01', ended: '2026-02-01' },
     tech: {
@@ -1033,10 +1060,11 @@ export const projects = [
     },
 
     features: [
-      'Figma design to Wix Studio build',
-      'HoneyBook booking & client pipeline automation',
-      'CMS for services and content',
-      'Custom frontend animations & transitions',
+      'Figma-to-Wix Build',
+      'HoneyBook Automation',
+      'Client-Managed CMS',
+      'Responsive Layouts',
+      'Custom Animations',
     ],
 
     links: {
@@ -1086,7 +1114,8 @@ export const projects = [
     id: 'E-06',
     name: 'Electric Decisions',
     slug: 'electric-decisions',
-    type: 'Web Application',
+    type: 'Full-Stack',
+    capabilities: ['System Design', 'Data', 'APIs', 'Animation'],
     origin: 'work',
     status: 'live',
     featured: false,
@@ -1095,23 +1124,23 @@ export const projects = [
 
     summary: 'Texas electricity comparison site that folds hidden fees into a real per-kWh rate.',
     description:
-      'Electric Decisions is a plan comparison platform for the Texas deregulated market, built at National Grid X. Shoppers enter a ZIP code and get ranked plans from 500+ offers across the major retail providers, with delivery charges and tiered credits folded into a single effective rate instead of the headline number providers advertise. A bill analyzer parses an uploaded PDF or photo into a usage dashboard, and ESID lookup ties a plan to the exact service premise.',
+      'Texas electricity comparison platform I built at National Grid X for evaluating plans beyond the advertised rate. The pricing engine processes 500+ offers and folds delivery charges, usage tiers, and bill credits into an effective cost based on usage. The platform also includes ZIP-based plan search, bill analysis from uploaded PDFs and photos, ESID lookup, savings estimates, and programmatic pages for Texas electricity markets.',
 
     dates: { started: '2026-06-24', ended: null },
 
     tech: {
       frontend: ['Next.js', 'React', 'TypeScript', 'Tailwind CSS', 'GSAP'],
-      backend: ['PostgreSQL', 'Neon'],
-      tools: ['Vercel', 'GitHub'],
+      backend: ['PostgreSQL', 'Neon', 'Gemini API', 'Redis'],
+      tools: ['Vercel', 'GitHub', 'Docker'],
     },
 
     features: [
-      'ZIP-Based Plan Comparison',
-      'True Effective Rate Calculation',
-      'Bill Analyzer With PDF Upload',
-      'ESID Premise Lookup',
+      'ZIP-Based Plan Search',
+      'Effective Rate Engine',
+      'Bill Analyzer (PDF & Photo)',
+      'ESID Address Lookup',
       'Savings Calculator',
-      'SEO City & Zone Pages',
+      'Programmatic SEO Pages',
     ],
 
     links: {
@@ -1161,7 +1190,8 @@ export const projects = [
     id: 'E-07',
     name: 'Energy CRM',
     slug: 'energy-crm',
-    type: 'SaaS',
+    type: 'Full-Stack',
+    capabilities: ['System Design', 'Data', 'APIs', 'Security', 'Automation'],
     origin: 'work',
     status: 'live',
     featured: false,
@@ -1170,23 +1200,23 @@ export const projects = [
 
     summary: 'Broker CRM that runs energy deals from lead intake through signed contract.',
     description:
-      'Energy CRM is the internal deal engine behind National Grid X, covering both the commercial and residential pipelines. Commercial deals move through a matrix board where supplier pricing is snapshotted at quote time, so a rate never silently shifts under a deal; a custom RFP flow walks brokers through ESID verification, interval data collection, supplier dispatch, and proposal modeling. The residential side assembles a click-to-copy enrollment packet that turns a customer record into a provider signup in one pass.',
+      'Internal CRM I built at National Grid X for managing commercial and residential energy deals from lead intake through enrollment. Commercial deals move through a matrix pipeline with supplier quote snapshots, ESID verification, interval data collection, RFP workflows, and proposal modeling. The residential side centralizes customer data and generates structured enrollment packets brokers can use to complete provider signups without jumping between separate systems.',
 
     dates: { started: '2026-07-01', ended: null },
 
     tech: {
       frontend: ['Next.js', 'React', 'TypeScript', 'Tailwind CSS', 'shadcn/ui'],
-      backend: ['PostgreSQL', 'Neon', 'Redis', 'AWS'],
-      tools: ['Vercel', 'GitHub', 'Better Auth'],
+      backend: ['PostgreSQL', 'Neon', 'Redis', 'AWS', 'Gemini API', 'Ollama'],
+      tools: ['Vercel', 'GitHub', 'Better Auth', 'Docker'],
     },
 
     features: [
       'Matrix Deal Pipeline',
-      'Snapshotted Supplier Quotes',
-      'Custom RFP Workflow',
-      'ESID Verification & Interval Data',
-      'Residential Enrollment Packet',
-      'Pricing Upload & Dead Letter Queue',
+      'Supplier Quote Snapshots',
+      'RFP Workflow',
+      'ESID & Interval Data',
+      'Enrollment Packets',
+      'Pricing Ingestion Pipeline',
     ],
 
     links: {
@@ -1236,15 +1266,16 @@ export const projects = [
     id: 'P-14',
     name: 'ESID Lookup',
     slug: 'esid-lookup',
-    type: 'Web Application',
-    origin: 'personal',
+    type: 'Full-Stack',
+    capabilities: ['System Design', 'Data', 'APIs', 'Automation'],
+    origin: 'work',
     status: 'live',
     featured: false,
 
     summary:
       'Address search across 13M+ ERCOT records that returns a Texas meter ID in under 100ms.',
     description:
-      "Every Texas electricity account is keyed to an ESID, and the only public source is ERCOT's raw TDSP extract — multi-million-row CSVs behind a ZIP download. ESID Lookup turns that into a search box. A cron job pulls the extract daily, normalizes it, and batch-upserts roughly 13M address rows into PostgreSQL; the API layers exact btree lookup, trigram fuzzy match for typos, and prefix autocomplete, with Redis in front and graceful fallback when it drops.",
+      'Address search service I built at National Grid X over more than 13 million ERCOT meter records. A daily ingestion pipeline downloads raw utility extracts, normalizes the records, and batch-upserts them into PostgreSQL. Search layers exact B-tree lookups, trigram fuzzy matching for misspelled addresses, and prefix autocomplete, with Redis caching and graceful fallback keeping results under 100ms.',
 
     dates: { started: '2026-03-07', ended: null },
 
@@ -1255,12 +1286,12 @@ export const projects = [
     },
 
     features: [
-      'Daily Cron Sync From ERCOT',
-      '13M+ Row Ingestion Pipeline',
-      'Exact, Fuzzy & Prefix Search',
-      'Trigram Indexes For Typo Tolerance',
-      'Redis Cache With Graceful Fallback',
-      'Debounced Autocomplete UI',
+      '13M+ Record Pipeline',
+      'Daily ERCOT Sync',
+      'Exact & Fuzzy Search',
+      'Trigram Indexing',
+      'Redis Caching',
+      'Address Autocomplete',
     ],
 
     links: {
@@ -1288,74 +1319,3 @@ export const projects = [
     tags: ['Energy', 'ERCOT', 'Data Pipeline', 'PostgreSQL', 'Full Stack'],
   },
 ]
-
-export const initialFilters = {
-  view: {
-    Work: false,
-    Personal: false,
-    Live: false,
-    Repo: false,
-  },
-  frontend: {
-    React: false,
-    Vite: false,
-    TypeScript: false,
-    JavaScript: false,
-    HTML: false,
-    CSS: false,
-    'Tailwind CSS': false,
-    'Framer Motion': false,
-    Tkinter: false,
-    Matplotlib: false,
-    Seaborn: false,
-    'Java Swing': false,
-    JavaFX: false,
-    'Java AWT': false,
-    'Next.js': false,
-    Redux: false,
-    Recharts: false,
-    'Three.js': false,
-    GSAP: false,
-    'shadcn/ui': false,
-    Lenis: false,
-    'Matter.js': false,
-  },
-  backend: {
-    'Node.js': false,
-    Express: false,
-    Python: false,
-    Appwrite: false,
-    'Gemini API': false,
-    TensorFlow: false,
-    'Scikit-Learn': false,
-    NumPy: false,
-    Java: false,
-    PostgreSQL: false,
-    Neon: false,
-    Redis: false,
-    MongoDB: false,
-    Supabase: false,
-    Prisma: false,
-    NextAuth: false,
-  },
-  tools: {
-    Vercel: false,
-    Docker: false,
-    'AWS EC2': false,
-    'AWS RDS': false,
-    GitHub: false,
-    'VS Code': false,
-    'Jupyter Notebook': false,
-    'IntelliJ IDEA': false,
-    Maven: false,
-    Postman: false,
-    Stripe: false,
-    Git: false,
-    Jira: false,
-    'Google Maps API': false,
-    SendGrid: false,
-    Polygon: false,
-    DNS: false,
-    Resend: false,
-  },
-}
