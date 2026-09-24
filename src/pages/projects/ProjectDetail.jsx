@@ -104,18 +104,20 @@ const ProjectDetail = () => {
 
           <div className="grid-12 py-14">
             <div className="col-span-full grid grid-cols-subgrid gap-y-4 md:col-[4/12]">
-              {Object.entries(project.tech).map(([key, value]) => (
-                <div key={key} className="col-span-2 md:col-span-2">
-                  <div className="text-accent font-mono text-sm uppercase">{key}</div>
-                  <ul className="text-caption-2 flex flex-col">
-                    {value.map((tech) => (
-                      <li key={tech} className="text-caption-2">
-                        {tech}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              ))}
+              {Object.entries(project.tech)
+                .filter(([, value]) => value.length) // skip empty groups (e.g. frontend-only sites)
+                .map(([key, value]) => (
+                  <div key={key} className="col-span-2 md:col-span-2">
+                    <div className="text-accent font-mono text-sm uppercase">{key}</div>
+                    <ul className="text-caption-2 flex flex-col">
+                      {value.map((tech) => (
+                        <li key={tech} className="text-caption-2">
+                          {tech}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                ))}
             </div>
           </div>
         </div>
