@@ -1494,4 +1494,81 @@ export const projects = [
 
     tags: ['CLI', 'Rust', 'Local-First', 'AI', 'Semantic Search', 'Daemon'],
   },
+  {
+    id: 'P-17',
+    name: 'Insta Scout',
+    slug: 'insta-scout',
+    type: 'Tools',
+    capabilities: ['Data', 'Automation'],
+    stackHighlight: ['React', 'Chrome Extension', 'SQLite'],
+    origin: 'work',
+    status: 'live',
+    featured: false,
+
+    summary:
+      'Chrome extension and local dashboard that screens, ranks, and tracks Instagram cold outreach.',
+    description:
+      "Built for Midnite Agency's Instagram outreach, where brand accounts each send cold DMs to targeted new audiences. A Chrome extension captures usernames from follower lists and comments, then screens each profile, reading its followers, category, and bio to drop unmessageable accounts and classify the rest as business, influencer, or consumer. A local React and SQLite dashboard ranks confirmed geographically-targeted leads first, queues them per account, and tracks every sent DM, all driven by Vim-style keybindings.",
+
+    dates: { started: '2026-09-29', ended: null },
+
+    tech: {
+      frontend: ['React', 'TypeScript', 'Tailwind CSS', 'shadcn/ui'],
+      backend: ['Node.js', 'SQLite', 'Chrome Extension'],
+      platform: [],
+      tools: ['GitHub', 'VS Code', 'Vite'],
+    },
+
+    features: [
+      'One-Key Lead Capture',
+      'Profile Screening',
+      'Geographical Location Scoring',
+      'Business / Influencer / Consumer Classification',
+      'Seed Account Discovery',
+      'Ranked Per-Account DM Queues',
+    ],
+
+    links: {
+      live: null,
+      repo: null,
+    },
+
+    backdrop: {
+      url: '/projects/bd-5.webp',
+      type: 'image',
+      alt: 'Building Backdrop 5',
+    },
+
+    demos: [
+      {
+        url: '/projects/scout-outreach-blur.webp',
+        type: 'image',
+        alt: 'Insta Scout outreach queue beside an Instagram profile, showing a local influencer lead and the day’s sent DMs',
+        overlay: true,
+      },
+      {
+        url: '/projects/scout-demo-blur.webm',
+        type: 'video',
+        alt: 'Insta Scout demo capturing, screening, and messaging Instagram leads',
+        overlay: true,
+        poster: '/projects/scout-outreach-blur.webp',
+      },
+      {
+        url: '/projects/scout-extension.webp',
+        type: 'image',
+        alt: 'Scout Chrome extension side panel capturing usernames from Instagram post comments',
+        overlay: true,
+      },
+      {
+        url: '/projects/scout-leads-blur.webp',
+        type: 'image',
+        alt: 'Insta Scout leads table with location tags, lead types, follower counts, and seed flags',
+        overlay: true,
+      },
+    ],
+
+    featuredCanvas: null,
+
+    tags: ['Chrome Extension', 'Outreach', 'Instagram', 'SQLite', 'React', 'Local-First'],
+  },
 ]
