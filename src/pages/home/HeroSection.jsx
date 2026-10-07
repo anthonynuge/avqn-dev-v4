@@ -149,8 +149,8 @@ const HeroSection = () => {
             Experience
           </h3>
           <ul className="text-caption-3">
-            <li data-in="scramble" data-out="scramble" data-text="Since 2020">
-              Since 2020
+            <li data-in="scramble" data-out="scramble" data-text="Since 2024">
+              Since 2024
             </li>
           </ul>
         </div>
@@ -166,11 +166,17 @@ const HeroSection = () => {
             Currently
           </h3>
           <ul className="text-caption-3">
-            <li data-in="scramble" data-out="scramble" data-text="Software Developer">
-              Software Developer
+            <li data-in="scramble" data-out="scramble" data-text="Full Stack Developer">
+              Full Stack Developer
             </li>
-            <li data-in="scramble" data-out="scramble" data-text="@ National Grid X">
-              @ National Grid X
+            <li data-in="scramble" data-out="scramble" data-text="@ National GridX">
+              @ National GridX
+            </li>
+            <li data-in="scramble" data-out="scramble" data-text="Contract Developer">
+              Contract Developer
+            </li>
+            <li data-in="scramble" data-out="scramble" data-text="@ Midnite">
+              @ Midnite
             </li>
           </ul>
         </div>
